@@ -18,12 +18,13 @@ Last updated: 2026-11-07.
 - [x] **2. Set up the project:** CLAUDE.md files, config, commands, git (2026-11-07)
 - [ ] **3. General sorter:** `/sort-inbox` dry run on 7 days → Dom reviews → live → scheduled routine (several runs a day)
   - [x] Dry run on 7 days, rules tuned (71 rules), first live run: 138 threads sorted, 123 archived (2026-11-07, `logs/runs/2026-11-07.md`)
-  - [ ] Next: Dom checks the result on his phone for a few days, then set up the scheduled routine
+  - [x] Scheduled routine set up (2026-11-07): the "Inbox Sorter" task runs the school sync, then `/sort-inbox live` (last 2 days), at 07:00 and 17:30. It replaced the "School Calendar Sync" task. Headless dry run tested OK.
+  - [ ] Check the first few reports in `logs/sort-inbox/` and tune the rules; Dom flags anything misfiled on his phone.
 - [ ] **4. School module:** see `school/ROADMAP.md`
   - [x] Context, term dates, YEC moved in, attachment saver written, newsletter reader, all 8 newsletters read (2026-11-07)
   - [x] Calendar backfill to Christmas, 10 changes (2026-11-07, `logs/runs/2026-11-07.md`)
   - [x] Hands-off calendar sync built and scheduled on the laptop: 07:00 and 17:30 daily (2026-11-07). See `school/CALENDAR-SYNC.md`.
-  - [ ] Move the sync to the Raspberry Pi (64-bit OS, Claude Code signed in, cron), then remove the laptop task.
+  - [ ] Move the sync and the sort to the Raspberry Pi (64-bit OS, Claude Code signed in, cron; lines in `school/CALENDAR-SYNC.md`), then remove the laptop task.
   - [ ] Check the first week of reports in `logs/calendar-sync/` and tune the rules.
 - [ ] **5. Backlog clean-up** (19.5k old inbox threads). Starts after ~2 weeks of clean live sorting.
 

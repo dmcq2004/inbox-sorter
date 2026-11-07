@@ -127,7 +127,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
   <header style="display:grid;gap:12px">
     <div class="eyebrow">Gmail · dmcq2004 · status at 7 Nov 2026, late evening</div>
     <h1>Inbox Sorter</h1>
-    <p class="lede">Claude sorts your Gmail into labels that show up as folders in your phone's Mail app. The school module reads Trinity, Young Explorers and school-lunch emails, attachments and newsletters. The school calendar updates itself twice a day from this laptop, and will move to the Raspberry Pi later. The first live sort ran on 7 Nov: 138 emails from the past week were labelled, 123 archived, and 15 left in your inbox.</p>
+    <p class="lede">Claude sorts your Gmail into labels that show up as folders in your phone's Mail app. The school module reads Trinity, Young Explorers and school-lunch emails, attachments and newsletters. The school calendar updates itself twice a day from this laptop, and will move to the Raspberry Pi later. The first live sort ran on 7 Nov: 138 emails from the past week were labelled, 123 archived, and 15 left in your inbox. From 8 Nov the inbox is sorted automatically at 07:00 and 17:30, straight after the school sync.</p>
   </header>
 
   <section aria-labelledby="h-phases">
@@ -158,8 +158,8 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
         <p>Push the repo to GitHub, install Claude Code on the Pi (64-bit OS) and sign in, then add two cron lines. Steps are in <code>school/CALENDAR-SYNC.md</code>. Then remove the laptop task.</p>
       </li>
       <li class="next">
-        <div class="phase-head"><h3>3. General sorter</h3><span class="pill next">First run done</span></div>
-        <p>Labels tidied (4 created, 15 deleted) and sender rules reviewed (now 70). After a dry run and a few rule fixes, the first live run on 7 Nov sorted the past week: Action 2, NeedsDom 13, FYI 36, Bulk 87. Every change is logged so it can be undone. Next: you check it on your phone for a few days, then it runs on a schedule several times a day.</p>
+        <div class="phase-head"><h3>3. General sorter</h3><span class="pill done">Scheduled</span></div>
+        <p>Labels tidied (4 created, 15 deleted) and sender rules reviewed (now 70). After a dry run and a few rule fixes, the first live run on 7 Nov sorted the past week: Action 2, NeedsDom 13, FYI 36, Bulk 87. Every change is logged so it can be undone. Since 7 Nov it runs on its own at 07:00 and 17:30, after the school sync, sorting the last 2 days of new mail. Each run writes a report to <code>logs/sort-inbox/</code>.</p>
       </li>
       <li>
         <div class="phase-head"><h3>5. Backlog clean-up</h3><span class="pill later">Later</span></div>
@@ -176,16 +176,17 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
       <li><strong>Create a private GitHub repo</strong>
         <span class="why">All the work is committed locally, but there's no GitHub repo yet. Send me the repo URL and I'll push; the Pi then pulls from it.</span></li>
       <li><strong>Check the sorted inbox on your phone</strong>
-        <span class="why">Look at the inbox and the new folders for a few days. Tell me anything that landed in the wrong place; that's what the scheduled sorter is waiting on. Two Action items are in the inbox now: Berry Bros (your stored card is expiring) and Impact Food (order school lunches).</span></li>
+        <span class="why">Look at the inbox and the new folders for a few days. Tell me anything that landed in the wrong place, and I'll fix the rule so future runs get it right. Two Action items are in the inbox now: Berry Bros (your stored card is expiring) and Impact Food (order school lunches).</span></li>
     </ol>
   </section>
 
   <section aria-labelledby="h-sync">
-    <h2 id="h-sync">How the calendar sync works</h2>
+    <h2 id="h-sync">How the scheduled runs work</h2>
+    <p>One Windows task, "Inbox Sorter", runs at 07:00 and 17:30: first the school calendar sync, then the inbox sort. The sort only adds or removes labels: it can't create or delete labels, send, or trash anything. When it isn't sure about an email, it marks it NeedsDom and leaves it in your inbox. It sorts at most 100 emails per run. The calendar sync works like this:</p>
     <div class="table-wrap">
       <table>
         <tbody>
-          <tr><td class="date">When</td><td>07:00 and 17:30 daily. If the laptop was asleep or off, it runs as soon as it's back on while you're logged in.</td></tr>
+          <tr><td class="date">When</td><td>07:00 and 17:30 daily, just before the inbox sort. If the laptop was asleep or off, it runs as soon as it's back on while you're logged in.</td></tr>
           <tr><td class="date">Reads</td><td>New Trinity and Young Explorers emails since the last run, new newsletters (read by script, no browser) and their attachments, which a Google Apps Script copies into Drive every 15 minutes.</td></tr>
           <tr><td class="date">Writes</td><td>Creates or updates school events only, in the same style as the rest of your calendar. Optional events (coffee mornings, PAFT and community events) are included, marked "(optional)" and free. At most 12 changes per run.</td></tr>
           <tr><td class="date">Leaves out</td><td>Young Explorers bookings, which the family decides, and anything only for other year groups.</td></tr>
@@ -292,7 +293,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
 ├── config\                   <span class="c"># labels, 70 sender rules, priority rules</span>
 ├── .claude\commands\         <span class="c"># /sort-inbox, /school, /school-calendar-sync</span>
 ├── .claude\settings.json     <span class="c"># what the scheduled job may and may not do</span>
-├── scripts\                  <span class="c"># sync runners (Windows + Pi), task installer</span>
+├── scripts\                  <span class="c"># sync + sort runners (Windows + Pi), task installer</span>
 ├── school\
 │   ├── CLAUDE.md             <span class="c"># school-only rules</span>
 │   ├── CALENDAR-SYNC.md      <span class="c"># how the sync works + Pi setup steps</span>
@@ -317,8 +318,8 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
       <p>The old job that filled the Notion School &amp; Childcare list is switched off. Outstanding actions come back with the action tracker and shared dashboard (roadmap item 2): built to avoid duplicates, and visible to Rosie.</p>
     </div>
     <div class="warning">
-      <strong>The sync needs the laptop on</strong>
-      <p>Runs only happen while the laptop is on and you're logged in; a missed run catches up when it wakes. Moving to the Pi removes this.</p>
+      <strong>The scheduled runs need the laptop on</strong>
+      <p>The sync and the sort only run while the laptop is on and you're logged in; a missed run catches up when it wakes. Moving to the Pi removes this.</p>
     </div>
   </section>
 

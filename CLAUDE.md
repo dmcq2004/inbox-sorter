@@ -58,6 +58,12 @@ Every live run appends to `logs/runs/YYYY-MM-DD.md` with one table row per threa
 `time | threadId | sender | subject | labels added | archived`. The log is the undo source.
 Dry runs print the same table to the terminal and write nothing.
 
+## Scheduled runs
+The "Inbox Sorter" task (laptop; cron on the Pi later) runs at 07:00 and 17:30: first the school calendar sync, then
+`/sort-inbox live` over the last 2 days (`scripts/run-sort-inbox.{ps1,sh}`). The headless rules are at the end of
+`.claude/commands/sort-inbox.md`. Reports: `logs/sort-inbox/`; raw output: `logs/scheduler/`; undo log: `logs/runs/`.
+The job may only add or remove labels on threads and write its own logs.
+
 ## Sub-modules
 - `school/`: Trinity C of E School Lewisham and The Young Explorers Club. It has its own CLAUDE.md.
   `school/apps-script/` is a Google Apps Script that saves school attachments to Drive (the Gmail MCP can't download attachments).
