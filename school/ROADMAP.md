@@ -11,7 +11,7 @@ to **Done** with a date, and keep any design notes in the item.
     by `scripts/run-calendar-sync.{ps1,sh}`, scheduled on the laptop at 07:00 and 17:30. Design and Pi steps are in `school/CALENDAR-SYNC.md`.
   - [ ] Dom switches off the old claude.ai `school-comms-triage` job.
   - [ ] Move to the Raspberry Pi.
-  - [ ] Open: whether YEC runs on early-finish days; nativity session choice (delete the other one).
+  - [ ] Open: nativity session choice (delete the other one). (YEC bookings are the family's call, not tracked.)
     (Resolved 7 Nov: PE day is Friday; Cinderella form done.)
 
 ## Up next (not prioritised)
