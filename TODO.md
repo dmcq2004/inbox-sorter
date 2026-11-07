@@ -6,7 +6,6 @@ Last updated: 2026-11-07.
 
 ## Waiting on Dom
 - [ ] **Nativity:** pick Tue 1 Dec 10:00 or Wed 2 Dec 14:15, then delete the other calendar event.
-- [ ] **Young Explorers on Fri 18 Dec:** does the club run on the 12:15 early-finish day?
 - [ ] **Install the attachment saver** at script.google.com (steps in `school/apps-script/README.md`).
 - [ ] **Review `config/labels.md`** (4 new labels, ~25 to prune) and **`config/sender-rules.yaml`** (~55 rules).
 - [ ] **Switch off the old claude.ai `school-comms-triage` daily job.** The hands-off sync is now live on the laptop (from 2026-11-07).
