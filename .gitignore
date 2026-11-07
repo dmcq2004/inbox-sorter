@@ -3,3 +3,7 @@ logs/runs/*.md
 school/digests/*.md
 school/newsletters/
 .claude/settings.local.json
+# Sync state and run output are machine-local
+school/state/
+logs/scheduler/
+logs/calendar-sync/

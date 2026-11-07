@@ -9,7 +9,9 @@ Last updated: 2026-11-07.
 - [ ] **Young Explorers on Fri 18 Dec:** does the club run on the 12:15 early-finish day?
 - [ ] **Install the attachment saver** at script.google.com (steps in `school/apps-script/README.md`).
 - [ ] **Review `config/labels.md`** (4 new labels, ~25 to prune) and **`config/sender-rules.yaml`** (~55 rules).
-- [ ] **Switch off the old claude.ai `school-comms-triage` daily job**, but only once `/school` runs on a schedule.
+- [ ] **Switch off the old claude.ai `school-comms-triage` daily job.** The hands-off sync is now live on the laptop (from 2026-11-07).
+- [ ] **TYEC booking changes:** should one-off club changes (e.g. breakfast club added Fri 20 Nov) get drop-off/pick-up events?
+- [ ] **Push the repo to GitHub** (private) when you're ready to move the sync to the Pi (steps in `school/CALENDAR-SYNC.md`).
 
 ## Phases
 - [x] **1. Audit the mailbox:** labels, inbox sample, draft rules (2026-11-07)
@@ -19,7 +21,9 @@ Last updated: 2026-11-07.
 - [ ] **4. School module:** see `school/ROADMAP.md`
   - [x] Context, term dates, YEC moved in, attachment saver written, newsletter reader, all 8 newsletters read (2026-11-07)
   - [x] Calendar backfill to Christmas, 10 changes (2026-11-07, `logs/runs/2026-11-07.md`)
-  - [ ] **Next:** build the repeatable calendar sync into `/school`, test it against Sep–Nov, then schedule it
+  - [x] Hands-off calendar sync built and scheduled on the laptop: 07:00 and 17:30 daily (2026-11-07). See `school/CALENDAR-SYNC.md`.
+  - [ ] Move the sync to the Raspberry Pi (64-bit OS, Claude Code signed in, cron), then remove the laptop task.
+  - [ ] Check the first week of reports in `logs/calendar-sync/` and tune the rules.
 - [ ] **5. Backlog clean-up** (19.5k old inbox threads). Starts after ~2 weeks of clean live sorting.
 
 ## Housekeeping

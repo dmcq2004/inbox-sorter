@@ -30,6 +30,11 @@ Never archive Action or NeedsDom.
   usage in `newsletters.md`). Run `--dates` first, then `--save` for the full text and read the body for Reception items.
   Track each newsletter in `newsletters.md`.
 
+## Calendar sync
+The calendar is kept up to date **hands-off** by `/school-calendar-sync` on a schedule (see `CALENDAR-SYNC.md`). In interactive
+sessions, don't hand-edit school events the sync owns (`[school-sync:…]`) without telling Dom. Check the newest
+`logs/calendar-sync/` report for its "Needs Dom" items.
+
 ## Ownership (decided 2026-11-07)
 This module **replaces** the older daily ~06:00 `school-comms-triage` job, which writes to the Notion
 "School & Childcare" database and creates `[notion-sync:…]` calendar events. Until Dom switches that job

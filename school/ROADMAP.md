@@ -7,8 +7,10 @@ to **Done** with a date, and keep any design notes in the item.
 - [ ] **1. Calendar sync.** Term dates, INSET days, early pick-ups, school and club events in Google Calendar.
   No duplicates, and each event links back to its source email or document. See "Calendar design" below.
   - [x] 2026-11-07: Autumn-term backfill, 10 changes approved and made (see `logs/runs/2026-11-07.md`).
-  - [ ] Build the repeatable sync into `/school`: newsletter `--dates` + emails + Drive attachments → proposed changes → Dom approves → apply.
-  - [ ] Once `/school` runs on a schedule, Dom switches off the old claude.ai `school-comms-triage` job.
+  - [x] 2026-11-07: **hands-off** sync built as `/school-calendar-sync` (Dom chose hands-off over approve-first), run headlessly
+    by `scripts/run-calendar-sync.{ps1,sh}`, scheduled on the laptop at 07:00 and 17:30. Design and Pi steps are in `school/CALENDAR-SYNC.md`.
+  - [ ] Dom switches off the old claude.ai `school-comms-triage` job.
+  - [ ] Move to the Raspberry Pi.
   - [ ] Open: whether YEC runs on early-finish days; nativity session choice (delete the other one).
     (Resolved 7 Nov: PE day is Friday; Cinderella form done.)
 
