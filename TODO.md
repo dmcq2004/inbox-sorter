@@ -29,5 +29,7 @@ Last updated: 2026-11-07.
 - [ ] Notion School & Childcare database: fix `Child` = "Both" on Trinity items (should be "Seb"), plus stale statuses. Part of the action-tracker work.
 - [ ] Tell the Trinity office that some staff email signatures link to `trinitylewisham.org` (a spam site) instead of `trinitylewisham.org.uk` (optional; Dom's call).
 
+- [ ] **After 20 Jul 2027:** purge the 2026–27 school attachments from Drive (see Decisions in `school/ROADMAP.md`).
+
 ## Done log
 - 2026-11-07: project started; plan approved; school calendar backfilled; newsletters readable without a browser.

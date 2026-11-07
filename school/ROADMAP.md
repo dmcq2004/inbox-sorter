@@ -82,5 +82,12 @@ International Food Night on 1 Oct, the absences (21 Sep, 13 Nov), and the NHS me
 - **Every event links to its source:** Gmail thread or Drive file URL plus one line of quoted source text.
 - **Changes:** if a later email changes a date or time, update the existing event, never add a second. Cancellations become "CANCELLED — …" and are flagged for Dom, never deleted silently.
 
+## Decisions
+- 2026-11-07: **Keep the Drive copies of school attachments** for now (re-reading, source links, the saver's duplicate check).
+  Dom is on free Google storage (15 GB shared by Gmail, Drive and Photos), so if space gets tight, add a tidy-up to the saver
+  that deletes files older than ~90 days. Only ever delete files older than the saver's 3-day lookback.
+  **Plan: purge the year's attachments after the summer term ends (last day 20 Jul 2027)**, once anything worth keeping is in `context.md`.
+  Don't re-run the saver's `backfill` afterwards, or it will save them all again.
+
 ## Done
 - 2026-11-07: school context (`context.md`), attachment saver (`apps-script/`), YEC moved into the module.
