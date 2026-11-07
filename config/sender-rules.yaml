@@ -92,6 +92,9 @@ rules:
   - match: audible
     folder: Amazon/Audible
     priority: Bulk
+  - match: reply.ebay           # eBay adverts (reply.ebay.com / reply.ebay.co.uk); must come before ebay
+    folder: null
+    priority: Bulk
   - match: ebay
     folder: null
     priority: FYI
@@ -104,6 +107,7 @@ rules:
   - match: bbr.com
     folder: Berry Bros
     priority: Bulk
+    subject_override: { Action: [payment failed, declined, overdue, payment due, expiring] }
   - match: smws
     folder: SMWS
     priority: Bulk
@@ -129,6 +133,7 @@ rules:
   - match: linkedin.com
     folder: LinkedIn
     priority: Bulk
+    subject_override: { NeedsDom: [messaged you] }   # a real person's message
   - match: accounts.google.com
     folder: Google
     priority: NeedsDom
@@ -175,6 +180,26 @@ rules:
     priority: Bulk
   # No mail in 6 months, so no rule: BrewDog, PurePlanet, TV License, Banking etc/RCI Bank, Nest Pension
 
+  # --- Added after the first dry run (Dom, 2026-11-07)
+  - match: primevideo.com
+    folder: null
+    priority: FYI
+    subject_override: { NeedsDom: [subscribed] }   # new paid subscriptions
+  - match: impactfood.co.uk        # Innovate: Trinity school lunches
+    folder: School/Trinity
+    priority: FYI
+    subject_override: { Action: [order] }
+  - match: noreply-accounts@google.com
+    folder: Google
+    priority: FYI
+  - { match: sandalwoodadvisors.com, folder: Newsletters, priority: Bulk }
+  - { match: davy.co.uk,             folder: null, priority: Bulk }
+  - { match: vintagewineandport.co.uk, folder: null, priority: Bulk }
+  - { match: hand2note.com,          folder: null, priority: Bulk }
+  - { match: oxford-dp.com,          folder: null, priority: Bulk }   # ODP marketing; the ODP label is not used
+  - { match: hatchards.co.uk,        folder: null, priority: FYI }
+  - { match: depositprotection.co.uk, folder: null, priority: FYI }
+
   # --- Retail marketing (no folder; Bulk + archive)
   - { match: tmlewin.co.uk,       folder: null, priority: Bulk }
   - { match: fermob.com,          folder: null, priority: Bulk }
@@ -187,8 +212,6 @@ rules:
   - { match: picturehouses.co.uk, folder: null, priority: Bulk }
   - { match: mr-fothergills.co.uk, folder: null, priority: Bulk }
   - { match: thevillagebutchers.co.uk, folder: null, priority: Bulk }
-  - { match: impactfood.co.uk,    folder: null, priority: Bulk }
   - { match: zoopla.co.uk,        folder: null, priority: Bulk }
-  - { match: primevideo.com,      folder: null, priority: Bulk }
   - { match: nudiejeans.com,      folder: null, priority: FYI }   # repair tickets
   - { match: southwickwines.com,  folder: null, priority: Bulk }

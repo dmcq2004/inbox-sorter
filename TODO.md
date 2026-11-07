@@ -17,7 +17,8 @@ Last updated: 2026-11-07.
 - [x] **1. Audit the mailbox:** labels, inbox sample, draft rules (2026-11-07)
 - [x] **2. Set up the project:** CLAUDE.md files, config, commands, git (2026-11-07)
 - [ ] **3. General sorter:** `/sort-inbox` dry run on 7 days → Dom reviews → live → scheduled routine (several runs a day)
-  - Ready for the first dry run (labels and sender rules reviewed 2026-11-07)
+  - [x] Dry run on 7 days, rules tuned (71 rules), first live run: 138 threads sorted, 123 archived (2026-11-07, `logs/runs/2026-11-07.md`)
+  - [ ] Next: Dom checks the result on his phone for a few days, then set up the scheduled routine
 - [ ] **4. School module:** see `school/ROADMAP.md`
   - [x] Context, term dates, YEC moved in, attachment saver written, newsletter reader, all 8 newsletters read (2026-11-07)
   - [x] Calendar backfill to Christmas, 10 changes (2026-11-07, `logs/runs/2026-11-07.md`)
