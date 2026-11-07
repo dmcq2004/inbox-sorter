@@ -1,0 +1,139 @@
+# Deterministic sender rules. Claude applies these before using judgement.
+# match: substring of the sender address (case-insensitive). The first matching rule wins.
+# folder: existing Gmail label (see labels.md), or null. priority: Action|NeedsDom|FYI|Bulk.
+# archive: defaults to true for FYI/Bulk and false otherwise.
+# subject_override: optional; if the subject contains any of these words, use that priority instead.
+# STATUS: DRAFT built from a sample of ~100 inbox threads (2026-11-07). Dom to review.
+
+rules:
+  # --- Childcare (app notifications only; real comms are in the Bright Horizons app)
+  - match: familyapp.brighthorizons.co.uk
+    folder: Nursery
+    priority: FYI
+
+  # --- Art
+  - match: the-saleroom.com
+    folder: Auction Alerts
+    priority: Bulk
+  - match: christies.com
+    folder: Christies
+    priority: Bulk
+  - match: artsy.net
+    folder: Artsy
+    priority: Bulk
+  - match: eamesfineart.com
+    folder: Eames Fine Art
+    priority: Bulk
+
+  # --- Finance (keep visible; statements and notices matter)
+  - match: h-l.co.uk
+    folder: Hargreaves Lansdown
+    priority: FYI
+  - match: americanexpress
+    folder: Banking etc/Amex
+    priority: FYI
+    subject_override: { Action: [payment due, overdue, suspicious] }
+  - match: natwest
+    folder: Banking etc/Natwest
+    priority: FYI
+  - match: cynergybank
+    folder: Banking etc/Cynergy Bank
+    priority: FYI
+  - match: hsbc
+    folder: HSBC
+    priority: FYI
+  - match: marcus.co.uk
+    folder: null
+    priority: NeedsDom    # "new document to view" — usually rate changes
+  - match: starlingbank.com
+    folder: null
+    priority: NeedsDom
+  - match: clearscore.com
+    folder: null
+    priority: Bulk
+  - match: hmrc.gov.uk
+    folder: null
+    priority: NeedsDom
+
+  # --- Shopping and deliveries
+  - match: promotions.ocado.com
+    folder: Ocado
+    priority: Bulk
+  - match: medallia.eu
+    folder: Ocado
+    priority: Bulk
+  - match: email.ocado.com
+    folder: Ocado
+    priority: FYI
+  - match: amazon
+    folder: Amazon
+    priority: FYI
+  - match: audible
+    folder: Amazon/Audible
+    priority: Bulk
+  - match: ebay
+    folder: null
+    priority: FYI
+  - match: myprotein
+    folder: null
+    priority: FYI
+  - match: trustpilotmail.com
+    folder: null
+    priority: Bulk
+  - match: bbr.com
+    folder: Berry Bros
+    priority: Bulk
+  - match: smws
+    folder: SMWS
+    priority: Bulk
+
+  # --- Newsletters
+  - match: substack.com
+    folder: Substack
+    priority: Bulk
+  - match: mail.beehiiv.com
+    folder: Newsletters
+    priority: Bulk
+  - match: aisecret.us
+    folder: Newsletters
+    priority: Bulk
+  - match: davewang.ai
+    folder: Newsletters
+    priority: Bulk
+  - match: variantperception
+    folder: Variant Perception
+    priority: Bulk
+
+  # --- Social / platforms
+  - match: linkedin.com
+    folder: LinkedIn
+    priority: Bulk
+  - match: accounts.google.com
+    folder: Google
+    priority: NeedsDom
+    subject_override: { FYI: [You allowed] }
+  - match: netflix
+    folder: Netflix
+    priority: Bulk
+  - match: playstation
+    folder: playstation
+    priority: Bulk
+
+  # --- Retail marketing (no folder; Bulk + archive)
+  - { match: tmlewin.co.uk,       folder: null, priority: Bulk }
+  - { match: fermob.com,          folder: null, priority: Bulk }
+  - { match: sarahraven.com,      folder: null, priority: Bulk }
+  - { match: sunglasshut.com,     folder: null, priority: Bulk }
+  - { match: kitblake.com,        folder: null, priority: Bulk }
+  - { match: trunkclothiers.com,  folder: null, priority: Bulk }
+  - { match: thesaleroom.com,     folder: null, priority: Bulk }
+  - { match: bloomandwild.com,    folder: null, priority: Bulk }
+  - { match: picturehouses.co.uk, folder: null, priority: Bulk }
+  - { match: mr-fothergills.co.uk, folder: null, priority: Bulk }
+  - { match: services.admiral.com, folder: null, priority: Bulk }
+  - { match: thevillagebutchers.co.uk, folder: null, priority: Bulk }
+  - { match: impactfood.co.uk,    folder: null, priority: Bulk }
+  - { match: zoopla.co.uk,        folder: null, priority: Bulk }
+  - { match: primevideo.com,      folder: null, priority: Bulk }
+  - { match: nudiejeans.com,      folder: null, priority: FYI }   # repair tickets
+  - { match: southwickwines.com,  folder: null, priority: Bulk }

@@ -1,0 +1,5 @@
+# Run logs and digests contain email subjects; keep them local
+logs/runs/*.md
+school/digests/*.md
+school/newsletters/
+.claude/settings.local.json
