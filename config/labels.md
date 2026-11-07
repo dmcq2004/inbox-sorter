@@ -15,9 +15,9 @@ Status: **keep** (use it), **new** (to create; needs Dom's OK), **prune** (empty
 ## Family & school
 | Label | Threads | Status | Notes |
 |---|---|---|---|
-| School (parent) | – | **new** | |
-| School/Trinity | – | **new** | Trinity C of E School Lewisham |
-| School/Young Explorers | – | **new** | Sebastian's wraparound and holiday club (tyec@hotmail.com) |
+| School (parent) | 0 | keep | created 2026-11-07 |
+| School/Trinity | 0 | keep | Trinity C of E School Lewisham (created 2026-11-07) |
+| School/Young Explorers | 0 | keep | Sebastian's wraparound and holiday club (tyec@hotmail.com) |
 | Nursery | 4 | keep | Bright Horizons notifications |
 | INBOX/Family | 56 | keep | |
 | Correspondence/From Dad | 240 | keep | |
@@ -37,13 +37,14 @@ TV License (11), Netflix (287), playstation (38): **keep**
 ## Interests
 Auction Alerts (45), Christies (389), Artsy (441), Eames Fine Art (62), Berry Bros (69), SMWS (218),
 BrewDog (344), Finisterre (198), Substack (3,785), Variant Perception (167), LinkedIn (693), Twitter (258), edX (639): **keep**
-| Newsletters | – | **new** | Latent Space, AI Secret, Dave Wang, etc. |
+| Newsletters | 0 | keep | Latent Space, AI Secret, Dave Wang, etc. (created 2026-11-07) |
 
-## Prune candidates (0 threads, or IMAP leftovers)
-Facebook, Ray Dalio, Correspondence (parent, keep if children kept), H20.ai, Banking etc (parent: keep),
-Atomic Habits, Macro-Ops, 888, RealVision, Student Loans, Medium, Clearscore, Goehring & Rozencwajg,
-Junk E-mail, [Imap]/Trash, [Imap]/Drafts (1), [Imap]/Sent (10), Notes (6), Microsoft (1), Fightzone (3),
-INBOX/KCL (6), INBOX/Health Insurance (1), ODP (37, mostly unread), BrewDog/Equity for Punks (2)
+## Prune decisions (Dom, 2026-11-07)
+**Delete** (approved; not done yet, because the Gmail MCP can't delete labels):
+- Empty: Facebook, Ray Dalio, H20.ai, Atomic Habits, Macro-Ops, 888, RealVision, Student Loans, Medium, Clearscore, Goehring & Rozencwajg
+- A few threads (the mail stays in All Mail): Microsoft (1), Fightzone (3), INBOX/Health Insurance (1), BrewDog/Equity for Punks (2)
 
-> Parents (`Banking etc`, `Correspondence`, `Triage`) show 0 threads but must stay while they have child labels.
-> Labels with a few threads (Notes, KCL, ODP…) would lose only the label, not the mail. Dom to decide.
+**Leave** (old mail; the sorter doesn't use them): INBOX/KCL (6), ODP (37), Notes (6: iPhone Notes 2015–16, which sync through this label, so never delete it),
+[Imap]/Sent (10), [Imap]/Drafts (1), [Imap]/Trash, Junk E-mail (old mail-program folders; check the phone isn't using them before deleting)
+
+> Parents (`Banking etc`, `Correspondence`, `Triage`, `School`) show 0 threads but must stay while they have child labels.

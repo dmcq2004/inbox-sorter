@@ -7,7 +7,9 @@ Last updated: 2026-11-07.
 ## Waiting on Dom
 - [ ] **Nativity:** pick Tue 1 Dec 10:00 or Wed 2 Dec 14:15, then delete the other calendar event.
 - [x] **Attachment saver installed** (2026-11-07): Apps Script project "Save School Attachments", backfill saved 26 files, runs every 15 min.
-- [ ] **Review `config/labels.md`** (4 new labels, ~25 to prune) and **`config/sender-rules.yaml`** (~55 rules).
+- [x] **Labels reviewed** (2026-11-07): 4 new labels created; 15 to delete (see `config/labels.md`).
+- [ ] **Delete the 15 approved labels**: the Gmail MCP can't do it, so Claude will do it through Chrome. Blocked 2026-11-07: the Chrome extension wasn't connected.
+- [x] **Sender rules reviewed** (2026-11-07): family rules, payment-problem override, Admiral, 9 rules for active senders. Now 62 rules.
 - [x] **Switched off the old claude.ai `school-comms-triage` daily job** (Dom, 2026-11-07). The laptop sync has taken over.
 - [ ] **Push the repo to GitHub** (private) when you're ready to move the sync to the Pi (steps in `school/CALENDAR-SYNC.md`).
 
@@ -15,7 +17,7 @@ Last updated: 2026-11-07.
 - [x] **1. Audit the mailbox:** labels, inbox sample, draft rules (2026-11-07)
 - [x] **2. Set up the project:** CLAUDE.md files, config, commands, git (2026-11-07)
 - [ ] **3. General sorter:** `/sort-inbox` dry run on 7 days → Dom reviews → live → scheduled routine (several runs a day)
-  - Blocked on: Dom's review of labels and sender rules; creating the new labels (needs Dom's OK)
+  - Ready for the first dry run (labels and sender rules reviewed 2026-11-07)
 - [ ] **4. School module:** see `school/ROADMAP.md`
   - [x] Context, term dates, YEC moved in, attachment saver written, newsletter reader, all 8 newsletters read (2026-11-07)
   - [x] Calendar backfill to Christmas, 10 changes (2026-11-07, `logs/runs/2026-11-07.md`)

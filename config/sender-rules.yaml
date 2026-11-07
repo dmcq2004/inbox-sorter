@@ -3,9 +3,26 @@
 # folder: existing Gmail label (see labels.md), or null. priority: Action|NeedsDom|FYI|Bulk.
 # archive: defaults to true for FYI/Bulk and false otherwise.
 # subject_override: optional; if the subject contains any of these words, use that priority instead.
-# STATUS: DRAFT built from a sample of ~100 inbox threads (2026-11-07). Dom to review.
+# STATUS: reviewed by Dom 2026-11-07 (family rules, payment override, Admiral, active unruled senders added).
 
 rules:
+  # --- Family (always stays in the inbox)
+  - match: gerrymcquade@gmail.com
+    folder: Correspondence/From Dad
+    priority: NeedsDom
+  - match: gerry.mcquade@bt.com
+    folder: Correspondence/From Dad
+    priority: NeedsDom
+  - match: singsongdiva@gmail.com
+    folder: Correspondence/From Mum
+    priority: NeedsDom
+  - match: gmcq2009@gmail.com
+    folder: Correspondence/From Greg
+    priority: NeedsDom
+  - match: rosemarie.little.rl@gmail.com   # school topics still go to the school module first
+    folder: null
+    priority: NeedsDom
+
   # --- Childcare (app notifications only; real comms are in the Bright Horizons app)
   - match: familyapp.brighthorizons.co.uk
     folder: Nursery
@@ -36,12 +53,14 @@ rules:
   - match: natwest
     folder: Banking etc/Natwest
     priority: FYI
+    subject_override: { Action: [payment failed, declined, overdue, payment due] }
   - match: cynergybank
     folder: Banking etc/Cynergy Bank
     priority: FYI
   - match: hsbc
     folder: HSBC
     priority: FYI
+    subject_override: { Action: [payment failed, declined, overdue, payment due] }
   - match: marcus.co.uk
     folder: null
     priority: NeedsDom    # "new document to view" — usually rate changes
@@ -65,9 +84,11 @@ rules:
   - match: email.ocado.com
     folder: Ocado
     priority: FYI
+    subject_override: { Action: [payment failed, declined, overdue, payment due] }
   - match: amazon
     folder: Amazon
     priority: FYI
+    subject_override: { Action: [payment failed, declined, overdue, payment due] }
   - match: audible
     folder: Amazon/Audible
     priority: Bulk
@@ -115,9 +136,44 @@ rules:
   - match: netflix
     folder: Netflix
     priority: Bulk
+    subject_override: { Action: [payment failed, declined, overdue, payment due] }
   - match: playstation
     folder: playstation
     priority: Bulk
+    subject_override: { Action: [payment failed, declined, overdue, payment due] }
+
+  # --- Insurance
+  - match: services.admiral.com
+    folder: null
+    priority: FYI
+    subject_override: { Action: [renewal, policy documents] }
+  # noreply@portal.admiral.com and noreply@support.admiral.com have no rule (judgement decides)
+
+  # --- Other kept folders (senders active in the last 6 months, checked 2026-11-07)
+  - match: refer.ig.com           # referral promos; must come before email.ig.com
+    folder: IG
+    priority: Bulk
+  - match: email.ig.com           # account@info.email.ig.com: trading-hours and account notices
+    folder: IG
+    priority: FYI
+  - match: apple.com
+    folder: Apple
+    priority: FYI
+    subject_override: { NeedsDom: [Apple Account, storage is full], Action: [payment failed, declined, overdue, payment due] }
+  - match: ee.co.uk
+    folder: EE
+    priority: FYI
+    subject_override: { Action: [payment failed, declined, overdue, payment due] }
+  - match: noreply@x.com
+    folder: Twitter
+    priority: Bulk
+  - match: edx.org
+    folder: edX
+    priority: Bulk
+  - match: finisterre.com
+    folder: Finisterre
+    priority: Bulk
+  # No mail in 6 months, so no rule: BrewDog, PurePlanet, TV License, Banking etc/RCI Bank, Nest Pension
 
   # --- Retail marketing (no folder; Bulk + archive)
   - { match: tmlewin.co.uk,       folder: null, priority: Bulk }
@@ -130,7 +186,6 @@ rules:
   - { match: bloomandwild.com,    folder: null, priority: Bulk }
   - { match: picturehouses.co.uk, folder: null, priority: Bulk }
   - { match: mr-fothergills.co.uk, folder: null, priority: Bulk }
-  - { match: services.admiral.com, folder: null, priority: Bulk }
   - { match: thevillagebutchers.co.uk, folder: null, priority: Bulk }
   - { match: impactfood.co.uk,    folder: null, priority: Bulk }
   - { match: zoopla.co.uk,        folder: null, priority: Bulk }
