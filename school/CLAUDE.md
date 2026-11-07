@@ -35,14 +35,19 @@ The calendar is kept up to date **hands-off** by `/school-calendar-sync` on a sc
 sessions, don't hand-edit school events the sync owns (`[school-sync:…]`) without telling Dom. Check the newest
 `logs/calendar-sync/` report for its "Needs Dom" items.
 
-## Ownership (decided 2026-11-07)
-This module **replaces** the older daily ~06:00 `school-comms-triage` job, which writes to the Notion
-"School & Childcare" database and creates `[notion-sync:…]` calendar events. Until Dom switches that job
-off, expect its events to exist: match and reuse them (see the ROADMAP calendar design), never duplicate them.
-In the Notion `Child` field, Trinity and YEC items are **Seb**, and only nursery items are Flo.
 - When an attachment has new dates, propose updates to `context.md` (term dates, events).
 - Pull out: dates, deadlines, costs, what to bring or wear, and who it applies to (whole school / year group / Reception / Year 6).
   Use `context.md` to judge whether a year-group notice applies to Sebastian.
+
+## Ownership (decided 2026-11-07)
+This module **replaced** the old daily claude.ai `school-comms-triage` job, which Dom **switched off on 2026-11-07**. That job
+wrote to the Notion "School & Childcare" database and created `[notion-sync:…]` calendar events. Those events still
+exist: match and reuse them, never duplicate them. Nothing new is written to that Notion database until the action
+tracker (ROADMAP item 2) is built. In the Notion `Child` field, Trinity and YEC items are **Seb**, and only nursery items are Flo.
+
+## Who may change the calendar
+- **The scheduled sync** (`/school-calendar-sync`) changes school events **hands-off**, within the rules in its command file.
+- **Interactive sessions** create or change calendar events only with Dom's OK in that session, then log the change to `logs/runs/`.
 
 ## Digest output
 Write `school/digests/YYYY-MM-DD.md` and also print it:
@@ -58,8 +63,7 @@ Keep it short. Dom reads it on his phone.
 
 ## Never
 - Reply to, or email, the school. Draft only if Dom asks, using the `email-reply-editor` voice.
-- Add calendar events or tasks unless Dom asks in that session (planned later extension).
+- Track Young Explorers Club bookings (sessions added or cancelled). The family decides those; only club closures and club-wide events count.
 
 ## Related
-Dom has a claude.ai skill, `school-comms-triage`. Keep this module consistent with it. If its rules
-differ, ask Dom which should win.
+The old claude.ai `school-comms-triage` skill is **retired** (switched off 2026-11-07). This module's rules win; don't follow that skill.

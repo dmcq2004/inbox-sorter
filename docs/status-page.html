@@ -1,0 +1,321 @@
+<title>Inbox Sorter Status</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; a phase rail up top, then "waiting on you", then reference sections. Labels look like Gmail label chips. */
+:root {
+  --bg: #f6f7f4;
+  --surface: #ffffff;
+  --fg: #1c211d;
+  --muted: #5d665f;
+  --line: #dde2dc;
+  --accent: #2f6b45;        /* Trinity "Green house" */
+  --accent-soft: #e3efe6;
+  --warn: #9a5b00;
+  --warn-soft: #fbefd9;
+  --todo: #6a6f8a;
+  --todo-soft: #eceef6;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141815; --surface: #1c211d; --fg: #e6ebe6; --muted: #a2ada4; --line: #2f3731;
+    --accent: #7cc697; --accent-soft: #1f3226; --warn: #e8b061; --warn-soft: #3a2c15;
+    --todo: #a9aed0; --todo-soft: #262938; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141815; --surface: #1c211d; --fg: #e6ebe6; --muted: #a2ada4; --line: #2f3731;
+  --accent: #7cc697; --accent-soft: #1f3226; --warn: #e8b061; --warn-soft: #3a2c15;
+  --todo: #a9aed0; --todo-soft: #262938; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 72px;
+}
+main { max-width: 760px; margin: 0 auto; display: grid; gap: 48px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: 2.3rem; font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.35rem; font-weight: 700; }
+h3 { font-size: 1.02rem; font-weight: 500; }
+p { margin: 0; max-width: 65ch; }
+section { display: grid; gap: 16px; min-width: 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.lede { color: var(--muted); }
+code, .mono { font-family: var(--font-mono); font-size: 0.85em; }
+code { background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+
+/* Phase rail */
+.phases { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-left: 2px solid var(--line); }
+.phases li { position: relative; padding: 0 0 18px 22px; display: grid; gap: 2px; }
+.phases li::before { content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--line); }
+.phases li.done::before { background: var(--accent); border-color: var(--accent); }
+.phases li.next::before { border-color: var(--warn); background: var(--warn-soft); }
+.phase-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+.phases p { color: var(--muted); font-size: 0.95rem; }
+
+.pill { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.done { background: var(--accent-soft); color: var(--accent); }
+.pill.next { background: var(--warn-soft); color: var(--warn); }
+.pill.later { background: var(--todo-soft); color: var(--todo); }
+
+/* Waiting on you */
+.asks { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; display: grid; gap: 14px; }
+.asks ol { margin: 0; padding-left: 1.3em; display: grid; gap: 12px; }
+.asks li { padding-left: 4px; }
+.asks li strong { font-family: var(--font-display); font-weight: 500; }
+.asks .why { display: block; color: var(--muted); font-size: 0.93rem; }
+
+/* Roadmap list */
+.roadmap { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.roadmap li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; align-items: baseline; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.roadmap .pill { justify-self: start; }
+.roadmap b { font-family: var(--font-display); font-weight: 500; }
+.roadmap span.d { grid-column: 2; color: var(--muted); font-size: 0.93rem; }
+
+/* Label chips */
+.labels { display: grid; gap: 10px; }
+.label-row { display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); gap: 12px; align-items: baseline; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.chip { font-family: var(--font-mono); font-size: 0.8rem; background: var(--accent-soft); color: var(--accent); padding: 2px 8px; border-radius: 4px; justify-self: start; overflow-wrap: anywhere; }
+.label-row span:last-child { color: var(--muted); font-size: 0.95rem; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); text-align: left; font-weight: 500; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line); }
+td { padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+td.date { font-family: var(--font-mono); font-size: 0.85rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+td.src { color: var(--muted); font-size: 0.85rem; }
+tr.key td { font-weight: 600; }
+.tag { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 1px 6px; border-radius: 3px; margin-left: 6px; white-space: nowrap; font-weight: 500; }
+
+/* Files tree */
+pre.tree { font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.7; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; margin: 0; overflow-x: auto; color: var(--fg); }
+pre.tree .c { color: var(--muted); }
+
+.warning { border-left: 3px solid var(--warn); background: var(--warn-soft); padding: 12px 16px; border-radius: 0 8px 8px 0; display: grid; gap: 4px; }
+.warning strong { font-family: var(--font-display); font-weight: 500; color: var(--warn); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.facts div { background: var(--surface); padding: 10px 12px; display: grid; gap: 2px; }
+.facts dt { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 0; font-family: var(--font-display); font-weight: 500; }
+
+.decisions { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.decisions li { display: grid; gap: 2px; }
+.decisions li b { font-family: var(--font-display); font-weight: 500; }
+.decisions li span { color: var(--muted); font-size: 0.95rem; }
+
+footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono); }
+
+@media (max-width: 520px) {
+  body { font-size: 16px; padding-block: 28px 56px; }
+  h1 { font-size: 1.85rem; }
+  .label-row { grid-template-columns: 1fr; gap: 4px; }
+}
+</style>
+
+<main>
+  <header style="display:grid;gap:12px">
+    <div class="eyebrow">Gmail · dmcq2004 · status at 7 Nov 2026, 18:15</div>
+    <h1>Inbox Sorter</h1>
+    <p class="lede">Claude sorts your Gmail into labels that show up as folders in your phone's Mail app. The school module reads Trinity and Young Explorers emails, attachments and newsletters. The school calendar now updates itself twice a day from this laptop, and will move to the Raspberry Pi later. Nothing in your inbox has been relabelled yet.</p>
+  </header>
+
+  <section aria-labelledby="h-phases">
+    <h2 id="h-phases">Where we are</h2>
+    <ol class="phases">
+      <li class="done">
+        <div class="phase-head"><h3>1. Audit the mailbox</h3><span class="pill done">Done</span></div>
+        <p>Checked 19,565 inbox threads and about 80 labels. The old <code>Triage/*</code> labelling stopped around 18 Sept. Drafted rules from about 100 recent emails.</p>
+      </li>
+      <li class="done">
+        <div class="phase-head"><h3>2. Set up the project</h3><span class="pill done">Done</span></div>
+        <p>A top-level CLAUDE.md plus one per module, config files, <code>/sort-inbox</code> and <code>/school</code> commands, and a git repo.</p>
+      </li>
+      <li class="done">
+        <div class="phase-head"><h3>School groundwork</h3><span class="pill done">Done</span></div>
+        <p>Seb's class, staff and 2026–27 term dates. All 8 newsletters read with a new script that needs no browser. The attachment saver is installed (7 Nov): 26 past attachments saved to Drive, and new ones are copied every 15 minutes.</p>
+      </li>
+      <li class="done">
+        <div class="phase-head"><h3>School calendar backfill</h3><span class="pill done">Done</span></div>
+        <p>10 changes up to Christmas, all approved and logged so they can be undone. Each event links back to its source.</p>
+      </li>
+      <li class="done">
+        <div class="phase-head"><h3>Hands-off calendar sync</h3><span class="pill done">Live on laptop</span></div>
+        <p>Runs at 07:00 and 17:30 every day on Claude Opus 5.5, and has replaced the old claude.ai task, which is now switched off. Three live runs on 7 Nov, including the 17:30 scheduled one: one event added, no duplicates, no errors.</p>
+      </li>
+      <li class="next">
+        <div class="phase-head"><h3>Move the sync to the Raspberry Pi</h3><span class="pill next">Next</span></div>
+        <p>Push the repo to GitHub, install Claude Code on the Pi (64-bit OS) and sign in, then add two cron lines. Steps are in <code>school/CALENDAR-SYNC.md</code>. Then remove the laptop task.</p>
+      </li>
+      <li class="next">
+        <div class="phase-head"><h3>3. General sorter</h3><span class="pill next">Next</span></div>
+        <p>A dry run on the last 7 days for you to review, then live runs, then a routine several times a day.</p>
+      </li>
+      <li>
+        <div class="phase-head"><h3>5. Backlog clean-up</h3><span class="pill later">Later</span></div>
+        <p>Apply the proven rules to the old inbox one sender at a time, archiving only. Starts after about two clean weeks.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="asks" aria-labelledby="h-asks">
+    <h2 id="h-asks">Waiting on you</h2>
+    <ol>
+      <li><strong>Pick a nativity session</strong>
+        <span class="why">Both are in the calendar: Tue 1 Dec 10:00 and Wed 2 Dec 14:15. Delete the one you won't go to, or tell me.</span></li>
+      <li><strong>Create a private GitHub repo</strong>
+        <span class="why">All the work is committed locally, but there's no GitHub repo yet. Send me the repo URL and I'll push; the Pi then pulls from it.</span></li>
+      <li><strong>Review the labels and sender rules</strong>
+        <span class="why"><code>config/labels.md</code> (4 new labels, about 25 to delete) and <code>config/sender-rules.yaml</code> (about 55 rules). Needed before the general sorter does its first dry run.</span></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="h-sync">
+    <h2 id="h-sync">How the calendar sync works</h2>
+    <div class="table-wrap">
+      <table>
+        <tbody>
+          <tr><td class="date">When</td><td>07:00 and 17:30 daily. If the laptop was asleep or off, it runs as soon as it's back on while you're logged in.</td></tr>
+          <tr><td class="date">Reads</td><td>New Trinity and Young Explorers emails since the last run, new newsletters (read by script, no browser) and their attachments, which a Google Apps Script copies into Drive every 15 minutes.</td></tr>
+          <tr><td class="date">Writes</td><td>Creates or updates school events only, in the same style as the rest of your calendar. Optional events (coffee mornings, PAFT and community events) are included, marked "(optional)" and free. At most 12 changes per run.</td></tr>
+          <tr><td class="date">Leaves out</td><td>Young Explorers bookings, which the family decides, and anything only for other year groups.</td></tr>
+          <tr><td class="date">Never</td><td>Sends, trashes or deletes anything, or touches non-school events. Instructions inside emails are ignored.</td></tr>
+          <tr><td class="date">Model</td><td>Claude Opus 5.5, pinned. Sonnet 5.5 was tested on the same emails: it was 3× faster but skimmed the emails and reported things it hadn't checked.</td></tr>
+          <tr><td class="date">Unsure</td><td>Anything unclear goes under "Needs Dom" in the run's report (<code>logs/calendar-sync/</code>) instead of the calendar.</td></tr>
+          <tr><td class="date">Undo</td><td>Every change is logged with its event id in <code>logs/runs/</code>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-school">
+    <h2 id="h-school">School at a glance</h2>
+    <dl class="facts">
+      <div><dt>Child</dt><dd>Sebastian</dd></div>
+      <div><dt>Year</dt><dd>Reception</dd></div>
+      <div><dt>Class</dt><dd>RR · Mr Regan</dd></div>
+      <div><dt>Group / house</dt><dd>A · Green</dd></div>
+      <div><dt>PE day</dt><dd>Friday</dd></div>
+      <div><dt>Day</dt><dd>8:45–15:15</dd></div>
+    </dl>
+    <p class="lede" style="font-size:0.95rem">Flo is at Maythorne Cottages nursery, not Trinity. Seb also goes to Dutch school (De Zeven Eiken) on Mondays 16:45–19:00.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>What</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td class="date">Sun 8 Nov</td><td>Play Street, Wisteria Road, 12:30–15:30 (optional) <span class="tag">added</span></td><td class="src">Newsletter</td></tr>
+          <tr><td class="date">Fri 13 Nov</td><td>Seb off (Holland with Rosie, 12–15 Nov)</td><td class="src">Rosie's email</td></tr>
+          <tr><td class="date">Tue 17 Nov</td><td>Individual and sibling photo day <span class="tag">added</span></td><td class="src">Newsletter</td></tr>
+          <tr class="key"><td class="date">Fri 20 Nov</td><td>Own-clothes day: no uniform, bring a donation <span class="tag">added</span></td><td class="src">Newsletter</td></tr>
+          <tr><td class="date">Wed 25 Nov</td><td>NHS height and weight (Reception). Letter read: nothing to do unless you want to opt out</td><td class="src">Email + letter</td></tr>
+          <tr><td class="date">Wed 25 Nov</td><td>Wellbeing coffee morning, 09:00 (optional) <span class="tag">added by sync</span></td><td class="src">Newsletter</td></tr>
+          <tr><td class="date">Wed 25 Nov</td><td>Turning of the Season, Blackheath Halls (optional, details TBC) <span class="tag">added</span></td><td class="src">Newsletter</td></tr>
+          <tr class="key"><td class="date">Fri 27 Nov</td><td>INSET day: no school</td><td class="src">Term dates</td></tr>
+          <tr><td class="date">1 or 2 Dec</td><td>Reception nativity: Tue 10:00 or Wed 14:15 <span class="tag">added</span></td><td class="src">Parent Curriculum</td></tr>
+          <tr><td class="date">Fri 4 Dec</td><td>PAFT Christmas Fair, from 14:30 (optional) <span class="tag">added</span></td><td class="src">Parent Curriculum</td></tr>
+          <tr><td class="date">Thu 10 Dec</td><td>Cinderella panto trip, paid and form done <span class="tag">updated</span></td><td class="src">Email + receipt</td></tr>
+          <tr><td class="date">Wed 16 Dec</td><td>Christmas jumper and dinner day <span class="tag">added</span></td><td class="src">Newsletter</td></tr>
+          <tr><td class="date">Thu 17 Dec</td><td>Class Christmas party <span class="tag">added</span></td><td class="src">Newsletter</td></tr>
+          <tr class="key"><td class="date">Fri 18 Dec</td><td>Last day of term: pick-up at 12:15 <span class="tag">added</span></td><td class="src">Newsletter</td></tr>
+          <tr class="key"><td class="date">Mon 4 Jan</td><td>INSET day; term starts Tue 5 Jan</td><td class="src">Term dates</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="lede" style="font-size:0.95rem">Also from the newsletters: coats every day, with names in them. Reception home learning (Little Wandle phonics) started after half term. Ms Harvey will ask parents to help on the panto trip before the end of November.</p>
+  </section>
+
+  <section aria-labelledby="h-roadmap">
+    <h2 id="h-roadmap">School roadmap</h2>
+    <p>Eight ideas, kept in <code>school/ROADMAP.md</code> so every future session sees them. Calendar comes first.</p>
+    <ul class="roadmap">
+      <li><span class="pill done">Live</span><b>1. Calendar sync</b><span class="d">Backfill done and hands-off sync running on the laptop. Moving to the Pi is next.</span></li>
+      <li><span class="pill done">Done</span><b>4. Read Sway newsletters</b><span class="d">A Python script reads them directly. No browser or login needed, so it also works for scheduled runs.</span></li>
+      <li><span class="pill later">Later</span><b>2. Action tracker + shared dashboard</b><span class="d">One list of forms, payments and things to bring that Rosie can see too, with no duplicates: one row per real thing, only the sync adds rows, and items close themselves. Shown as a page with clear sections, as a shared Notion page or a page on the Pi. Plus a shared "Seb · School" calendar for Rosie.</span></li>
+      <li><span class="pill later">Later</span><b>3. Weekly school brief</b><span class="d">Sunday evening: this week's events, what to bring or wear, pick-ups, club bookings.</span></li>
+      <li><span class="pill later">Later</span><b>5. Coordinate with Rosie</b><span class="d">Spot what she has already handled, so nothing is done twice or missed.</span></li>
+      <li><span class="pill later">Later</span><b>6. Holiday cover planning</b><span class="d">Compare half terms and INSET days with your calendar; flag Young Explorers bookings.</span></li>
+      <li><span class="pill later">Later</span><b>7. Ask anything</b><span class="d">Answers like "when's the nativity?" from an always-current context file.</span></li>
+      <li><span class="pill later">Later</span><b>8. Drafts in your voice</b><span class="d">Absence notes, teacher replies, club bookings. Drafts only.</span></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-decisions">
+    <h2 id="h-decisions">Decisions made</h2>
+    <ul class="decisions">
+      <li><b>Reuse and tidy the existing labels</b><span>Keep the Triage/* scheme and your sender folders, and prune the empty ones.</span></li>
+      <li><b>Claude does all the sorting</b><span>No Gmail filters for you to set up, since you read mail in your phone's Mail app.</span></li>
+      <li><b>Archive only low-value mail</b><span>The 19.5k backlog is a separate job for later.</span></li>
+      <li><b>The school module covers Trinity and Young Explorers</b><span>Bright Horizons emails are app notifications, so they're labelled Nursery and archived.</span></li>
+      <li><b>This project has replaced the old daily school job</b><span>The claude.ai school-comms-triage job (email → Notion → calendar) was switched off on 7 Nov. Its existing events are reused, never duplicated.</span></li>
+      <li><b>The sync runs on Opus 5.5</b><span>Chosen over Sonnet after a side-by-side test: the job runs unattended, so thoroughness matters more than speed.</span></li>
+      <li><b>School events keep your existing calendar style</b><span>Closures are green all-day "(Seb)" events, events are "Trinity: …", and early pick-ups are timed events that block your diary.</span></li>
+      <li><b>The school calendar is hands-off</b><span>The scheduled sync applies changes itself, within strict limits, and flags anything unclear for you. Everything is logged and can be undone.</span></li>
+      <li><b>Optional events go in; club bookings don't</b><span>Things you could go to are added as free "(optional)" events. Young Explorers sessions are left to you.</span></li>
+      <li><b>It runs on the laptop for now, then the Raspberry Pi</b><span>Same rules and scripts on both; the Pi gets them from GitHub.</span></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-labels">
+    <h2 id="h-labels">How mail gets labelled</h2>
+    <p>Each sorted thread gets one priority label and, optionally, one folder label. FYI and Bulk are archived, so they leave the Inbox but stay in their folder.</p>
+    <div class="labels">
+      <div class="label-row"><span class="chip">Triage/Action</span><span>Needs doing within a week: pay, sign, reply, book. Stays in the inbox.</span></div>
+      <div class="label-row"><span class="chip">Triage/NeedsDom</span><span>A real person or an important account, with no hard deadline. Stays in the inbox.</span></div>
+      <div class="label-row"><span class="chip">Triage/FYI</span><span>Deliveries, statements, notifications. Archived.</span></div>
+      <div class="label-row"><span class="chip">Triage/Bulk</span><span>Marketing, newsletters, surveys. Archived.</span></div>
+      <div class="label-row"><span class="chip">School/Trinity</span><span>New label. Trinity C of E School Lewisham.</span></div>
+      <div class="label-row"><span class="chip">School/Young Explorers</span><span>New label. Breakfast, after-school and holiday club.</span></div>
+      <div class="label-row"><span class="chip">Newsletters</span><span>New label. Latent Space, AI Secret and similar.</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-files">
+    <h2 id="h-files">What's in the project folder</h2>
+    <pre class="tree">Documents\Emails\
+├── CLAUDE.md                 <span class="c"># rules for the whole project</span>
+├── TODO.md                   <span class="c"># the project to-do list</span>
+├── config\                   <span class="c"># labels, ~55 sender rules, priority rules</span>
+├── .claude\commands\         <span class="c"># /sort-inbox, /school, /school-calendar-sync</span>
+├── .claude\settings.json     <span class="c"># what the scheduled job may and may not do</span>
+├── scripts\                  <span class="c"># sync runners (Windows + Pi), task installer</span>
+├── school\
+│   ├── CLAUDE.md             <span class="c"># school-only rules</span>
+│   ├── CALENDAR-SYNC.md      <span class="c"># how the sync works + Pi setup steps</span>
+│   ├── ROADMAP.md            <span class="c"># the 8 ideas + calendar design</span>
+│   ├── context.md            <span class="c"># Seb, staff, term dates, PE day, events</span>
+│   ├── newsletters.md        <span class="c"># all 8 newsletters read, findings</span>
+│   ├── senders.md            <span class="c"># Trinity + YEC addresses</span>
+│   ├── tools\read_sway.py    <span class="c"># reads a newsletter, no browser needed</span>
+│   └── apps-script\          <span class="c"># attachment saver (installed, runs every 15 min)</span>
+├── backlog\CLAUDE.md         <span class="c"># placeholder for later</span>
+└── logs\                     <span class="c"># run reports, undo log (stay on this machine)</span></pre>
+  </section>
+
+  <section aria-labelledby="h-warn">
+    <h2 id="h-warn">Things to know</h2>
+    <div class="warning">
+      <strong>Some staff signatures link to a spam site</strong>
+      <p>The school's real website is <span class="mono">trinitylewisham.org.uk</span> (it redirects to <span class="mono">trinity.lewisham.sch.uk</span>). Some staff email signatures link to <span class="mono">trinitylewisham.org</span> instead, without the <span class="mono">.uk</span>, and that address serves gambling spam. Don't tap links in signatures.</p>
+    </div>
+    <div class="warning">
+      <strong>Nothing new goes into the Notion school list</strong>
+      <p>The old job that filled the Notion School &amp; Childcare list is switched off. Outstanding actions come back with the action tracker and shared dashboard (roadmap item 2): built to avoid duplicates, and visible to Rosie.</p>
+    </div>
+    <div class="warning">
+      <strong>The sync needs the laptop on</strong>
+      <p>Runs only happen while the laptop is on and you're logged in; a missed run catches up when it wakes. Moving to the Pi removes this.</p>
+    </div>
+  </section>
+
+  <footer>Safety rules: Claude never sends, forwards, trashes or marks spam, and never deletes calendar events. Gmail commands are dry runs unless you say "live". The school calendar sync changes school events only, and logs every change.</footer>
+</main>

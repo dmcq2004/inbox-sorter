@@ -1,7 +1,7 @@
 # School calendar sync (hands-off)
 
 Keeps Google Calendar in step with Trinity and Young Explorers Club mail, newsletters and attachments, with no
-input from Dom. It replaces the old claude.ai `school-comms-triage` scheduled task (Dom switches that off once this has run live).
+input from Dom. It replaces the old claude.ai `school-comms-triage` scheduled task (Dom switched it off on 2026-11-07).
 
 ## How it works
 ```
@@ -39,7 +39,7 @@ Needs a **64-bit** Raspberry Pi OS (Claude Code supports Linux arm64; it doesn't
    so the Gmail, Calendar and Drive connectors come with it. Check with `claude mcp list` (all three should show "Connected").
 4. Copy the state from the laptop so it doesn't reprocess: `school/state/calendar-sync.json` (optional; without it the first run looks back 14 days).
 5. `chmod +x scripts/run-calendar-sync.sh`, then test: `scripts/run-calendar-sync.sh dry-run 14`
-6. `crontab -e`, then add (with `PULL=1` the Pi picks up rule changes pushed from the laptop):
+6. `crontab -e`, then add these lines (with `PULL=1` the Pi picks up rule changes pushed from the laptop; replace `/home/pi` with the Pi user's home directory, so ask Dom for the username):
    ```
    0 7 * * *   PULL=1 /home/pi/Emails/scripts/run-calendar-sync.sh live
    30 17 * * * PULL=1 /home/pi/Emails/scripts/run-calendar-sync.sh live

@@ -59,7 +59,7 @@ Only Reception-relevant or whole-school items are listed.
 ## Wraparound care: The Young Explorers Club (on the Trinity site)
 - Breakfast 7:15–8:45 (£10), after-school 15:15–18:15 (£16 incl. dinner), late pick-up £5 per 15 min.
 - tyec@hotmail.com, 07931 957 515. Rosie handles the bookings.
-- Times on the registration form (7:30/18:30) differ from the website (7:15/18:15). Not resolved.
+- Session times on the registration form (7:30/18:30) differ from the website (7:15/18:15). Not tracked: the family manages YEC.
 
 ## Warnings
 - **School website: `trinitylewisham.org.uk`**, which redirects to **`trinity.lewisham.sch.uk`** (checked 2026-11-07; genuine).

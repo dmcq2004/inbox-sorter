@@ -7,7 +7,15 @@ files that Dom can edit.
 Dom reads mail in his **phone's native Mail app (IMAP)**, not the Gmail app. Gmail labels appear there
 as folders, and archiving removes a message from the Inbox. Never rely on Dom setting anything up in Gmail.
 
+## Starting a session
+1. Read `TODO.md` (project to-dos, what's waiting on Dom) and `school/ROADMAP.md` (school module detail).
+2. For calendar or sync work, read `school/CALENDAR-SYNC.md`. To see how the hands-off sync is doing, read the newest file in `logs/calendar-sync/`.
+3. Don't redo finished work: what's done is ticked and dated in those files, and `git log` has the history.
+
 ## Where things are kept
+- **Summary page for Dom:** https://claude.ai/artifact/SLJ2edFMQSi5hLRydW3nKj, with its source in `docs/status-page.html`.
+  To update it: edit that file, then publish with the Artifact tool passing `url` (that link) and `file_path` (that file), so the link stays the same.
+  Keep it in step with `TODO.md` and `school/ROADMAP.md` when Dom asks for an update.
 - **To-dos:** `TODO.md` (whole project, including what's waiting on Dom) and `school/ROADMAP.md` (school detail). Read both at
   the start of a session; update them, with a date, when something is done, decided or blocked.
 - **Durable facts and decisions:** in the files below and `school/context.md`, not in chat.

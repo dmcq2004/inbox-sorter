@@ -69,7 +69,7 @@ International Food Night on 1 Oct, the absences (21 Sep, 13 Nov), and the NHS me
 - **Statuses go stale:** past events are still "Not started". Nothing closes them.
 - Nothing yet covers spring and summer events; they'll arrive by email and newsletter.
 
-### Proposed design (pending Dom's answers)
+### Design (agreed and implemented 2026-11-07; the authoritative rules are in `.claude/commands/school-calendar-sync.md`)
 - **One owner.** Either this project replaces the daily Notion→Calendar job, or that job keeps intake and this project only reconciles. Two writers means duplicates.
 - **Keep the existing conventions** so old and new events look the same: closures are all-day/free/green "(Seb)"; events use `Trinity: …` or `TYEC: …`.
 - **Event kinds:**
