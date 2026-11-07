@@ -15,9 +15,23 @@ to **Done** with a date, and keep any design notes in the item.
     (Resolved 7 Nov: PE day is Friday; Cinderella form done.)
 
 ## Up next (not prioritised)
-- [ ] **2. Action tracker.** One list of forms, payments and things to bring/wear, with due dates. Candidate home:
-  the Notion "School & Childcare" database (tidy its duplicates first: MCAS ×3, Young Explorers ×2).
-  Close items automatically when a receipt, confirmation or reply appears.
+- [ ] **2. Action tracker + shared view for Dom and Rosie.** One list of forms, payments and things to bring/wear, with due dates,
+  that **Rosie can see too** (a private claude.ai page is ruled out because she can't open it). Not urgent; design notes from 2026-11-07:
+  - **Dom's main worry: duplicates.** The old Notion list got messy because there was one row per *email* (the panto appeared
+    in 8 newsletters), no stable key, statuses that were never closed, and more than one writer. The rules for the new version:
+    1. **One row per real-world thing,** keyed like the calendar: `[school-sync:<key>]` stored in a property. Always update in place, never insert twice.
+    2. **One writer:** only the sync creates rows. People only tick status (and the sync respects their ticks).
+    3. **Auto-close:** done when a receipt, confirmation or reply appears, or when the date has passed for no-action items.
+    4. **Clean start:** archive the old database (or dedupe it) rather than layering new rows on top of the mess.
+  - **Dom's second point: a good-looking view gets used more.** Separate sections: *Do this* · *Next 14 days* ·
+    *What to bring or wear this week* · *Needs Dom* · *Last sync*.
+  - **Where it could live (to decide):**
+    - (a) A **Notion dashboard page** shared with Rosie, built from linked views of the action list plus a calendar view. Both have
+      Notion on their phones, it works anywhere, and there's no hosting. Looks decent rather than bespoke.
+    - (b) A **custom page on the Pi**, regenerated each sync. It can look exactly how we want, but only on home Wi-Fi (or with Tailscale on both phones).
+    - Either way, the view only *reads* the calendar and the action list and stores nothing itself, so it can't create duplicates.
+  - **Related:** a shared "Seb · School" Google Calendar with Rosie (Dom creates it and shares it on the web; then the events
+    move across with his OK, and the sync writes only there). Rosie gets the events in her own calendar app.
 - [ ] **3. Weekly school brief.** Sunday evening: this week's events, what to bring or wear, pick-up times,
   club bookings, open actions. Check against Dom's `weekly-family-brief` skill so the two don't overlap.
 - [x] **4. Read Sway newsletters.** Done 2026-11-07: `school/tools/read_sway.py` reads them via Sway's public
