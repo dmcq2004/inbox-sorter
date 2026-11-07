@@ -40,7 +40,7 @@ BrewDog (344), Finisterre (198), Substack (3,785), Variant Perception (167), Lin
 | Newsletters | 0 | keep | Latent Space, AI Secret, Dave Wang, etc. (created 2026-11-07) |
 
 ## Prune decisions (Dom, 2026-11-07)
-**Delete** (approved; not done yet, because the Gmail MCP can't delete labels):
+**Deleted 2026-11-07** (through Gmail web settings, since the Gmail MCP can't delete labels):
 - Empty: Facebook, Ray Dalio, H20.ai, Atomic Habits, Macro-Ops, 888, RealVision, Student Loans, Medium, Clearscore, Goehring & Rozencwajg
 - A few threads (the mail stays in All Mail): Microsoft (1), Fightzone (3), INBOX/Health Insurance (1), BrewDog/Equity for Punks (2)
 
