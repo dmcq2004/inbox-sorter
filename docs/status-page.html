@@ -125,9 +125,9 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
 
 <main>
   <header style="display:grid;gap:12px">
-    <div class="eyebrow">Gmail · dmcq2004 · status at 7 Nov 2026, evening</div>
+    <div class="eyebrow">Gmail · dmcq2004 · status at 7 Nov 2026, late evening</div>
     <h1>Inbox Sorter</h1>
-    <p class="lede">Claude sorts your Gmail into labels that show up as folders in your phone's Mail app. The school module reads Trinity and Young Explorers emails, attachments and newsletters. The school calendar now updates itself twice a day from this laptop, and will move to the Raspberry Pi later. Nothing in your inbox has been relabelled yet.</p>
+    <p class="lede">Claude sorts your Gmail into labels that show up as folders in your phone's Mail app. The school module reads Trinity, Young Explorers and school-lunch emails, attachments and newsletters. The school calendar updates itself twice a day from this laptop, and will move to the Raspberry Pi later. The first live sort ran on 7 Nov: 138 emails from the past week were labelled, 123 archived, and 15 left in your inbox.</p>
   </header>
 
   <section aria-labelledby="h-phases">
@@ -158,8 +158,8 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
         <p>Push the repo to GitHub, install Claude Code on the Pi (64-bit OS) and sign in, then add two cron lines. Steps are in <code>school/CALENDAR-SYNC.md</code>. Then remove the laptop task.</p>
       </li>
       <li class="next">
-        <div class="phase-head"><h3>3. General sorter</h3><span class="pill next">Next</span></div>
-        <p>A dry run on the last 7 days for you to review, then live runs, then a routine several times a day.</p>
+        <div class="phase-head"><h3>3. General sorter</h3><span class="pill next">First run done</span></div>
+        <p>Labels tidied (4 created, 15 deleted) and sender rules reviewed (now 70). After a dry run and a few rule fixes, the first live run on 7 Nov sorted the past week: Action 2, NeedsDom 13, FYI 36, Bulk 87. Every change is logged so it can be undone. Next: you check it on your phone for a few days, then it runs on a schedule several times a day.</p>
       </li>
       <li>
         <div class="phase-head"><h3>5. Backlog clean-up</h3><span class="pill later">Later</span></div>
@@ -175,8 +175,8 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
         <span class="why">Both are in the calendar: Tue 1 Dec 10:00 and Wed 2 Dec 14:15. Delete the one you won't go to, or tell me.</span></li>
       <li><strong>Create a private GitHub repo</strong>
         <span class="why">All the work is committed locally, but there's no GitHub repo yet. Send me the repo URL and I'll push; the Pi then pulls from it.</span></li>
-      <li><strong>Review the labels and sender rules</strong>
-        <span class="why"><code>config/labels.md</code> (4 new labels, about 25 to delete) and <code>config/sender-rules.yaml</code> (about 55 rules). Needed before the general sorter does its first dry run.</span></li>
+      <li><strong>Check the sorted inbox on your phone</strong>
+        <span class="why">Look at the inbox and the new folders for a few days. Tell me anything that landed in the wrong place; that's what the scheduled sorter is waiting on. Two Action items are in the inbox now: Berry Bros (your stored card is expiring) and Impact Food (order school lunches).</span></li>
     </ol>
   </section>
 
@@ -263,6 +263,10 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
       <li><b>Optional events go in; club bookings don't</b><span>Things you could go to are added as free "(optional)" events. Young Explorers sessions are left to you.</span></li>
       <li><b>Keep attachment copies until the summer term ends</b><span>They're small, and they let Claude re-read letters later. Purge the year's files after 20 Jul 2027, since you're on free Google storage.</span></li>
       <li><b>It runs on the laptop for now, then the Raspberry Pi</b><span>Same rules and scripts on both; the Pi gets them from GitHub.</span></li>
+      <li><b>Labels tidied</b><span>4 created (School, School/Trinity, School/Young Explorers, Newsletters) and 15 deleted: 11 empty ones plus Microsoft, Fightzone, Health Insurance and Equity for Punks. Notes is kept, because it holds your old iPhone notes.</span></li>
+      <li><b>Family mail always stays in the inbox</b><span>Dad, Mum and Greg go into their Correspondence folders; Rosemarie has no folder. All of it is NeedsDom.</span></li>
+      <li><b>Payment problems always stay in the inbox</b><span>Subjects with "payment failed", "declined", "overdue" or "payment due" from banks, shops and subscriptions become Action, as do Admiral renewals.</span></li>
+      <li><b>School lunches are part of the school module</b><span>Impact Food (Innovate) emails go in School/Trinity. "Order lunches" reminders are Action.</span></li>
     </ul>
   </section>
 
@@ -274,9 +278,9 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
       <div class="label-row"><span class="chip">Triage/NeedsDom</span><span>A real person or an important account, with no hard deadline. Stays in the inbox.</span></div>
       <div class="label-row"><span class="chip">Triage/FYI</span><span>Deliveries, statements, notifications. Archived.</span></div>
       <div class="label-row"><span class="chip">Triage/Bulk</span><span>Marketing, newsletters, surveys. Archived.</span></div>
-      <div class="label-row"><span class="chip">School/Trinity</span><span>New label. Trinity C of E School Lewisham.</span></div>
-      <div class="label-row"><span class="chip">School/Young Explorers</span><span>New label. Breakfast, after-school and holiday club.</span></div>
-      <div class="label-row"><span class="chip">Newsletters</span><span>New label. Latent Space, AI Secret and similar.</span></div>
+      <div class="label-row"><span class="chip">School/Trinity</span><span>Trinity C of E School Lewisham, including school-lunch emails. Created 7 Nov.</span></div>
+      <div class="label-row"><span class="chip">School/Young Explorers</span><span>Breakfast, after-school and holiday club. Created 7 Nov.</span></div>
+      <div class="label-row"><span class="chip">Newsletters</span><span>Latent Space, AI Secret, Dave Wang, Sandalwood and similar. Created 7 Nov.</span></div>
     </div>
   </section>
 
@@ -285,7 +289,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
     <pre class="tree">Documents\Emails\
 ├── CLAUDE.md                 <span class="c"># rules for the whole project</span>
 ├── TODO.md                   <span class="c"># the project to-do list</span>
-├── config\                   <span class="c"># labels, ~55 sender rules, priority rules</span>
+├── config\                   <span class="c"># labels, 70 sender rules, priority rules</span>
 ├── .claude\commands\         <span class="c"># /sort-inbox, /school, /school-calendar-sync</span>
 ├── .claude\settings.json     <span class="c"># what the scheduled job may and may not do</span>
 ├── scripts\                  <span class="c"># sync runners (Windows + Pi), task installer</span>
@@ -295,7 +299,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
 │   ├── ROADMAP.md            <span class="c"># the 8 ideas + calendar design</span>
 │   ├── context.md            <span class="c"># Seb, staff, term dates, PE day, events</span>
 │   ├── newsletters.md        <span class="c"># all 8 newsletters read, findings</span>
-│   ├── senders.md            <span class="c"># Trinity + YEC addresses</span>
+│   ├── senders.md            <span class="c"># Trinity, YEC + school-lunch addresses</span>
 │   ├── tools\read_sway.py    <span class="c"># reads a newsletter, no browser needed</span>
 │   └── apps-script\          <span class="c"># attachment saver (installed, runs every 15 min)</span>
 ├── backlog\CLAUDE.md         <span class="c"># placeholder for later</span>

@@ -9,7 +9,7 @@ Last updated: 2026-11-07.
 - [x] **Attachment saver installed** (2026-11-07): Apps Script project "Save School Attachments", backfill saved 26 files, runs every 15 min.
 - [x] **Labels reviewed** (2026-11-07): 4 new labels created; 15 to delete (see `config/labels.md`).
 - [x] **15 approved labels deleted** (2026-11-07, through Chrome).
-- [x] **Sender rules reviewed** (2026-11-07): family rules, payment-problem override, Admiral, 9 rules for active senders. Now 62 rules.
+- [x] **Sender rules reviewed** (2026-11-07): family rules, payment-problem override, Admiral, 9 rules for active senders (70 rules after the dry-run fixes).
 - [x] **Switched off the old claude.ai `school-comms-triage` daily job** (Dom, 2026-11-07). The laptop sync has taken over.
 - [ ] **Push the repo to GitHub** (private) when you're ready to move the sync to the Pi (steps in `school/CALENDAR-SYNC.md`).
 
