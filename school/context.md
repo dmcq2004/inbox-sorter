@@ -48,7 +48,7 @@ INSET days: 2 Sep, 27 Nov, 4 Jan, 12 Apr.
 Only Reception-relevant or whole-school items are listed.
 - 13 Nov: Sebastian absent (Netherlands trip; Rosie told the office on 4 Nov)
 - 17 Nov: individual & sibling photo day
-- 25 Nov: NHS Child Measurement Programme (Reception & Y6), plus a wellbeing coffee morning at 9:00
+- 25 Nov: NHS Child Measurement Programme (Reception & Y6). Letter read: no action needed; opt out only via lg.shsscreening@nhs.net or 020 3049 3415. Also a wellbeing coffee morning at 9:00 (optional)
 - **27 Nov: INSET, no school**
 - 1–2 Dec: Reception nativity, Tue 1 Dec 10:00 and Wed 2 Dec 14:15
 - 4 Dec: PAFT Christmas Fair, from 2:30pm
