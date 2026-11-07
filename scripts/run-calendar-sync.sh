@@ -8,11 +8,12 @@ set -uo pipefail
 MODE="${1:-live}"
 DAYS="${2:-0}"
 TIMEOUT_MIN="${TIMEOUT_MIN:-30}"
+MODEL="${MODEL:-claude-opus-5-5}"   # pinned after the Sonnet/Opus comparison on 2026-11-07
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT" || exit 1
 mkdir -p logs/scheduler logs/calendar-sync school/state
-STAMP="$(date +%Y-%m-%d_%H%M)"
+STAMP="$(date +%Y-%m-%d_%H%M%S)"
 LOG="logs/scheduler/${STAMP}-${MODE}.log"
 
 # cron has a minimal PATH; claude's native installer puts it in ~/.local/bin
@@ -28,7 +29,7 @@ ALLOWED="mcp__claude_ai_Google_Calendar__create_event,mcp__claude_ai_Google_Cale
 exec 9>logs/scheduler/.lock
 if ! flock -n 9; then echo "$(date -Is) Skipped: another sync is running" >> logs/scheduler/skipped.log; exit 0; fi
 
-timeout "${TIMEOUT_MIN}m" claude -p "/school-calendar-sync $ARGS" --allowedTools "$ALLOWED" --max-turns 120 >"$LOG" 2>"$LOG.err"
+timeout "${TIMEOUT_MIN}m" claude -p "/school-calendar-sync $ARGS" --allowedTools "$ALLOWED" --max-turns 120 ${MODEL:+--model "$MODEL"} >"$LOG" 2>"$LOG.err"
 RC=$?
 [ $RC -eq 124 ] && echo "SYNC FAILED: timed out after ${TIMEOUT_MIN} minutes" >>"$LOG"
 grep -qE 'SYNC (live|dry-run) OK' "$LOG" && exit 0 || exit 1

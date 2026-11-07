@@ -4,7 +4,8 @@
 param(
     [ValidateSet('live', 'dry-run')] [string]$Mode = 'live',
     [int]$Days = 0,
-    [int]$TimeoutMinutes = 30
+    [int]$TimeoutMinutes = 30,
+    [string]$Model = 'claude-opus-5-5'   # pinned after the Sonnet/Opus comparison on 2026-11-07
 )
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $PSScriptRoot
@@ -14,7 +15,7 @@ $LogDir = Join-Path $Root 'logs\scheduler'
 New-Item -ItemType Directory -Force $LogDir | Out-Null
 New-Item -ItemType Directory -Force (Join-Path $Root 'logs\calendar-sync') | Out-Null
 New-Item -ItemType Directory -Force (Join-Path $Root 'school\state') | Out-Null
-$Stamp = Get-Date -Format 'yyyy-MM-dd_HHmm'
+$Stamp = Get-Date -Format 'yyyy-MM-dd_HHmmss'
 $Log = Join-Path $LogDir "$Stamp-$Mode.log"
 
 # Single-run lock (stale after 60 min)
@@ -43,7 +44,7 @@ try {
 
     $p = Start-Process -FilePath $Claude -NoNewWindow -PassThru `
         -RedirectStandardOutput $Log -RedirectStandardError "$Log.err" `
-        -ArgumentList @('-p', "`"/school-calendar-sync $ArgsText`"", '--allowedTools', "`"$Allowed`"", '--max-turns', '120')
+        -ArgumentList (@('-p', "`"/school-calendar-sync $ArgsText`"", '--allowedTools', "`"$Allowed`"", '--max-turns', '120') + $(if ($Model) { @('--model', $Model) } else { @() }))
     if (-not $p.WaitForExit($TimeoutMinutes * 60 * 1000)) {
         $p.Kill()
         "SYNC FAILED: timed out after $TimeoutMinutes minutes" | Out-File -Append -Encoding utf8 $Log

@@ -51,3 +51,6 @@ Needs a **64-bit** Raspberry Pi OS (Claude Code supports Linux arm64; it doesn't
 - Latest report: newest file in `logs/calendar-sync/`. Look at **Needs Dom** first.
 - A failed run ends with `SYNC FAILED: …` in `logs/scheduler/`, and the scheduler records a non-zero exit code.
 - To undo a change: find it in `logs/runs/<date>.md` and delete or revert that event id.
+
+## Model
+Pinned to **claude-opus-5-5** in both runners (`-Model` / `MODEL=`). On 2026-11-07, Sonnet 5.5 was compared with Opus on identical inputs: Sonnet was 3x faster but skimmed thread summaries and repeated an unverified claim from an earlier report, while Opus read everything and applied the rules fully. Reports from that comparison: `logs/calendar-sync/compare-*.md`.
