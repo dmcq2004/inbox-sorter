@@ -9,7 +9,7 @@ to **Done** with a date, and keep any design notes in the item.
   - [x] 2026-11-07: Autumn-term backfill, 10 changes approved and made (see `logs/runs/2026-11-07.md`).
   - [x] 2026-11-07: **hands-off** sync built as `/school-calendar-sync` (Dom chose hands-off over approve-first), run headlessly
     by `scripts/run-calendar-sync.{ps1,sh}`, scheduled on the laptop at 07:00 and 17:30. Design and Pi steps are in `school/CALENDAR-SYNC.md`.
-  - [ ] Dom switches off the old claude.ai `school-comms-triage` job.
+  - [x] Dom switched off the old claude.ai `school-comms-triage` job (2026-11-07).
   - [ ] Move to the Raspberry Pi.
   - [ ] Open: nativity session choice (delete the other one). (YEC bookings are the family's call, not tracked.)
     (Resolved 7 Nov: PE day is Friday; Cinderella form done.)
