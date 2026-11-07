@@ -43,7 +43,7 @@ The lookback is from 2 days before `last_success_utc` (or 14 days if there's no 
 
 ### 2. Collect
 - Gmail: `search_threads` with
-  `after:<YYYY/MM/DD> {from:15511@bromcomcloud.com from:trinity.lewisham.sch.uk from:mychildatschool.com from:tyec@hotmail.com to:trinity.lewisham.sch.uk cc:trinity.lewisham.sch.uk to:tyec@hotmail.com cc:tyec@hotmail.com}`
+  `after:<YYYY/MM/DD> {from:15511@bromcomcloud.com from:trinity.lewisham.sch.uk from:mychildatschool.com from:impactfood.co.uk from:tyec@hotmail.com to:trinity.lewisham.sch.uk cc:trinity.lewisham.sch.uk to:tyec@hotmail.com cc:tyec@hotmail.com}`
   (page through all results). Skip threads in `processed_threads` whose message count hasn't changed.
 - For each remaining thread, `get_thread` (PLAIN_TEXT; if a newsletter link isn't in the plain text, use FULL_CONTENT and find the
   `sway.cloud.microsoft/<id>` link in the HTML).

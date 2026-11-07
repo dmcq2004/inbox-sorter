@@ -31,6 +31,7 @@ when the school sends new dates. Last updated 2026-11-07.
 - **PE day: Friday.** Seb goes in PE kit (blue sweatshirt and bottoms, white polo, black trainers); the school checks it.
 - Uniform: Trinity logo jumper and tie (WearAbouts, Sydenham), white shirt, black/grey bottoms, all-black shoes. PE kit: blue sweatshirt and bottoms, white polo, black trainers.
 - Systems: Bromcom (`15511@bromcomcloud.com`) for school comms; MyChildAtSchool (MCAS) parent portal for payments.
+- School lunches: ordered through Innovate (Impact Food, `impactfood.co.uk`), which sends "order this week" reminders.
 
 ## Term dates 2026–27 ("subject to change for INSET days")
 | Term | Dates | Notes |

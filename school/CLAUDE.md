@@ -11,6 +11,7 @@ Read the root `CLAUDE.md` first. Its safety rules apply here too. This file adds
 
 ## Labelling
 Every in-scope thread gets its folder label from `senders.md` (`School/Trinity` or `School/Young Explorers`) plus one priority.
+For Impact Food (school lunches), a reminder to order lunches is `Action` and anything else is `FYI`.
 For YEC, booking forms, payments and session changes are `Action`; a thread where Rosie is already handling it and only cc's Dom is `FYI`, unless someone asks Dom something directly.
 Priorities:
 - `Triage/Action`: there's a deadline, payment, consent form, permission slip, reply needed, or something to bring or wear on a date.

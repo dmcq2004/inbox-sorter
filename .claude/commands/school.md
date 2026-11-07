@@ -12,7 +12,7 @@ Arguments: $ARGUMENTS
 Steps:
 1. Read `school/CLAUDE.md`, `school/senders.md` and `school/context.md`.
 2. Build a query from every row of senders.md, matching from, to and cc, e.g.
-   `newer_than:<N>d {from:15511@bromcomcloud.com from:trinity.lewisham.sch.uk from:mychildatschool.com from:tyec@hotmail.com to:trinity.lewisham.sch.uk cc:trinity.lewisham.sch.uk to:tyec@hotmail.com cc:tyec@hotmail.com}`.
+   `newer_than:<N>d {from:15511@bromcomcloud.com from:trinity.lewisham.sch.uk from:mychildatschool.com from:impactfood.co.uk from:tyec@hotmail.com to:trinity.lewisham.sch.uk cc:trinity.lewisham.sch.uk to:tyec@hotmail.com cc:tyec@hotmail.com}`.
 3. Use `get_thread` on each result and extract actions, dates and FYIs. Read attachments from Drive per `school/CLAUDE.md`.
 4. Write the digest to `school/digests/<today>.md` and print it.
 5. If live: apply `School/Trinity` + priority, archive FYI, and log to `logs/runs/<today>.md`.

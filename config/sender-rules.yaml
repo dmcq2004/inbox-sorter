@@ -185,10 +185,6 @@ rules:
     folder: null
     priority: FYI
     subject_override: { NeedsDom: [subscribed] }   # new paid subscriptions
-  - match: impactfood.co.uk        # Innovate: Trinity school lunches
-    folder: School/Trinity
-    priority: FYI
-    subject_override: { Action: [order] }
   - match: noreply-accounts@google.com
     folder: Google
     priority: FYI
