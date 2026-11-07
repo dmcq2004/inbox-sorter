@@ -6,7 +6,7 @@ Last updated: 2026-11-07.
 
 ## Waiting on Dom
 - [ ] **Nativity:** pick Tue 1 Dec 10:00 or Wed 2 Dec 14:15, then delete the other calendar event.
-- [ ] **Install the attachment saver** at script.google.com (steps in `school/apps-script/README.md`).
+- [x] **Attachment saver installed** (2026-11-07): Apps Script project "Save School Attachments", backfill saved 26 files, runs every 15 min.
 - [ ] **Review `config/labels.md`** (4 new labels, ~25 to prune) and **`config/sender-rules.yaml`** (~55 rules).
 - [x] **Switched off the old claude.ai `school-comms-triage` daily job** (Dom, 2026-11-07). The laptop sync has taken over.
 - [ ] **Push the repo to GitHub** (private) when you're ready to move the sync to the Pi (steps in `school/CALENDAR-SYNC.md`).

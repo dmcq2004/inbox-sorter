@@ -24,3 +24,10 @@ It only **reads** Gmail and **creates files** in Drive. It never sends, deletes 
 ## Changing or stopping it
 - Add a sender: edit `SOURCES` in the script and keep `school/senders.md` in step.
 - Stop it: run `uninstallTrigger`.
+
+## Installed
+2026-11-07, in Dom's account: project "Save School Attachments"
+(https://script.google.com/home/projects/1sP6biVHtJsJleOMVABFynoLU-pfqkhB8LOsu_LS5dWCdBfTnQ9LaQ-eN/edit).
+The backfill saved 26 attachments; the trigger `saveRecent` runs every 15 minutes.
+Drive folders: Trinity › Email attachments (`1vNGqSBo51pa1Sen-JbV9Ic7LbnZQARj8`) and Trinity › Young Explorers Club (`1fzX218MYElQe_eIhdBOWIzCxocyGBuM8`).
+If you change the script here, paste it into that project too, since the project doesn't sync with this repo.
