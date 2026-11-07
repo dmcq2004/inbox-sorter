@@ -11,7 +11,7 @@ Last updated: 2026-11-07.
 - [x] **15 approved labels deleted** (2026-11-07, through Chrome).
 - [x] **Sender rules reviewed** (2026-11-07): family rules, payment-problem override, Admiral, 9 rules for active senders (70 rules after the dry-run fixes).
 - [x] **Switched off the old claude.ai `school-comms-triage` daily job** (Dom, 2026-11-07). The laptop sync has taken over.
-- [ ] **Push the repo to GitHub** (private) when you're ready to move the sync to the Pi (steps in `school/CALENDAR-SYNC.md`).
+- [x] **Repo pushed to GitHub** (2026-11-07): private, https://github.com/dmcq2004/inbox-sorter, branch `main`. Pushes need Dom (`! git push`); Claude Code's permission check blocks Claude from pushing.
 
 ## Phases
 - [x] **1. Audit the mailbox:** labels, inbox sample, draft rules (2026-11-07)

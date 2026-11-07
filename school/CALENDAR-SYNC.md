@@ -34,7 +34,9 @@ All of these are machine-local (git-ignored).
 
 ## Moving to the Raspberry Pi
 Needs a **64-bit** Raspberry Pi OS (Claude Code supports Linux arm64; it doesn't support 32-bit).
-1. Push this repo to GitHub (private). On the Pi: `git clone <repo> ~/Emails`
+1. The repo is on GitHub (private): `https://github.com/dmcq2004/inbox-sorter`, branch `main`. Give the Pi a read-only deploy key
+   (`ssh-keygen -t ed25519` on the Pi, then add the `.pub` under the repo's Settings › Deploy keys, write access off), then
+   `git clone git@github.com:dmcq2004/inbox-sorter.git ~/Emails`
 2. Install Claude Code: `curl -fsSL https://claude.ai/install.sh | bash`. Python 3 is already on Raspberry Pi OS (the script needs only the standard library).
 3. Sign in once, interactively: run `claude` in `~/Emails` and log in with the **same claude.ai account** (dmcq2004@gmail.com),
    so the Gmail, Calendar and Drive connectors come with it. Check with `claude mcp list` (all three should show "Connected").
