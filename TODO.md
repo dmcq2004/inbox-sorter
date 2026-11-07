@@ -29,7 +29,7 @@ Last updated: 2026-11-07.
 ## Housekeeping
 - [ ] Keep the summary page (https://claude.ai/artifact/SLJ2edFMQSi5hLRydW3nKj) in step with this file and `school/ROADMAP.md`.
 - [ ] Notion School & Childcare database: fix `Child` = "Both" on Trinity items (should be "Seb"), plus stale statuses. Part of the action-tracker work.
-- [ ] Tell the Trinity office their `trinitylewisham.org` domain is serving spam (optional; Dom's call).
+- [ ] Tell the Trinity office that some staff email signatures link to `trinitylewisham.org` (a spam site) instead of `trinitylewisham.org.uk` (optional; Dom's call).
 
 ## Done log
 - 2026-11-07: project started; plan approved; school calendar backfilled; newsletters readable without a browser.

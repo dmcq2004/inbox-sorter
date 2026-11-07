@@ -40,7 +40,7 @@ when the school sends new dates. Last updated 2026-11-07.
 | Lent | **Mon 4 Jan 2027 (INSET)**; first day Tue 5 Jan – Fri 12 Feb | Half term 15–19 Feb |
 | | Mon 22 Feb – **Thu 25 Mar 2027** | Early closure |
 | Summer | **Mon 12 Apr 2027 (INSET)**; first day Tue 13 Apr – Fri 28 May | Half term 31 May – 4 Jun |
-| | Mon 7 Jun – **Tue 20 Jul 2027** | End of year, early closure |
+| | Mon 7 Jun – **Tue 20 Jul 2027** | End of year, **finish 12:15** (school website) |
 
 INSET days: 2 Sep, 27 Nov, 4 Jan, 12 Apr.
 
@@ -62,7 +62,10 @@ Only Reception-relevant or whole-school items are listed.
 - Times on the registration form (7:30/18:30) differ from the website (7:15/18:15). Not resolved.
 
 ## Warnings
-- **`trinitylewisham.org`** (the domain in staff email signatures) served gambling spam on 2026-11-07. It looks hijacked, so never follow links to it. The booklet lists `trinitylewisham.org.uk`, which hasn't been checked.
+- **School website: `trinitylewisham.org.uk`**, which redirects to **`trinity.lewisham.sch.uk`** (checked 2026-11-07; genuine).
+  Term dates: http://www.trinity.lewisham.sch.uk/key-information/family-information/term-dates
+- **`trinitylewisham.org`** (without `.uk`) is **not** the school: it served gambling spam on 2026-11-07. Some staff email signatures
+  hyperlink to it by mistake, so never follow those links.
 
 ## Sources
 - Drive › Trinity folder: `Welcome Booklet Trinity EYFS Updated Final (1).pdf` (term dates, staff, uniform),
