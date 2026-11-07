@@ -27,6 +27,8 @@ Read first: `school/CLAUDE.md`, `school/context.md` and `school/senders.md`, plu
    **Include optional events the family could go to** (decided by Dom, 2026-11-07): parent coffee mornings, PAFT events, school-promoted
    community events, and dated items with no year group stated that aren't clearly for another year. Add `(optional)` to the title,
    set them to free, and put "details TBC" in the title if the time isn't known.
+   **Young Explorers Club bookings** (sessions added or cancelled, drop-off/pick-up changes) are decided by the family: **don't**
+   create events for them and don't list them under "Needs Dom" (Dom, 2026-11-07). Only club closures and club-wide events count.
 6. **At most 12 calendar writes per run.** If more are needed, apply the 12 most urgent (soonest), and list the rest under "Needs Dom".
 7. When unsure about a date, time or relevance, **don't write to the calendar**: put it under "Needs Dom" with the source.
 8. Don't send, draft, label or archive email, and don't write to Notion. This job only reads mail and writes to Calendar and its own files.

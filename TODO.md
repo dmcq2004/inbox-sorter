@@ -10,7 +10,6 @@ Last updated: 2026-11-07.
 - [ ] **Install the attachment saver** at script.google.com (steps in `school/apps-script/README.md`).
 - [ ] **Review `config/labels.md`** (4 new labels, ~25 to prune) and **`config/sender-rules.yaml`** (~55 rules).
 - [ ] **Switch off the old claude.ai `school-comms-triage` daily job.** The hands-off sync is now live on the laptop (from 2026-11-07).
-- [ ] **TYEC booking changes:** should one-off club changes (e.g. breakfast club added Fri 20 Nov) get drop-off/pick-up events?
 - [ ] **Push the repo to GitHub** (private) when you're ready to move the sync to the Pi (steps in `school/CALENDAR-SYNC.md`).
 
 ## Phases
