@@ -1,5 +1,5 @@
 ---
-description: Hands-off school calendar sync. Reads new Trinity/YEC mail, newsletters and attachments, and keeps Google Calendar right.
+description: Hands-off school calendar sync. Reads new Trinity/YEC mail, newsletters and attachments, files the school threads, and keeps Google Calendar right.
 argument-hint: "[live|dry-run] [days=N]"
 ---
 
@@ -10,7 +10,7 @@ is watching, so never ask questions and never wait for input. If something is un
 the report and move on.
 
 Arguments: $ARGUMENTS
-- `live` applies calendar changes. `dry-run` (the default if neither is given) changes nothing in Calendar and only writes the report.
+- `live` applies calendar changes and files the school threads. `dry-run` (the default if neither is given) changes nothing in Calendar or Gmail and only writes the report.
 - `days=N` overrides the lookback window (see step 1).
 
 Read first: `school/CLAUDE.md`, `school/context.md` and `school/senders.md`, plus the "Calendar design" section of `school/ROADMAP.md`.
@@ -31,7 +31,9 @@ Read first: `school/CLAUDE.md`, `school/context.md` and `school/senders.md`, plu
    create events for them and don't list them under "Needs Dom" (Dom, 2026-11-07). Only club closures and club-wide events count.
 6. **At most 12 calendar writes per run.** If more are needed, apply the 12 most urgent (soonest), and list the rest under "Needs Dom".
 7. When unsure about a date, time or relevance, **don't write to the calendar**: put it under "Needs Dom" with the source.
-8. Don't send, draft, label or archive email, and don't write to Notion. This job only reads mail and writes to Calendar and its own files.
+8. Gmail: only `label_thread` and `unlabel_thread`, only on the school threads this run read in step 2, and only with the labels in step 6.
+   Never send, draft, trash or mark spam, never create, rename or delete a label, and don't write to Notion.
+   This job reads mail, files school threads, and writes to Calendar and its own files.
 9. Don't commit to git.
 
 ## Steps
@@ -87,21 +89,38 @@ Then decide:
 Every description: one or two lines of detail, then `Source: <name> (<url>)`, then `[school-sync:<key>]` on its own line.
 Use the default `notificationLevel` NONE for updates.
 
-### 6. Report and state (always, in dry-run too)
+### 6. File the school threads
+You've read these threads properly, so you file them, not the general sorter. That way an email with a loose end isn't
+archived as FYI (on 12 Nov the Home Learning email was archived although its attachment couldn't be read).
+For every thread you read with `get_thread` in step 2 (new threads, and threads with new messages), at most 30 per run:
+- Choose the folder and priority by the **Labelling** rules in `school/CLAUDE.md`, using everything you found, including attachments and dates.
+  A loose end that's Dom's to resolve makes it `Triage/NeedsDom` (see those rules).
+- Call `list_labels` once to get the label ids. If a label is missing, skip that thread and list it under "Needs Dom". Don't create labels.
+- Apply them in **live** mode only: `label_thread` to add the folder and priority, then `unlabel_thread` for any other `Triage/*` label on the
+  thread, and for `INBOX` if the priority is FYI. If the priority is Action or NeedsDom and the thread isn't in the inbox, add `INBOX` back.
+- Never lower a priority already on the thread (Action > NeedsDom > FYI). Only keep it or raise it.
+- Threads you skipped as unchanged are left alone. Anything you don't file, the general sorter files later.
+- If a Gmail call fails, retry once; then note the thread under "Needs Dom" and carry on.
+
+### 7. Report and state (always, in dry-run too)
 Write `logs/calendar-sync/<YYYY-MM-DD_HHMM>.md`:
 ```
 # School calendar sync, <local date time>, <live|dry-run>
 Window: <from> → <to>. Threads read: N. Newsletters read: N. Attachments read: N.
 ## Calendar changes        (dry-run: "would make")
 | action | date | title | event id | source |
+## Email labels            (dry-run: "would apply")
+| thread | subject | folder | priority | archived | why (one line) |
 ## Needs Dom
 - ...  (unclear items, unread attachments, more than 12 writes, anything odd)
 ## Skipped (not for Seb / already correct)
 - one line each
 ```
 In **live** mode only:
-- Append each change to `logs/runs/<YYYY-MM-DD>.md` (same table format as existing entries) for undo.
+- Append each change to `logs/runs/<YYYY-MM-DD>.md` (same table format as existing entries) for undo. Label changes go in the
+  sorter's table format: `time | threadId | sender | subject | labels added | archived`, also noting any labels removed.
 - Update `school/state/calendar-sync.json`: `last_success_utc` = run start, and add processed thread ids (with message counts) and Sway ids.
-- Add newly read newsletters to the table in `school/newsletters.md` (status `read <date> (sync)`).
+- Don't edit `school/newsletters.md`. It's tracked in git, and an edit there would stop the Pi from pulling rule updates.
+  The read newsletters are recorded in `processed_sways` and their texts in `school/newsletters/`.
 
-Finish by printing one line: `SYNC <live|dry-run> OK: <n> changes, <m> needs-Dom` (or `SYNC FAILED: <reason>`).
+Finish by printing one line: `SYNC <live|dry-run> OK: <n> changes, <t> threads filed, <m> needs-Dom` (or `SYNC FAILED: <reason>`).

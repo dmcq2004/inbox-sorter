@@ -33,18 +33,19 @@ try {
     $ArgsText = $Mode
     if ($Days -gt 0) { $ArgsText += " days=$Days" }
 
-    # Tools on top of .claude/settings.json, for this job only: calendar writes and the job's own files.
+    # Tools on top of .claude/settings.json, for this job only: calendar writes, labelling school threads, and the job's own files.
     $Allowed = @(
         'mcp__claude_ai_Google_Calendar__create_event',
         'mcp__claude_ai_Google_Calendar__update_event',
+        'mcp__claude_ai_Gmail__label_thread', 'mcp__claude_ai_Gmail__unlabel_thread',
         'Edit(school/state/**)',
-        'Edit(school/newsletters/**)', 'Edit(school/newsletters.md)',
+        'Edit(school/newsletters/**)',
         'Edit(logs/**)'
     ) -join ','
 
     $p = Start-Process -FilePath $Claude -NoNewWindow -PassThru `
         -RedirectStandardOutput $Log -RedirectStandardError "$Log.err" `
-        -ArgumentList (@('-p', "`"/school-calendar-sync $ArgsText`"", '--allowedTools', "`"$Allowed`"", '--max-turns', '120') + $(if ($Model) { @('--model', $Model) } else { @() }))
+        -ArgumentList (@('-p', "`"/school-calendar-sync $ArgsText`"", '--allowedTools', "`"$Allowed`"", '--max-turns', '160') + $(if ($Model) { @('--model', $Model) } else { @() }))
     if (-not $p.WaitForExit($TimeoutMinutes * 60 * 1000)) {
         $p.Kill()
         "SYNC FAILED: timed out after $TimeoutMinutes minutes" | Out-File -Append -Encoding utf8 $Log

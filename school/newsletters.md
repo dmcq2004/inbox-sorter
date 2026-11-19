@@ -12,8 +12,13 @@ The script calls Sway's public content endpoint (`POST /s/<id>/get`), which need
 `school/newsletters/` (git-ignored). Every newsletter ends with a rolling **Important Dates** list; the newest
 newsletter's list supersedes older ones. Still read the body for Reception items, things to bring or wear, and payments.
 
+The table below stopped on 13 Nov 2026. Since then the scheduled sync has kept its own record of the newsletters it
+has read, in `school/state/calendar-sync.json` (`processed_sways`), and saved their texts in `school/newsletters/`.
+Both are machine-local, so the sync never edits a file tracked in git.
+
 | Newsletter | Sent | Sway id | Status |
 |---|---|---|---|
+| Trinity Bulletin 13 11 26 | 2026-11-13 | HX0kAnY0Or3TArsi | read 2026-11-13 (sync) |
 | Trinity Bulletin 06 11 26 | 2026-11-06 | O4rCA5oayOOKXzi1 | read 2026-11-07 |
 | Trinity Bulletin 23 10 26 | 2026-10-23 | VOAVILEGZAYWnkUW | read 2026-11-07 |
 | Trinity Bulletin 16 10 26 | 2026-10-16 | gJRA4GgTHp7wu5gt | read 2026-11-07 |

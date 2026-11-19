@@ -8,14 +8,14 @@ input from Dom. It replaces the old claude.ai `school-comms-triage` scheduled ta
 Task Scheduler (laptop) / cron (Pi)
   └─ scripts/run-calendar-sync.{ps1,sh}       lock, timeout, log
        └─ claude -p "/school-calendar-sync live"   headless Claude Code, same account and connectors
-            ├─ Gmail (read only): new school threads since the last run
+            ├─ Gmail: reads new school threads since the last run, and files them (labels only; Dom, 2026-11-19)
             ├─ school/tools/read_sway.py: newsletters, no browser
             ├─ Drive (read only): attachments saved by the Apps Script
             └─ Calendar: create/update school events only, never delete, max 12 writes per run
 ```
 - **Instructions:** `.claude/commands/school-calendar-sync.md` (rules, steps, event conventions).
 - **Permissions:** `.claude/settings.json` (read tools allowed; send, trash and delete tools denied). The runner adds calendar
-  create/update and writes to the job's own files for the job only.
+  create/update, adding/removing labels on threads, and writes to the job's own files for the job only.
 - **Schedule:** 07:00 and 17:30 daily, in the "Inbox Sorter" task. The general inbox sort (`scripts/run-sort-inbox.*`,
   `/sort-inbox live`) runs straight after the sync in the same task; see the root `CLAUDE.md`.
 - **Each run produces:**
@@ -40,7 +40,7 @@ Needs a **64-bit** Raspberry Pi OS (Claude Code supports Linux arm64; it doesn't
 2. Install Claude Code: `curl -fsSL https://claude.ai/install.sh | bash`. Python 3 is already on Raspberry Pi OS (the script needs only the standard library).
 3. Sign in once, interactively: run `claude` in `~/Emails` and log in with the **same claude.ai account** (dmcq2004@gmail.com),
    so the Gmail, Calendar and Drive connectors come with it. Check with `claude mcp list` (all three should show "Connected").
-4. Copy the state from the laptop so it doesn't reprocess: `school/state/calendar-sync.json` (optional; without it the first run looks back 14 days).
+4. Copy the state from the laptop so it doesn't reprocess: `school/state/calendar-sync.json` and `state/sort-inbox.json` (optional; without them the first sync looks back 14 days and the first sort 7 days).
 5. `chmod +x scripts/run-calendar-sync.sh scripts/run-sort-inbox.sh`, then test: `scripts/run-calendar-sync.sh dry-run 14` and `scripts/run-sort-inbox.sh dry-run 1`
 6. `crontab -e`, then add these lines (with `PULL=1` the Pi picks up rule changes pushed from the laptop; replace `/home/pi` with the Pi user's home directory, so ask Dom for the username):
    ```

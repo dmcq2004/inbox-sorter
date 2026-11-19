@@ -46,6 +46,9 @@ rules:
   - match: h-l.co.uk
     folder: Hargreaves Lansdown
     priority: FYI
+  - match: .hl.co.uk              # HL mail actually comes from service.contact.hl.co.uk (2026-11-19); the dot stops it matching dhl.co.uk
+    folder: Hargreaves Lansdown
+    priority: FYI
   - match: americanexpress
     folder: Banking etc/Amex
     priority: FYI
@@ -130,6 +133,9 @@ rules:
     priority: Bulk
 
   # --- Social / platforms
+  - match: inmail-hit-reply@linkedin.com   # recruiter InMails don't say "messaged you"; must come before linkedin.com (2026-11-19)
+    folder: LinkedIn
+    priority: NeedsDom
   - match: linkedin.com
     folder: LinkedIn
     priority: Bulk
@@ -211,3 +217,14 @@ rules:
   - { match: zoopla.co.uk,        folder: null, priority: Bulk }
   - { match: nudiejeans.com,      folder: null, priority: FYI }   # repair tickets
   - { match: southwickwines.com,  folder: null, priority: Bulk }
+
+  # --- Added from the scheduled-run judgement lists (Dom agreed, 2026-11-19)
+  - { match: dhlecommerce.co.uk,  folder: null, priority: FYI }    # parcel tracking
+  - { match: soholighting.com,    folder: null, priority: FYI }    # order updates
+  - { match: email.ns.nl,         folder: null, priority: Bulk }   # Dutch rail marketing
+  - { match: email.openai.com,    folder: null, priority: Bulk }
+  - { match: stockopedia.com,     folder: null, priority: Bulk }
+  - { match: plumblondon.com,     folder: null, priority: Bulk }
+  - { match: raceforimpact.com,   folder: null, priority: FYI }    # donation thank-yous
+  - { match: email.claude.com,    folder: null, priority: Bulk }
+  - { match: nous.co,             folder: null, priority: FYI }    # monthly savings statements

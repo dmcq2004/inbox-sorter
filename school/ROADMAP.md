@@ -10,6 +10,7 @@ to **Done** with a date, and keep any design notes in the item.
   - [x] 2026-11-07: **hands-off** sync built as `/school-calendar-sync` (Dom chose hands-off over approve-first), run headlessly
     by `scripts/run-calendar-sync.{ps1,sh}`, scheduled on the laptop at 07:00 and 17:30. Design and Pi steps are in `school/CALENDAR-SYNC.md`.
   - [x] Dom switched off the old claude.ai `school-comms-triage` job (2026-11-07).
+  - [x] 2026-11-19: the sync now also **files** the school threads it reads (labels only), so loose ends stay in the inbox. Rules in `school/CLAUDE.md` › Labelling.
   - [ ] Move to the Raspberry Pi.
   - [ ] Open: nativity session choice (delete the other one). (YEC bookings are the family's call, not tracked.)
     (Resolved 7 Nov: PE day is Friday; Cinderella form done.)

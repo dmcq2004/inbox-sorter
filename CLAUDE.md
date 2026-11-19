@@ -50,7 +50,8 @@ as folders, and archiving removes a message from the Inbox. Never rely on Dom se
 ```
 in:inbox newer_than:2d -label:triage-action -label:triage-needsdom -label:triage-fyi -label:triage-bulk
 ```
-Page through results with ≤50 threads per page. Use `THREAD_VIEW_SUMMARY` for classifying, and
+Scheduled runs replace `newer_than:2d` with `after:<date>`, starting the day before the last successful run
+(`state/sort-inbox.json`, machine-local), so mail isn't missed after the machine has been off. Page through results with ≤50 threads per page. Use `THREAD_VIEW_SUMMARY` for classifying, and
 `get_thread` only when sender and subject aren't enough.
 
 ## Logging
@@ -60,7 +61,7 @@ Dry runs print the same table to the terminal and write nothing.
 
 ## Scheduled runs
 The "Inbox Sorter" task (laptop; cron on the Pi later) runs at 07:00 and 17:30: first the school calendar sync, then
-`/sort-inbox live` over the last 2 days (`scripts/run-sort-inbox.{ps1,sh}`). The headless rules are at the end of
+`/sort-inbox live` from the last successful run (`scripts/run-sort-inbox.{ps1,sh}`). The headless rules are at the end of
 `.claude/commands/sort-inbox.md`. Reports: `logs/sort-inbox/`; raw output: `logs/scheduler/`; undo log: `logs/runs/`.
 The job may only add or remove labels on threads and write its own logs.
 

@@ -5,6 +5,7 @@ school/newsletters/
 .claude/settings.local.json
 # Sync state and run output are machine-local
 school/state/
+state/
 logs/scheduler/
 logs/calendar-sync/
 logs/sort-inbox/

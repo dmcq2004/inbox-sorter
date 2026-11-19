@@ -17,7 +17,15 @@ Priorities:
 - `Triage/Action`: there's a deadline, payment, consent form, permission slip, reply needed, or something to bring or wear on a date.
 - `Triage/NeedsDom`: about Sebastian specifically (absence, health, behaviour, teacher message) with no deadline.
 - `Triage/FYI`: newsletters, general notices, fundraising, password resets, receipts. Archive these.
-Never archive Action or NeedsDom.
+- **A loose end that's Dom's to resolve also makes it `Triage/NeedsDom`** (unless it's already Action): an attachment that
+  couldn't be read or found in Drive, or a date, time or year group that may affect Seb but isn't clear. Only things Dom
+  can act on count. Waiting for someone else to send something (e.g. "Ms Harvey will ask for panto helpers") doesn't; that
+  stays in the sync report.
+Never archive Action or NeedsDom. Never lower a priority a thread already has (Action > NeedsDom > FYI).
+
+**Who files school threads** (Dom, 2026-11-19): the scheduled calendar sync, step 6, because it reads every thread,
+attachment and newsletter before deciding. The general sorter runs straight after it and only sees school threads the sync
+didn't file (the sync failed, or the thread fell outside its window). Those it files by these same rules.
 
 ## Reading
 - Use `get_thread` for every in-scope thread. Subjects are vague ("Newsletter Primary 6 November").
@@ -29,7 +37,8 @@ Never archive Action or NeedsDom.
   If it isn't in Drive (the script may not have run yet), list it in the digest under "Unread attachments" with its subject and date.
 - Newsletters arrive as Sway links. Read them with `python -I school/tools/read_sway.py` (no browser or login needed;
   usage in `newsletters.md`). Run `--dates` first, then `--save` for the full text and read the body for Reception items.
-  Track each newsletter in `newsletters.md`.
+  In interactive sessions, track each newsletter in `newsletters.md`. The scheduled sync doesn't edit that file;
+  it keeps its own record in `school/state/calendar-sync.json`.
 
 ## Calendar sync
 The calendar is kept up to date **hands-off** by `/school-calendar-sync` on a schedule (see `CALENDAR-SYNC.md`). In interactive

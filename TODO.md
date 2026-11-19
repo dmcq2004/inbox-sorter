@@ -2,7 +2,7 @@
 
 The single to-do list for the whole project. School detail lives in `school/ROADMAP.md`.
 Update this file whenever something is done, decided or blocked, and date the change.
-Last updated: 2026-11-07.
+Last updated: 2026-11-19.
 
 ## Waiting on Dom
 - [ ] **Nativity:** pick Tue 1 Dec 10:00 or Wed 2 Dec 14:15, then delete the other calendar event.
@@ -20,6 +20,10 @@ Last updated: 2026-11-07.
   - [x] Dry run on 7 days, rules tuned (71 rules), first live run: 138 threads sorted, 123 archived (2026-11-07, `logs/runs/2026-11-07.md`)
   - [x] Scheduled routine set up (2026-11-07): the "Inbox Sorter" task runs the school sync, then `/sort-inbox live` (last 2 days), at 07:00 and 17:30. It replaced the "School Calendar Sync" task. Headless dry run tested OK.
   - [ ] Check the first few reports in `logs/sort-inbox/` and tune the rules; Dom flags anything misfiled on his phone.
+  - [x] Unattended fixes (2026-11-19): the sort now starts from the last successful run (`state/sort-inbox.json`), so mail isn't missed after the laptop is off (44 threads from 7–16 Nov were stranded); the runner saves every live report itself (7 of 12 were missing); HL rule fixed (`.hl.co.uk`), LinkedIn InMail rule and 9 sender rules added (81 rules); the sync no longer edits the git-tracked `school/newsletters.md`, so the Pi's `git pull` can't get blocked.
+  - [ ] Check the 19 Nov 17:30 report: state was set to 7 Nov (Dom chose this over a manual run) so that run catches up on the stranded mail from 6 Nov (~72 threads in the dry run). Afterwards `state/sort-inbox.json` should show 19 Nov.
+  - [x] School threads are now filed by the calendar sync (Dom, 2026-11-19), which reads attachments first, so a loose end (e.g. an unreadable attachment) stays in the inbox as NeedsDom instead of being archived as FYI. The sort only files school threads the sync missed.
+  - [ ] Failure alerts: Dom passed for now (2026-11-19). The recommendation is healthchecks.io, which also catches a dead Pi.
 - [ ] **4. School module:** see `school/ROADMAP.md`
   - [x] Context, term dates, YEC moved in, attachment saver written, newsletter reader, all 8 newsletters read (2026-11-07)
   - [x] Calendar backfill to Christmas, 10 changes (2026-11-07, `logs/runs/2026-11-07.md`)
@@ -37,3 +41,4 @@ Last updated: 2026-11-07.
 
 ## Done log
 - 2026-11-07: project started; plan approved; school calendar backfilled; newsletters readable without a browser.
+- 2026-11-19: made the scheduled runs safe to leave unattended (catch-up window, reports always saved, rule fixes).
