@@ -159,7 +159,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
       </li>
       <li class="next">
         <div class="phase-head"><h3>3. General sorter</h3><span class="pill done">Scheduled</span></div>
-        <p>Labels tidied (4 created, 15 deleted). The first live run on 7 Nov sorted the past week: Action 2, NeedsDom 13, FYI 36, Bulk 87. It now runs on its own at 07:00 and 17:30, after the school sync. On 19 Nov we found 44 emails that had been missed while the laptop was off. The fix: each run now starts from the last run that worked, and every run saves its report. Sender rules are now 81. A catch-up run this morning (20 Nov) sorted 83 emails, archived 74 and left 9 in your inbox. Every change is logged so it can be undone, and reports are in <code>logs/sort-inbox/</code>.</p>
+        <p>Labels tidied (4 created, 15 deleted). The first live run on 7 Nov sorted the past week: Action 2, NeedsDom 13, FYI 36, Bulk 87. It now runs on its own at 07:00 and 17:30, after the school sync. On 19 Nov we found 44 emails that had been missed while the laptop was off. The fix: each run now starts from the last run that worked, and every run saves its report. A catch-up run this morning (20 Nov) sorted 83 emails, archived 74 and left 9 in your inbox. On 20 Nov we reviewed all seven reports: no errors and nothing misfiled by a rule. Seven rule changes followed, so there are now 86 rules. Every change is logged so it can be undone, and reports are in <code>logs/sort-inbox/</code>.</p>
       </li>
       <li>
         <div class="phase-head"><h3>5. Backlog clean-up</h3><span class="pill later">Later</span></div>
@@ -173,10 +173,8 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
     <ol>
       <li><strong>Check the sorted inbox on your phone</strong>
         <span class="why">Tell me anything that landed in the wrong place and I'll fix the rule. This morning's sort left 9 in the inbox, including iCloud storage full (backups have stopped), Seb's school photos ready to order (Van Cols), Rosie's Tate&amp;Sons and Blackheath Halls emails, and two LinkedIn messages. The PAFT donation email (wrapped sweets or small prizes for today, no nuts) is marked Action.</span></li>
-      <li><strong>Missed runs while the laptop sleeps</strong>
-        <span class="why">The laptop slept through three runs (19 Nov 07:00 to 20 Nov 07:00). Nothing was lost because the next run catches up, but you can either let the task wake the laptop or just wait for the Pi.</span></li>
-      <li><strong>Three possible sender rules</strong>
-        <span class="why">Van Cols (school photographer) as NeedsDom or School/Trinity, Goodreads as Bulk, and Fidelity pension marketing as Bulk. Say yes or no to each.</span></li>
+      <li><strong>Bring the Pi next session</strong>
+        <span class="why">Moving the runs to the Pi is next. You'll need to be at it to sign Claude Code in.</span></li>
       <li><strong>Glance at the Home Learning Log</strong>
         <span class="why"><code>T2 Home Learning Log.docx</code> (11 Nov) is in Drive but Claude couldn't read it. Check whether it has a hand-in date. Also still open: panto helpers (Ms Harvey will ask before the end of November).</span></li>
     </ol>
@@ -271,6 +269,8 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
       <li><b>School lunches are part of the school module</b><span>Impact Food (Innovate) emails go in School/Trinity. "Order lunches" reminders are Action.</span></li>
       <li><b>The calendar sync files school mail (19 Nov)</b><span>It reads the attachments first, so an email with a loose end stays in your inbox instead of being archived. The inbox sort only files school emails the sync missed.</span></li>
       <li><b>Each run catches up from the last one that worked (19 Nov)</b><span>Rather than only looking at the last 2 days, so a laptop that was off or asleep doesn't leave mail unsorted.</span></li>
+      <li><b>Rule changes after two weeks (20 Nov)</b><span>Van Cols (school photos) is now school mail. New rules for Rosie's energy statements, Fidelity marketing, Goodreads, NOW TV and Gemini notices. Direct messages in the nursery app stay in the inbox. Admiral marketing is Bulk. LinkedIn recruiter replies and HMRC mailings are unchanged.</span></li>
+      <li><b>The laptop isn't woken from sleep (20 Nov)</b><span>A missed run is caught up by the next one, and the Pi will fix it properly.</span></li>
       <li><b>No failure alerts for now (19 Nov)</b><span>If we add them later, healthchecks.io is the suggestion. It would also notice if the Pi stops working.</span></li>
     </ul>
   </section>
@@ -294,7 +294,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
     <pre class="tree">Documents\Emails\
 ├── CLAUDE.md                 <span class="c"># rules for the whole project</span>
 ├── TODO.md                   <span class="c"># the project to-do list</span>
-├── config\                   <span class="c"># labels, 81 sender rules, priority rules</span>
+├── config\                   <span class="c"># labels, 86 sender rules, priority rules</span>
 ├── .claude\commands\         <span class="c"># /sort-inbox, /school, /school-calendar-sync</span>
 ├── .claude\settings.json     <span class="c"># what the scheduled job may and may not do</span>
 ├── scripts\                  <span class="c"># sync + sort runners (Windows + Pi), task installer</span>

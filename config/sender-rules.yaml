@@ -27,6 +27,7 @@ rules:
   - match: familyapp.brighthorizons.co.uk
     folder: Nursery
     priority: FYI
+    subject_override: { NeedsDom: [received a message] }   # a direct message in the app, not a wall post (2026-11-20)
 
   # --- Art
   - match: the-saleroom.com
@@ -156,7 +157,7 @@ rules:
   # --- Insurance
   - match: services.admiral.com
     folder: null
-    priority: FYI
+    priority: Bulk                # mostly marketing ("Save 25%…", "winter-ready"); was FYI until 2026-11-20
     subject_override: { Action: [renewal, policy documents] }
   # noreply@portal.admiral.com and noreply@support.admiral.com have no rule (judgement decides)
 
@@ -228,3 +229,16 @@ rules:
   - { match: raceforimpact.com,   folder: null, priority: FYI }    # donation thank-yous
   - { match: email.claude.com,    folder: null, priority: Bulk }
   - { match: nous.co,             folder: null, priority: FYI }    # monthly savings statements
+
+  # --- Added from the first two weeks of reports (Dom agreed, 2026-11-20)
+  - match: noushold.com           # Rosie's energy statements; not covered by nous.co
+    folder: null
+    priority: FYI
+    subject_override: { Action: [payment failed, declined, overdue, payment due] }
+  - { match: email.wi@fidelity.co.uk, folder: null, priority: Bulk }   # workplace-pension marketing only; other Fidelity senders are judged
+  - { match: mail.goodreads.com,  folder: null, priority: Bulk }
+  - match: nowtv.com
+    folder: null
+    priority: Bulk
+    subject_override: { Action: [payment failed, declined, overdue, payment due] }
+  - { match: google-gemini-noreply@google.com, folder: Google, priority: FYI }   # product and privacy notices

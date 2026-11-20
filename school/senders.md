@@ -10,5 +10,6 @@ Match on a substring of the sender, or of a to/cc address. Keep this in step wit
 | `mychildatschool.com` | MCAS parent portal (passwords, payments) | School/Trinity |
 | `impactfood.co.uk` | Innovate (Impact Food): Trinity school-lunch caterer. Ordering reminders are `Action` | School/Trinity |
 | `tyec@hotmail.com` | The Young Explorers Club: breakfast/after-school and holiday club on the Trinity site | School/Young Explorers |
+| `vancols.com` | Van Cols, the school photographer (added 2026-11-20). "Photos ready to order" is `NeedsDom`, or `Action` if it gives an order deadline | School/Trinity |
 
-`impactfood.co.uk` is deliberately not in the Apps Script `SOURCES` (lunch reminders have no attachments worth saving). Add it there too if that changes.
+`impactfood.co.uk` and `vancols.com` are deliberately not in the Apps Script `SOURCES` (lunch reminders and photo notices have no attachments worth saving). Add them there too if that changes.
