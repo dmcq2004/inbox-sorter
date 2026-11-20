@@ -31,8 +31,9 @@ to **Done** with a date, and keep any design notes in the item.
       Notion on their phones, it works anywhere, and there's no hosting. Looks decent rather than bespoke.
     - (b) A **custom page on the Pi**, regenerated each sync. It can look exactly how we want, but only on home Wi-Fi (or with Tailscale on both phones).
     - Either way, the view only *reads* the calendar and the action list and stores nothing itself, so it can't create duplicates.
-  - **Related:** a shared "Seb · School" Google Calendar with Rosie (Dom creates it and shares it on the web; then the events
-    move across with his OK, and the sync writes only there). Rosie gets the events in her own calendar app.
+  - **Rosie can already see Dom's calendar** (Dom, 2026-11-20), so everything the sync puts there reaches her. That makes
+    a separate "Seb · School" calendar unnecessary (dropped), and the calendar may be enough for anything with a date. The
+    tracker would then only be worth building for undated to-dos. Reconsider the item with that in mind.
 - [ ] **3. Weekly school brief.** Sunday evening: this week's events, what to bring or wear, pick-up times,
   club bookings, open actions. Check against Dom's `weekly-family-brief` skill so the two don't overlap.
 - [x] **4. Read Sway newsletters.** Done 2026-11-07: `school/tools/read_sway.py` reads them via Sway's public
