@@ -44,3 +44,4 @@ Last updated: 2026-11-20.
 ## Done log
 - 2026-11-07: project started; plan approved; school calendar backfilled; newsletters readable without a browser.
 - 2026-11-19: made the scheduled runs safe to leave unattended (catch-up window, reports always saved, rule fixes).
+- 2026-11-20: "Inbox Actions" dashboard (https://claude.ai/artifact/P42emKptwWME3UtYG8NFKJ): live Gmail view of Action (since 1 Sep) and NeedsDom (last 30 days) still in the inbox, split School / Everything else. The school split uses the School/* labels plus the school senders (incl. De Zeven Eiken); keep it in step with `school/senders.md`.
