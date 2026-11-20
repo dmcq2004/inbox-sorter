@@ -12,7 +12,7 @@ to **Done** with a date, and keep any design notes in the item.
   - [x] Dom switched off the old claude.ai `school-comms-triage` job (2026-11-07).
   - [x] 2026-11-19: the sync now also **files** the school threads it reads (labels only), so loose ends stay in the inbox. Rules in `school/CLAUDE.md` › Labelling.
   - [ ] Move to the Raspberry Pi.
-  - [ ] Open: nativity session choice (delete the other one). (YEC bookings are the family's call, not tracked.)
+  - [x] 2026-11-20: nativity, Dom is going to both performances; both events kept and set to busy. (YEC bookings are the family's call, not tracked.)
     (Resolved 7 Nov: PE day is Friday; Cinderella form done.)
 
 ## Up next (not prioritised)

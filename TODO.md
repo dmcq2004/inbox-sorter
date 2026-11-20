@@ -2,10 +2,10 @@
 
 The single to-do list for the whole project. School detail lives in `school/ROADMAP.md`.
 Update this file whenever something is done, decided or blocked, and date the change.
-Last updated: 2026-11-19.
+Last updated: 2026-11-20.
 
 ## Waiting on Dom
-- [ ] **Nativity:** pick Tue 1 Dec 10:00 or Wed 2 Dec 14:15, then delete the other calendar event.
+- [x] **Nativity** (2026-11-20): going to both (Tue 1 Dec 10:00 and Wed 2 Dec 14:15). Both events kept, renamed and set to busy.
 - [x] **Attachment saver installed** (2026-11-07): Apps Script project "Save School Attachments", backfill saved 26 files, runs every 15 min.
 - [x] **Labels reviewed** (2026-11-07): 4 new labels created; 15 to delete (see `config/labels.md`).
 - [x] **15 approved labels deleted** (2026-11-07, through Chrome).
@@ -21,7 +21,8 @@ Last updated: 2026-11-19.
   - [x] Scheduled routine set up (2026-11-07): the "Inbox Sorter" task runs the school sync, then `/sort-inbox live` (last 2 days), at 07:00 and 17:30. It replaced the "School Calendar Sync" task. Headless dry run tested OK.
   - [ ] Check the first few reports in `logs/sort-inbox/` and tune the rules; Dom flags anything misfiled on his phone.
   - [x] Unattended fixes (2026-11-19): the sort now starts from the last successful run (`state/sort-inbox.json`), so mail isn't missed after the laptop is off (44 threads from 7–16 Nov were stranded); the runner saves every live report itself (7 of 12 were missing); HL rule fixed (`.hl.co.uk`), LinkedIn InMail rule and 9 sender rules added (81 rules); the sync no longer edits the git-tracked `school/newsletters.md`, so the Pi's `git pull` can't get blocked.
-  - [ ] Check the 19 Nov 17:30 report: state was set to 7 Nov (Dom chose this over a manual run) so that run catches up on the stranded mail from 6 Nov (~72 threads in the dry run). Afterwards `state/sort-inbox.json` should show 19 Nov.
+  - [x] Catch-up run (2026-11-20, started by hand at 09:30 after the laptop slept through 3 runs, 19 Nov 07:00 to 20 Nov 07:00): 83 threads from 6 Nov sorted, 74 archived, 9 left as NeedsDom; state now 20 Nov. Report `logs/sort-inbox/2026-11-20_0930.md`. Fixed garbled characters in saved reports (the runner now reads Claude's output as UTF-8).
+  - [ ] Decide: let the task wake the laptop from sleep (or wait for the Pi), and whether to add rules for vancols.com, goodreads and Fidelity marketing (suggested in that report).
   - [x] School threads are now filed by the calendar sync (Dom, 2026-11-19), which reads attachments first, so a loose end (e.g. an unreadable attachment) stays in the inbox as NeedsDom instead of being archived as FYI. The sort only files school threads the sync missed.
   - [ ] Failure alerts: Dom passed for now (2026-11-19). The recommendation is healthchecks.io, which also catches a dead Pi.
 - [ ] **4. School module:** see `school/ROADMAP.md`

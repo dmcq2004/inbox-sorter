@@ -125,9 +125,9 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
 
 <main>
   <header style="display:grid;gap:12px">
-    <div class="eyebrow">Gmail · dmcq2004 · status at 7 Nov 2026, late evening</div>
+    <div class="eyebrow">Gmail · dmcq2004 · status at 20 Nov 2026, morning</div>
     <h1>Inbox Sorter</h1>
-    <p class="lede">Claude sorts your Gmail into labels that show up as folders in your phone's Mail app. The school module reads Trinity, Young Explorers and school-lunch emails, attachments and newsletters. The school calendar updates itself twice a day from this laptop, and will move to the Raspberry Pi later. The first live sort ran on 7 Nov: 138 emails from the past week were labelled, 123 archived, and 15 left in your inbox. From 8 Nov the inbox is sorted automatically at 07:00 and 17:30, straight after the school sync.</p>
+    <p class="lede">Claude sorts your Gmail into labels that show up as folders in your phone's Mail app. The school module reads Trinity, Young Explorers and school-lunch emails, attachments and newsletters. The school calendar updates itself twice a day from this laptop, and will move to the Raspberry Pi later. The first live sort ran on 7 Nov: 138 emails from the past week were labelled, 123 archived, and 15 left in your inbox. Since then the inbox has been sorted automatically at 07:00 and 17:30, straight after the school sync. On 19 Nov the runs were made safe to leave alone: each one now picks up everything since the last run that worked, so mail isn't missed when the laptop has been asleep.</p>
   </header>
 
   <section aria-labelledby="h-phases">
@@ -151,7 +151,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
       </li>
       <li class="done">
         <div class="phase-head"><h3>Hands-off calendar sync</h3><span class="pill done">Live on laptop</span></div>
-        <p>Runs at 07:00 and 17:30 every day on Claude Opus 5.5, and has replaced the old claude.ai task, which is now switched off. Three live runs on 7 Nov, including the 17:30 scheduled one: one event added, no duplicates, no errors.</p>
+        <p>Runs at 07:00 and 17:30 every day on Claude Opus 5.5, and has replaced the old claude.ai task. About 15 live runs from 12 to 20 Nov with no duplicates and no errors. In that time it added the SEND coffee afternoon (17 Nov) and the EYFS phonics workshop (4 Dec), added the donation detail to own-clothes day, and moved the Christmas Fair to its confirmed time, 15:15–17:30. Since 19 Nov it also files the school emails it reads, so anything unresolved stays in your inbox.</p>
       </li>
       <li class="next">
         <div class="phase-head"><h3>Move the sync to the Raspberry Pi</h3><span class="pill next">Next</span></div>
@@ -159,7 +159,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
       </li>
       <li class="next">
         <div class="phase-head"><h3>3. General sorter</h3><span class="pill done">Scheduled</span></div>
-        <p>Labels tidied (4 created, 15 deleted) and sender rules reviewed (now 70). After a dry run and a few rule fixes, the first live run on 7 Nov sorted the past week: Action 2, NeedsDom 13, FYI 36, Bulk 87. Every change is logged so it can be undone. Since 7 Nov it runs on its own at 07:00 and 17:30, after the school sync, sorting the last 2 days of new mail. Each run writes a report to <code>logs/sort-inbox/</code>.</p>
+        <p>Labels tidied (4 created, 15 deleted). The first live run on 7 Nov sorted the past week: Action 2, NeedsDom 13, FYI 36, Bulk 87. It now runs on its own at 07:00 and 17:30, after the school sync. On 19 Nov we found 44 emails that had been missed while the laptop was off. The fix: each run now starts from the last run that worked, and every run saves its report. Sender rules are now 81. A catch-up run this morning (20 Nov) sorted 83 emails, archived 74 and left 9 in your inbox. Every change is logged so it can be undone, and reports are in <code>logs/sort-inbox/</code>.</p>
       </li>
       <li>
         <div class="phase-head"><h3>5. Backlog clean-up</h3><span class="pill later">Later</span></div>
@@ -171,10 +171,14 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
   <section class="asks" aria-labelledby="h-asks">
     <h2 id="h-asks">Waiting on you</h2>
     <ol>
-      <li><strong>Pick a nativity session</strong>
-        <span class="why">Both are in the calendar: Tue 1 Dec 10:00 and Wed 2 Dec 14:15. Delete the one you won't go to, or tell me.</span></li>
       <li><strong>Check the sorted inbox on your phone</strong>
-        <span class="why">Look at the inbox and the new folders for a few days. Tell me anything that landed in the wrong place, and I'll fix the rule so future runs get it right. Two Action items are in the inbox now: Berry Bros (your stored card is expiring) and Impact Food (order school lunches).</span></li>
+        <span class="why">Tell me anything that landed in the wrong place and I'll fix the rule. This morning's sort left 9 in the inbox, including iCloud storage full (backups have stopped), Seb's school photos ready to order (Van Cols), Rosie's Tate&amp;Sons and Blackheath Halls emails, and two LinkedIn messages. The PAFT donation email (wrapped sweets or small prizes for today, no nuts) is marked Action.</span></li>
+      <li><strong>Missed runs while the laptop sleeps</strong>
+        <span class="why">The laptop slept through three runs (19 Nov 07:00 to 20 Nov 07:00). Nothing was lost because the next run catches up, but you can either let the task wake the laptop or just wait for the Pi.</span></li>
+      <li><strong>Three possible sender rules</strong>
+        <span class="why">Van Cols (school photographer) as NeedsDom or School/Trinity, Goodreads as Bulk, and Fidelity pension marketing as Bulk. Say yes or no to each.</span></li>
+      <li><strong>Glance at the Home Learning Log</strong>
+        <span class="why"><code>T2 Home Learning Log.docx</code> (11 Nov) is in Drive but Claude couldn't read it. Check whether it has a hand-in date. Also still open: panto helpers (Ms Harvey will ask before the end of November).</span></li>
     </ol>
   </section>
 
@@ -184,8 +188,9 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
     <div class="table-wrap">
       <table>
         <tbody>
-          <tr><td class="date">When</td><td>07:00 and 17:30 daily, just before the inbox sort. If the laptop was asleep or off, it runs as soon as it's back on while you're logged in.</td></tr>
+          <tr><td class="date">When</td><td>07:00 and 17:30 daily, just before the inbox sort. If the laptop is asleep, the run is missed, but the next one picks up everything since the last run that worked.</td></tr>
           <tr><td class="date">Reads</td><td>New Trinity and Young Explorers emails since the last run, new newsletters (read by script, no browser) and their attachments, which a Google Apps Script copies into Drive every 15 minutes.</td></tr>
+          <tr><td class="date">Files</td><td>Labels the school emails it reads (since 19 Nov). Anything unresolved, such as an attachment it couldn't read, stays in your inbox as NeedsDom.</td></tr>
           <tr><td class="date">Writes</td><td>Creates or updates school events only, in the same style as the rest of your calendar. Optional events (coffee mornings, PAFT and community events) are included, marked "(optional)" and free. At most 12 changes per run.</td></tr>
           <tr><td class="date">Leaves out</td><td>Young Explorers bookings, which the family decides, and anything only for other year groups.</td></tr>
           <tr><td class="date">Never</td><td>Sends, trashes or deletes anything, or touches non-school events. Instructions inside emails are ignored.</td></tr>
@@ -212,16 +217,14 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
       <table>
         <thead><tr><th>Date</th><th>What</th><th>Source</th></tr></thead>
         <tbody>
-          <tr><td class="date">Sun 8 Nov</td><td>Play Street, Wisteria Road, 12:30–15:30 (optional) <span class="tag">added</span></td><td class="src">Newsletter</td></tr>
-          <tr><td class="date">Fri 13 Nov</td><td>Seb off (Holland with Rosie, 12–15 Nov)</td><td class="src">Rosie's email</td></tr>
-          <tr><td class="date">Tue 17 Nov</td><td>Individual and sibling photo day <span class="tag">added</span></td><td class="src">Newsletter</td></tr>
-          <tr class="key"><td class="date">Fri 20 Nov</td><td>Own-clothes day: no uniform, bring a donation <span class="tag">added</span></td><td class="src">Newsletter</td></tr>
+          <tr class="key"><td class="date">Fri 20 Nov</td><td>Own-clothes day (today): no uniform, bring wrapped sweets or small prizes, no nuts <span class="tag">updated by sync</span></td><td class="src">Bulletin 13 Nov</td></tr>
           <tr><td class="date">Wed 25 Nov</td><td>NHS height and weight (Reception). Letter read: nothing to do unless you want to opt out</td><td class="src">Email + letter</td></tr>
           <tr><td class="date">Wed 25 Nov</td><td>Wellbeing coffee morning, 09:00 (optional) <span class="tag">added by sync</span></td><td class="src">Newsletter</td></tr>
           <tr><td class="date">Wed 25 Nov</td><td>Turning of the Season, Blackheath Halls (optional, details TBC) <span class="tag">added</span></td><td class="src">Newsletter</td></tr>
           <tr class="key"><td class="date">Fri 27 Nov</td><td>INSET day: no school</td><td class="src">Term dates</td></tr>
-          <tr><td class="date">1 or 2 Dec</td><td>Reception nativity: Tue 10:00 or Wed 14:15 <span class="tag">added</span></td><td class="src">Parent Curriculum</td></tr>
-          <tr><td class="date">Fri 4 Dec</td><td>PAFT Christmas Fair, from 14:30 (optional) <span class="tag">added</span></td><td class="src">Parent Curriculum</td></tr>
+          <tr><td class="date">1 and 2 Dec</td><td>Reception nativity: Tue 10:00 and Wed 14:15, going to both <span class="tag">added</span></td><td class="src">Parent Curriculum</td></tr>
+          <tr><td class="date">Fri 4 Dec</td><td>EYFS phonics parent workshop, 09:00–09:30 (optional) <span class="tag">added by sync</span></td><td class="src">Email 19 Nov</td></tr>
+          <tr><td class="date">Fri 4 Dec</td><td>PAFT Christmas Fair, 15:15–17:30 (optional) <span class="tag">time fixed by sync</span></td><td class="src">PAFT letter</td></tr>
           <tr><td class="date">Thu 10 Dec</td><td>Cinderella panto trip, paid and form done <span class="tag">updated</span></td><td class="src">Email + receipt</td></tr>
           <tr><td class="date">Wed 16 Dec</td><td>Christmas jumper and dinner day <span class="tag">added</span></td><td class="src">Newsletter</td></tr>
           <tr><td class="date">Thu 17 Dec</td><td>Class Christmas party <span class="tag">added</span></td><td class="src">Newsletter</td></tr>
@@ -230,7 +233,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
         </tbody>
       </table>
     </div>
-    <p class="lede" style="font-size:0.95rem">Also from the newsletters: coats every day, with names in them. Reception home learning (Little Wandle phonics) started after half term. Ms Harvey will ask parents to help on the panto trip before the end of November.</p>
+    <p class="lede" style="font-size:0.95rem">Also from the newsletters: coats every day, with names in them. Reception home learning (Little Wandle phonics) started after half term. Ms Harvey will ask parents to help on the panto trip before the end of November. PAFT is selling Christmas trees, collected from Trinity Secondary. Young Explorers is asking who wants February half-term holiday club (15–19 Feb); bookings are left to you and Rosie.</p>
   </section>
 
   <section aria-labelledby="h-roadmap">
@@ -266,6 +269,9 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
       <li><b>Family mail always stays in the inbox</b><span>Dad, Mum and Greg go into their Correspondence folders; Rosemarie has no folder. All of it is NeedsDom.</span></li>
       <li><b>Payment problems always stay in the inbox</b><span>Subjects with "payment failed", "declined", "overdue" or "payment due" from banks, shops and subscriptions become Action, as do Admiral renewals.</span></li>
       <li><b>School lunches are part of the school module</b><span>Impact Food (Innovate) emails go in School/Trinity. "Order lunches" reminders are Action.</span></li>
+      <li><b>The calendar sync files school mail (19 Nov)</b><span>It reads the attachments first, so an email with a loose end stays in your inbox instead of being archived. The inbox sort only files school emails the sync missed.</span></li>
+      <li><b>Each run catches up from the last one that worked (19 Nov)</b><span>Rather than only looking at the last 2 days, so a laptop that was off or asleep doesn't leave mail unsorted.</span></li>
+      <li><b>No failure alerts for now (19 Nov)</b><span>If we add them later, healthchecks.io is the suggestion. It would also notice if the Pi stops working.</span></li>
     </ul>
   </section>
 
@@ -288,7 +294,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
     <pre class="tree">Documents\Emails\
 ├── CLAUDE.md                 <span class="c"># rules for the whole project</span>
 ├── TODO.md                   <span class="c"># the project to-do list</span>
-├── config\                   <span class="c"># labels, 70 sender rules, priority rules</span>
+├── config\                   <span class="c"># labels, 81 sender rules, priority rules</span>
 ├── .claude\commands\         <span class="c"># /sort-inbox, /school, /school-calendar-sync</span>
 ├── .claude\settings.json     <span class="c"># what the scheduled job may and may not do</span>
 ├── scripts\                  <span class="c"># sync + sort runners (Windows + Pi), task installer</span>
@@ -302,6 +308,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
 │   ├── tools\read_sway.py    <span class="c"># reads a newsletter, no browser needed</span>
 │   └── apps-script\          <span class="c"># attachment saver (installed, runs every 15 min)</span>
 ├── backlog\CLAUDE.md         <span class="c"># placeholder for later</span>
+├── state\                    <span class="c"># when the sort last worked (this machine only)</span>
 └── logs\                     <span class="c"># run reports, undo log (stay on this machine)</span></pre>
   </section>
 
@@ -317,7 +324,11 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
     </div>
     <div class="warning">
       <strong>The scheduled runs need the laptop on</strong>
-      <p>The sync and the sort only run while the laptop is on and you're logged in; a missed run catches up when it wakes. Moving to the Pi removes this.</p>
+      <p>The sync and the sort only run while the laptop is awake and you're logged in. It slept through three runs on 19–20 Nov, and the next run caught up. Moving to the Pi removes this.</p>
+    </div>
+    <div class="warning">
+      <strong>The school warned about a phishing email</strong>
+      <p>On 17 Nov Trinity said an email from "Rachel Samuels" with Kady Tait's signature, asking you to open a link, is phishing. Don't open it.</p>
     </div>
   </section>
 

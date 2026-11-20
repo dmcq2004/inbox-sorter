@@ -51,7 +51,7 @@ Only Reception-relevant or whole-school items are listed.
 - 17 Nov: individual & sibling photo day
 - 25 Nov: NHS Child Measurement Programme (Reception & Y6). Letter read: no action needed; opt out only via lg.shsscreening@nhs.net or 020 3049 3415. Also a wellbeing coffee morning at 9:00 (optional)
 - **27 Nov: INSET, no school**
-- 1–2 Dec: Reception nativity, Tue 1 Dec 10:00 and Wed 2 Dec 14:15
+- 1–2 Dec: Reception nativity, Tue 1 Dec 10:00 and Wed 2 Dec 14:15 (Dom is going to both)
 - 4 Dec: PAFT Christmas Fair, from 2:30pm
 - 10 Dec: whole-school pantomime trip, Cinderella at Broadway Theatre. **£12 paid 17 Sep** (Bromcom order 15511-0013863); permission form done (Dom, 7 Nov).
 - 16 Dec: Christmas dinner day and Christmas jumper day

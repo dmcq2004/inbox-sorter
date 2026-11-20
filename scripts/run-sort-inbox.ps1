@@ -72,7 +72,8 @@ try {
         $p.Kill()
         "SORT FAILED: timed out after $TimeoutMinutes minutes" | Out-File -Append -Encoding utf8 $Log
     }
-    $out = Get-Content $Log -Raw -ErrorAction SilentlyContinue
+    # Claude writes UTF-8 with no BOM; Windows PowerShell would otherwise read it as ANSI and garble it
+    $out = Get-Content $Log -Raw -Encoding UTF8 -ErrorAction SilentlyContinue
     if (-not $out) { $out = "SORT FAILED: no output (see $Log.err)" }
     $Ok = (-not $TimedOut) -and ($out -match 'SORT (live|dry-run) OK')
 
