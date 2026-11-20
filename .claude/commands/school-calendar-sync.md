@@ -97,7 +97,7 @@ For every thread you read with `get_thread` in step 2 (new threads, and threads 
   A loose end that's Dom's to resolve makes it `Triage/NeedsDom` (see those rules).
 - Call `list_labels` once to get the label ids. If a label is missing, skip that thread and list it under "Needs Dom". Don't create labels.
 - Apply them in **live** mode only: `label_thread` to add the folder and priority, then `unlabel_thread` for any other `Triage/*` label on the
-  thread, and for `INBOX` if the priority is FYI. If the priority is Action or NeedsDom and the thread isn't in the inbox, add `INBOX` back.
+  thread, and for `INBOX` and `UNREAD` if the priority is FYI (archived mail is marked read, Dom 2026-11-20). If the priority is Action or NeedsDom and the thread isn't in the inbox, add `INBOX` back.
 - Never lower a priority already on the thread (Action > NeedsDom > FYI). Only keep it or raise it.
 - Threads you skipped as unchanged are left alone. Anything you don't file, the general sorter files later.
 - If a Gmail call fails, retry once; then note the thread under "Needs Dom" and carry on.

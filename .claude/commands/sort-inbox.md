@@ -19,7 +19,9 @@ Steps:
    The calendar sync normally files school threads before this runs, so any that are still unsorted are a fallback. Read them with
    `get_thread` and check their attachments in Drive as `school/CLAUDE.md` says, so a loose end isn't archived as FYI.
 5. Print a table: `sender | subject | folder | priority | archive | rule (or "judgement")`. Then give counts per priority.
-6. If live: apply labels with `label_thread`, archive with `unlabel_thread` (INBOX), and append rows to `logs/runs/<today>.md`.
+6. If live: apply labels with `label_thread`, then archive FYI and Bulk threads with one `unlabel_thread` call that removes both
+   `INBOX` and `UNREAD`. Archived mail is marked read so the Mail app's folder badges don't build up (Dom, 2026-11-20). Action and
+   NeedsDom keep `INBOX` and their read or unread state. Append rows to `logs/runs/<today>.md`, writing "yes (INBOX, UNREAD removed)" in `archived`.
 7. End with a list of the `judgement` rows Dom might want to turn into sender rules.
 
 ## Scheduled (headless) runs

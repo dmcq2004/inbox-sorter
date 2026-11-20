@@ -32,7 +32,7 @@ as folders, and archiving removes a message from the Inbox. Never rely on Dom se
 1. **Priority**: exactly one of `Triage/Action`, `Triage/NeedsDom`, `Triage/FYI`, `Triage/Bulk` on every sorted thread.
 2. **Folder**: optional, at most one topic or sender label (e.g. `Banking etc/Amex`, `Auction Alerts`, `School/Trinity`).
 
-**Archive** (remove `INBOX`) only `Triage/FYI` and `Triage/Bulk`. `Action` and `NeedsDom` stay in the inbox.
+**Archive** (remove `INBOX`) only `Triage/FYI` and `Triage/Bulk`, and mark them read (remove `UNREAD`) at the same time. `Action` and `NeedsDom` stay in the inbox, and their read or unread state is left alone.
 
 ## Classification order (stop at first match)
 1. Sender is in `school/senders.md`, or the thread is to/cc a school address → school module (`school/CLAUDE.md`).
