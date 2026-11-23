@@ -44,7 +44,7 @@ Last updated: 2026-11-23.
 
 - [ ] **6. Inbox chief of staff** (designed with Dom, 2026-11-23). See `inbox/CLAUDE.md`.
   - [x] Built (2026-11-23): `/inbox` (brief, drafts written automatically, ✎ on every draft, acts only on Dom's word; sends only when he says, with Claude Code confirming), `/morning-brief` (Pi, 07:00, emails the brief to Dom only), `.claude/hooks/send_guard.py` (scheduled jobs can't send; the brief can only go to Dom). The sort and sync runners now block send, reply and forward.
-  - [ ] **Dom: apply the `.claude/settings.json` change** (Claude's auto-mode check blocked Claude from editing the blocked-tools list): move `send_message`, `reply`, `forward` and `delete_draft` from `deny` to a new `ask` list, allow `list_drafts` and `get_draft`, and add the `send_guard.py` hook. Until then `/inbox` can draft but not send, and the brief can't email.
+  - [x] **Dom applied the `.claude/settings.json` change** (2026-11-23) (Claude's auto-mode check blocked Claude from editing the blocked-tools list): move `send_message`, `reply`, `forward` and `delete_draft` from `deny` to a new `ask` list, allow `list_drafts` and `get_draft`, and add the `send_guard.py` hook. Until then `/inbox` can draft but not send, and the brief can't email.
   - [ ] Then: brief dry run on the Pi, one live brief to check it arrives with a phone notification, add it to the 07:00 cron line.
   - [ ] Next version: a shared list of open items (waiting on others, Dom's promises) that both machines can see, and chasing when a thread goes quiet. It needs somewhere both can write: not git (the Pi's runs never commit) and not a Drive file (the connector can't change a file once created). Options: a Gmail label, a Notion page, or a Google Sheet.
 
