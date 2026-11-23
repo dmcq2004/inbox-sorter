@@ -94,9 +94,9 @@ You've read these threads properly, so you file them, not the general sorter. Th
 archived as FYI (on 12 Nov the Home Learning email was archived although its attachment couldn't be read).
 For every thread you read with `get_thread` in step 2 (new threads, and threads with new messages), at most 30 per run:
 - Choose the folder and priority by the **Labelling** rules in `school/CLAUDE.md`, using everything you found, including attachments and dates.
-  A loose end that's Dom's to resolve makes it `Triage/NeedsDom` (see those rules).
+  A loose end that's Dom's to resolve makes it `*Triage/NeedsDom` (see those rules).
 - Call `list_labels` once to get the label ids. If a label is missing, skip that thread and list it under "Needs Dom". Don't create labels.
-- Apply them in **live** mode only: `label_thread` to add the folder and priority, then `unlabel_thread` for any other `Triage/*` label on the
+- Apply them in **live** mode only: `label_thread` to add the folder and priority, then `unlabel_thread` for any other `*Triage/*` label on the
   thread, and for `INBOX` and `UNREAD` if the priority is FYI (archived mail is marked read, Dom 2026-11-20). If the priority is Action or NeedsDom and the thread isn't in the inbox, add `INBOX` back.
 - Never lower a priority already on the thread (Action > NeedsDom > FYI). Only keep it or raise it.
 - Threads you skipped as unchanged are left alone. Anything you don't file, the general sorter files later.

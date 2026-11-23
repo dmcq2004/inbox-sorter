@@ -1,5 +1,5 @@
 /**
- * One-off clean-up (Dom, 2026-11-20): mark every unread Triage/FYI email as read.
+ * One-off clean-up (Dom, 2026-11-20): mark every unread *Triage/FYI email as read.
  *
  * It only clears the "unread" flag. It doesn't archive, move, label, delete or send anything.
  * Gmail can mark 100 threads read in one call, so ~6,800 threads take a few minutes.
@@ -14,7 +14,7 @@
  *
  * Undo: there's no list of which emails were unread, so this can't be reversed email by email.
  */
-const QUERY = 'label:triage-fyi is:unread';
+const QUERY = 'label:"*Triage/FYI" is:unread';
 const BATCH = 100;               // most threads GmailApp.markThreadsRead takes in one call
 const TIME_LIMIT_MS = 5 * 60 * 1000;
 

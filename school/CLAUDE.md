@@ -14,10 +14,10 @@ Every in-scope thread gets its folder label from `senders.md` (`School/Trinity` 
 For Impact Food (school lunches), a reminder to order lunches is `Action` and anything else is `FYI`.
 For YEC, booking forms, payments and session changes are `Action`; a thread where Rosie is already handling it and only cc's Dom is `FYI`, unless someone asks Dom something directly.
 Priorities:
-- `Triage/Action`: there's a deadline, payment, consent form, permission slip, reply needed, or something to bring or wear on a date.
-- `Triage/NeedsDom`: about Sebastian specifically (absence, health, behaviour, teacher message) with no deadline.
-- `Triage/FYI`: newsletters, general notices, fundraising, password resets, receipts. Archive these.
-- **A loose end that's Dom's to resolve also makes it `Triage/NeedsDom`** (unless it's already Action): an attachment that
+- `*Triage/Action`: there's a deadline, payment, consent form, permission slip, reply needed, or something to bring or wear on a date.
+- `*Triage/NeedsDom`: about Sebastian specifically (absence, health, behaviour, teacher message) with no deadline.
+- `*Triage/FYI`: newsletters, general notices, fundraising, password resets, receipts. Archive these.
+- **A loose end that's Dom's to resolve also makes it `*Triage/NeedsDom`** (unless it's already Action): an attachment that
   couldn't be read or found in Drive, or a date, time or year group that may affect Seb but isn't clear. Only things Dom
   can act on count. Waiting for someone else to send something (e.g. "Ms Harvey will ask for panto helpers") doesn't; that
   stays in the sync report.

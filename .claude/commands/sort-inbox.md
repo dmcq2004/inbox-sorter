@@ -27,7 +27,7 @@ Steps:
 ## Scheduled (headless) runs
 The laptop task / Pi cron runs `claude -p "/sort-inbox live since=YYYY/MM/DD"` via `scripts/run-sort-inbox.{ps1,sh}`, straight after
 the school calendar sync, at 07:00 and 17:30. The runner works out `since` from the last successful run, so gaps get caught up. Nobody is watching, so:
-- Never ask a question or wait for input. Where no rule decides, use `config/priority-rules.md`; if still unsure, `Triage/NeedsDom` and don't archive.
+- Never ask a question or wait for input. Where no rule decides, use `config/priority-rules.md`; if still unsure, `*Triage/NeedsDom` and don't archive.
 - Never create, rename or delete a label. If a label the rules need is missing, apply the priority label only, skip the folder, and list it in the report.
 - At most **100 threads** per run (newest first). If there are more, sort 100 and say so; the next run picks up the rest.
 - **Your output is the report.** The runner saves it to `logs/sort-inbox/` itself, so don't write a report file. Always include,

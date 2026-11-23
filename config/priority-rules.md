@@ -1,13 +1,13 @@
-# Priority rules (Triage/*)
+# Priority rules (*Triage/*)
 
 Use these when no sender rule decides the priority.
 
 | Label | Meaning | Examples | Archive? |
 |---|---|---|---|
-| `Triage/Action` | Dom must do something soon (≤7 days): pay, sign, reply, book, attend | bill due, form deadline, a person asking Dom a direct question | No |
-| `Triage/NeedsDom` | A real person or important account wants his attention, with no hard deadline yet | personal email, family threads, account or security changes, tax, data-breach notices | No |
-| `Triage/FYI` | Worth knowing but needs nothing from him | order and delivery updates, statements ready, receipts, app notifications | Yes |
-| `Triage/Bulk` | Marketing, newsletters, promotions, surveys, "rate us" | retail promos, Christie's marketing, Latent Space, LinkedIn group digests | Yes |
+| `*Triage/Action` | Dom must do something soon (≤7 days): pay, sign, reply, book, attend | bill due, form deadline, a person asking Dom a direct question | No |
+| `*Triage/NeedsDom` | A real person or important account wants his attention, with no hard deadline yet | personal email, family threads, account or security changes, tax, data-breach notices | No |
+| `*Triage/FYI` | Worth knowing but needs nothing from him | order and delivery updates, statements ready, receipts, app notifications | Yes |
+| `*Triage/Bulk` | Marketing, newsletters, promotions, surveys, "rate us" | retail promos, Christie's marketing, Latent Space, LinkedIn group digests | Yes |
 
 ## Tie-breakers
 - A real person writing to Dom directly (not a no-reply sender): at least `NeedsDom`.

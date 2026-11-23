@@ -6,11 +6,11 @@ Status: **keep** (use it), **new** (to create; needs Dom's OK), **prune** (empty
 ## Priority axis
 | Label | Threads | Status |
 |---|---|---|
-| Triage (parent) | 0 | keep |
-| Triage/Action | 6 | keep |
-| Triage/NeedsDom | 536 | keep |
-| Triage/FYI | 6,960 | keep |
-| Triage/Bulk | 2,307 | keep |
+| *Triage (parent) | 0 | keep |
+| *Triage/Action | 6 | keep |
+| *Triage/NeedsDom | 536 | keep |
+| *Triage/FYI | 6,960 | keep |
+| *Triage/Bulk | 2,307 | keep |
 
 ## Family & school
 | Label | Threads | Status | Notes |
@@ -47,4 +47,4 @@ BrewDog (344), Finisterre (198), Substack (3,785), Variant Perception (167), Lin
 **Leave** (old mail; the sorter doesn't use them): INBOX/KCL (6), ODP (37), Notes (6: iPhone Notes 2015–16, which sync through this label, so never delete it),
 [Imap]/Sent (10), [Imap]/Drafts (1), [Imap]/Trash, Junk E-mail (old mail-program folders; check the phone isn't using them before deleting)
 
-> Parents (`Banking etc`, `Correspondence`, `Triage`, `School`) show 0 threads but must stay while they have child labels.
+> Parents (`Banking etc`, `Correspondence`, `*Triage`, `School`) show 0 threads but must stay while they have child labels.

@@ -125,7 +125,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
 
 <main>
   <header style="display:grid;gap:12px">
-    <div class="eyebrow">Gmail · dmcq2004 · status at 20 Nov 2026, afternoon</div>
+    <div class="eyebrow">Gmail · dmcq2004 · status at 23 Nov 2026</div>
     <h1>Inbox Sorter</h1>
     <p class="lede">Claude sorts your Gmail into labels that show up as folders in your phone's Mail app. The school module reads Trinity, Young Explorers and school-lunch emails, attachments and newsletters. The school calendar updates itself twice a day from this laptop, and will move to the Raspberry Pi later. The first live sort ran on 7 Nov: 138 emails from the past week were labelled, 123 archived, and 15 left in your inbox. Since then the inbox has been sorted automatically at 07:00 and 17:30, straight after the school sync. On 19 Nov the runs were made safe to leave alone: each one now picks up everything since the last run that worked, so mail isn't missed when the laptop has been asleep.</p>
   </header>
@@ -255,7 +255,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
   <section aria-labelledby="h-decisions">
     <h2 id="h-decisions">Decisions made</h2>
     <ul class="decisions">
-      <li><b>Reuse and tidy the existing labels</b><span>Keep the Triage/* scheme and your sender folders, and prune the empty ones.</span></li>
+      <li><b>Reuse and tidy the existing labels</b><span>Keep the *Triage/* scheme and your sender folders, and prune the empty ones.</span></li>
       <li><b>Claude does all the sorting</b><span>No Gmail filters for you to set up, since you read mail in your phone's Mail app.</span></li>
       <li><b>Archive only low-value mail</b><span>The 19.5k backlog is a separate job for later.</span></li>
       <li><b>The school module covers Trinity and Young Explorers</b><span>Bright Horizons emails are app notifications, so they're labelled Nursery and archived.</span></li>
@@ -277,6 +277,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
       <li><b>An Inbox Actions dashboard (20 Nov)</b><span>A live page listing the Action and NeedsDom emails still in your inbox, split into School and Everything else. It reads Gmail when it's opened, so it only works for you.</span></li>
       <li><b>Archived mail is marked read (20 Nov)</b><span>When the sort or the school sync archives an FYI or Bulk email, it also marks it read, so the folders in your Mail app don't build up unread counts. A one-off script marked the ~6,800 older unread FYI emails as read. Action and NeedsDom are left as they are.</span></li>
       <li><b>Action emails cleared (20 Nov)</b><span>Went through all five together. Four were done or past, so they were archived. The Sinterklaas details went into the calendar, with a 30 Nov event for handing in the present.</span></li>
+      <li><b>Triage folder renamed to *Triage (23 Nov)</b><span>The priority labels are now *Triage/Action, *Triage/NeedsDom, *Triage/FYI and *Triage/Bulk. Every email kept its label, and the sort, the school sync and Inbox Actions all use the new names.</span></li>
       <li><b>No failure alerts for now (19 Nov)</b><span>If we add them later, healthchecks.io is the suggestion. It would also notice if the Pi stops working.</span></li>
     </ul>
   </section>
@@ -285,10 +286,10 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
     <h2 id="h-labels">How mail gets labelled</h2>
     <p>Each sorted thread gets one priority label and, optionally, one folder label. FYI and Bulk are archived, so they leave the Inbox but stay in their folder.</p>
     <div class="labels">
-      <div class="label-row"><span class="chip">Triage/Action</span><span>Needs doing within a week: pay, sign, reply, book. Stays in the inbox.</span></div>
-      <div class="label-row"><span class="chip">Triage/NeedsDom</span><span>A real person or an important account, with no hard deadline. Stays in the inbox.</span></div>
-      <div class="label-row"><span class="chip">Triage/FYI</span><span>Deliveries, statements, notifications. Archived.</span></div>
-      <div class="label-row"><span class="chip">Triage/Bulk</span><span>Marketing, newsletters, surveys. Archived.</span></div>
+      <div class="label-row"><span class="chip">*Triage/Action</span><span>Needs doing within a week: pay, sign, reply, book. Stays in the inbox.</span></div>
+      <div class="label-row"><span class="chip">*Triage/NeedsDom</span><span>A real person or an important account, with no hard deadline. Stays in the inbox.</span></div>
+      <div class="label-row"><span class="chip">*Triage/FYI</span><span>Deliveries, statements, notifications. Archived.</span></div>
+      <div class="label-row"><span class="chip">*Triage/Bulk</span><span>Marketing, newsletters, surveys. Archived.</span></div>
       <div class="label-row"><span class="chip">School/Trinity</span><span>Trinity C of E School Lewisham, including school-lunch emails. Created 7 Nov.</span></div>
       <div class="label-row"><span class="chip">School/Young Explorers</span><span>Breakfast, after-school and holiday club. Created 7 Nov.</span></div>
       <div class="label-row"><span class="chip">Newsletters</span><span>Latent Space, AI Secret, Dave Wang, Sandalwood and similar. Created 7 Nov.</span></div>

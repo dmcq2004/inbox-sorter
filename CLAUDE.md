@@ -25,19 +25,19 @@ as folders, and archiving removes a message from the Inbox. Never rely on Dom se
 ## Source-of-truth files
 - `config/labels.md`: every label, what it's for, and keep/prune status. Only use labels listed as `keep` or `new`.
 - `config/sender-rules.yaml`: deterministic sender → label (+ priority, + archive) rules.
-- `config/priority-rules.md`: how to choose a `Triage/*` priority when no rule decides it.
+- `config/priority-rules.md`: how to choose a `*Triage/*` priority when no rule decides it.
 - `school/CLAUDE.md`: everything from Trinity school goes through the school module.
 
 ## Two label axes
-1. **Priority**: exactly one of `Triage/Action`, `Triage/NeedsDom`, `Triage/FYI`, `Triage/Bulk` on every sorted thread.
+1. **Priority**: exactly one of `*Triage/Action`, `*Triage/NeedsDom`, `*Triage/FYI`, `*Triage/Bulk` on every sorted thread.
 2. **Folder**: optional, at most one topic or sender label (e.g. `Banking etc/Amex`, `Auction Alerts`, `School/Trinity`).
 
-**Archive** (remove `INBOX`) only `Triage/FYI` and `Triage/Bulk`, and mark them read (remove `UNREAD`) at the same time. `Action` and `NeedsDom` stay in the inbox, and their read or unread state is left alone.
+**Archive** (remove `INBOX`) only `*Triage/FYI` and `*Triage/Bulk`, and mark them read (remove `UNREAD`) at the same time. `Action` and `NeedsDom` stay in the inbox, and their read or unread state is left alone.
 
 ## Classification order (stop at first match)
 1. Sender is in `school/senders.md`, or the thread is to/cc a school address → school module (`school/CLAUDE.md`).
 2. Sender matches `config/sender-rules.yaml` → apply that rule.
-3. Otherwise use your judgement per `config/priority-rules.md`. If unsure, choose `Triage/NeedsDom` and do not archive.
+3. Otherwise use your judgement per `config/priority-rules.md`. If unsure, choose `*Triage/NeedsDom` and do not archive.
 
 ## Hard safety rules
 - Never send, forward, reply, trash, or mark spam. Drafts only, and only when Dom asks.
@@ -48,8 +48,10 @@ as folders, and archiving removes a message from the Inbox. Never rely on Dom se
 
 ## Finding unsorted mail
 ```
-in:inbox newer_than:2d -label:triage-action -label:triage-needsdom -label:triage-fyi -label:triage-bulk
+in:inbox newer_than:2d -label:"*Triage/Action" -label:"*Triage/NeedsDom" -label:"*Triage/FYI" -label:"*Triage/Bulk"
 ```
+The Triage labels start with `*` (renamed 2026-11-23). Always quote them in searches:
+`label:"*Triage/FYI"`. The old `label:triage-fyi` form matches nothing now.
 Scheduled runs replace `newer_than:2d` with `after:<date>`, starting the day before the last successful run
 (`state/sort-inbox.json`, machine-local), so mail isn't missed after the machine has been off. Page through results with ≤50 threads per page. Use `THREAD_VIEW_SUMMARY` for classifying, and
 `get_thread` only when sender and subject aren't enough.

@@ -5,7 +5,7 @@ Update this file whenever something is done, decided or blocked, and date the ch
 Last updated: 2026-11-20.
 
 ## Waiting on Dom
-- [x] **Ran `backlog/apps-script/MarkFyiRead.gs`** (Dom, 2026-11-20; checked: no unread FYI left): marked all ~6,800 unread `Triage/FYI` emails as read. Paste it into a new project at script.google.com, run `markFyiRead`, and run it again until the log says "Done". It can't be undone email by email. From 20 Nov the sort and the school sync mark FYI and Bulk read as they archive them.
+- [x] **Ran `backlog/apps-script/MarkFyiRead.gs`** (Dom, 2026-11-20; checked: no unread FYI left): marked all ~6,800 unread `*Triage/FYI` emails as read. Paste it into a new project at script.google.com, run `markFyiRead`, and run it again until the log says "Done". It can't be undone email by email. From 20 Nov the sort and the school sync mark FYI and Bulk read as they archive them.
 - [x] **Nativity** (2026-11-20): going to both (Tue 1 Dec 10:00 and Wed 2 Dec 14:15). Both events kept, renamed and set to busy.
 - [x] **Attachment saver installed** (2026-11-07): Apps Script project "Save School Attachments", backfill saved 26 files, runs every 15 min.
 - [x] **Labels reviewed** (2026-11-07): 4 new labels created; 15 to delete (see `config/labels.md`).
@@ -46,3 +46,4 @@ Last updated: 2026-11-20.
 - 2026-11-07: project started; plan approved; school calendar backfilled; newsletters readable without a browser.
 - 2026-11-19: made the scheduled runs safe to leave unattended (catch-up window, reports always saved, rule fixes).
 - 2026-11-20: "Inbox Actions" dashboard (https://claude.ai/artifact/P42emKptwWME3UtYG8NFKJ): live Gmail view of Action (since 1 Sep) and NeedsDom (last 30 days) still in the inbox, split School / Everything else. The school split uses the School/* labels plus the school senders (incl. De Zeven Eiken); keep it in step with `school/senders.md`.
+- 2026-11-23: Renamed the Triage labels to `*Triage` (Dom asked). Label IDs are unchanged, so all threads kept their labels. Searches must now quote the name (`label:"*Triage/FYI"`); updated CLAUDE.md, the rule files, the commands, `MarkFyiRead.gs` and the Inbox Actions dashboard queries.
