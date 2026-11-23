@@ -137,13 +137,9 @@ rules:
     priority: Bulk
 
   # --- Social / platforms
-  - match: inmail-hit-reply@linkedin.com   # recruiter InMails don't say "messaged you"; must come before linkedin.com (2026-11-19)
-    folder: LinkedIn
-    priority: NeedsDom
-  - match: linkedin.com
+  - match: linkedin.com   # all of it, messages and InMails too: Dom reads LinkedIn in the app (2026-11-23)
     folder: LinkedIn
     priority: Bulk
-    subject_override: { NeedsDom: [messaged you] }   # a real person's message
   - match: accounts.google.com
     folder: Google
     priority: NeedsDom
