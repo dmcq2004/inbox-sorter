@@ -62,9 +62,9 @@ Every live run appends to `logs/runs/YYYY-MM-DD.md` with one table row per threa
 Dry runs print the same table to the terminal and write nothing.
 
 ## Scheduled runs
-The "Inbox Sorter" task (laptop; cron on the Pi later) runs at 07:00 and 17:30: first the school calendar sync, then
+Cron on the Raspberry Pi (`dmcquade@raspberrypi.local`, since 2026-11-23; the laptop task is disabled) runs at 07:00 and 17:30: first the school calendar sync, then
 `/sort-inbox live` from the last successful run (`scripts/run-sort-inbox.{ps1,sh}`). The headless rules are at the end of
-`.claude/commands/sort-inbox.md`. Reports: `logs/sort-inbox/`; raw output: `logs/scheduler/`; undo log: `logs/runs/`.
+`.claude/commands/sort-inbox.md`. Reports: `logs/sort-inbox/`; raw output: `logs/scheduler/`; undo log: `logs/runs/`, all on the Pi (see `school/CALENDAR-SYNC.md`).
 The job may only add or remove labels on threads and write its own logs.
 
 ## Sub-modules

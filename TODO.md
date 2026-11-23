@@ -26,12 +26,13 @@ Last updated: 2026-11-23.
   - [x] Decided (Dom, 2026-11-20): don't wake the laptop from sleep; wait for the Pi (the catch-up window means nothing is lost).
   - [x] Reviewed all 7 sort reports, 7–20 Nov (2026-11-20): no errors, no missing labels. Dom agreed: Van Cols added to the school senders (School/Trinity, also in both school search queries); new rules for noushold.com (FYI), Fidelity `email.wi@` marketing, Goodreads and NOW TV (Bulk), Gemini notices (Google, FYI); Bright Horizons direct messages now NeedsDom; Admiral marketing now Bulk (86 rules). Dom declined: LinkedIn "Message replied:" recruiter replies → NeedsDom (they stay Bulk), and HMRC advice mailings → FYI (they stay NeedsDom).
   - [x] School threads are now filed by the calendar sync (Dom, 2026-11-19), which reads attachments first, so a loose end (e.g. an unreadable attachment) stays in the inbox as NeedsDom instead of being archived as FYI. The sort only files school threads the sync missed.
-  - [ ] Failure alerts: Dom passed for now (2026-11-19). The recommendation is healthchecks.io, which also catches a dead Pi.
+  - [ ] Failure alerts: Dom passed for now (2026-11-19). The recommendation is healthchecks.io, which also catches a dead Pi. More useful now the runs are on the Pi, where logs are out of sight.
 - [ ] **4. School module:** see `school/ROADMAP.md`
   - [x] Context, term dates, YEC moved in, attachment saver written, newsletter reader, all 8 newsletters read (2026-11-07)
   - [x] Calendar backfill to Christmas, 10 changes (2026-11-07, `logs/runs/2026-11-07.md`)
   - [x] Hands-off calendar sync built and scheduled on the laptop: 07:00 and 17:30 daily (2026-11-07). See `school/CALENDAR-SYNC.md`.
-  - [ ] Move the sync and the sort to the Raspberry Pi (64-bit OS, Claude Code signed in, cron; lines in `school/CALENDAR-SYNC.md`), then remove the laptop task.
+  - [x] Moved the sync and the sort to the Raspberry Pi (2026-11-23): `dmcquade@raspberrypi.local`, repo cloned with a read-only deploy key, Claude Code re-signed in (the old login had expired), both dry runs passed, cron at 07:00 and 17:30, laptop task disabled (not deleted). Details in `school/CALENDAR-SYNC.md`.
+  - [ ] Check the Pi's first live runs (23 Nov 17:30, 24 Nov 07:00): `ssh dmcquade@raspberrypi.local 'ls -t ~/Emails/logs/sort-inbox ~/Emails/logs/calendar-sync | head'`.
   - [ ] Check the first week of reports in `logs/calendar-sync/` and tune the rules.
 - [ ] **5. Backlog clean-up** (19.5k old inbox threads). See `backlog/CLAUDE.md`.
   - [x] 2026-11-23: Apps Script `backlog/apps-script/SortBacklog.gs` run through Chrome: dry run, then 6,272 old FYI/Bulk and 6-month-old Action/NeedsDom archived, and 6,432 threads labelled by the 86 rules. Inbox ~19,500 → ~8,090. Undo log in the Drive sheet "Backlog sort".
@@ -49,4 +50,5 @@ Last updated: 2026-11-23.
 - 2026-11-07: project started; plan approved; school calendar backfilled; newsletters readable without a browser.
 - 2026-11-19: made the scheduled runs safe to leave unattended (catch-up window, reports always saved, rule fixes).
 - 2026-11-20: "Inbox Actions" dashboard (https://claude.ai/artifact/P42emKptwWME3UtYG8NFKJ): live Gmail view of Action (since 1 Sep) and NeedsDom (last 30 days) still in the inbox, split School / Everything else. The school split uses the School/* labels plus the school senders (incl. De Zeven Eiken); keep it in step with `school/senders.md`.
+- 2026-11-23: Sync and sort moved to the Raspberry Pi.
 - 2026-11-23: Renamed the Triage labels to `*Triage` (Dom asked). Label IDs are unchanged, so all threads kept their labels. Searches must now quote the name (`label:"*Triage/FYI"`); updated CLAUDE.md, the rule files, the commands, `MarkFyiRead.gs` and the Inbox Actions dashboard queries.

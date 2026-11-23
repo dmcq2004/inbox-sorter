@@ -5,7 +5,7 @@ input from Dom. It replaces the old claude.ai `school-comms-triage` scheduled ta
 
 ## How it works
 ```
-Task Scheduler (laptop) / cron (Pi)
+cron (Pi) / Task Scheduler (laptop, disabled)
   └─ scripts/run-calendar-sync.{ps1,sh}       lock, timeout, log
        └─ claude -p "/school-calendar-sync live"   headless Claude Code, same account and connectors
             ├─ Gmail: reads new school threads since the last run, and files them (labels only; Dom, 2026-11-19)
@@ -16,7 +16,7 @@ Task Scheduler (laptop) / cron (Pi)
 - **Instructions:** `.claude/commands/school-calendar-sync.md` (rules, steps, event conventions).
 - **Permissions:** `.claude/settings.json` (read tools allowed; send, trash and delete tools denied). The runner adds calendar
   create/update, adding/removing labels on threads, and writes to the job's own files for the job only.
-- **Schedule:** 07:00 and 17:30 daily, in the "Inbox Sorter" task. The general inbox sort (`scripts/run-sort-inbox.*`,
+- **Schedule:** 07:00 and 17:30 daily, in the Pi's crontab (the laptop's "Inbox Sorter" task until 2026-11-23). The general inbox sort (`scripts/run-sort-inbox.*`,
   `/sort-inbox live`) runs straight after the sync in the same task; see the root `CLAUDE.md`.
 - **Each run produces:**
   - `logs/calendar-sync/<time>.md`: the report (changes made, **Needs Dom**, skipped)
@@ -26,29 +26,34 @@ Task Scheduler (laptop) / cron (Pi)
 
 All of these are machine-local (git-ignored).
 
-## Laptop (Windows), current host
-1. One-off: `powershell -ExecutionPolicy Bypass -File scripts\install-windows-task.ps1` (registers the "Inbox Sorter" task: sync, then sort)
-2. Test any time: `powershell -ExecutionPolicy Bypass -File scripts\run-calendar-sync.ps1 -Mode dry-run -Days 14`
-3. Runs only while Dom is logged in. If the laptop was asleep at 07:00 or 17:30, the task runs when it wakes.
-4. Remove: `Unregister-ScheduledTask -TaskName 'Inbox Sorter' -Confirm:$false` (it replaced the older "School Calendar Sync" task on 2026-11-07)
+## Raspberry Pi, current host (since 2026-11-23)
+- **Machine:** Raspberry Pi 4 (4 GB), 64-bit Raspberry Pi OS (Bookworm), `dmcquade@raspberrypi.local` (192.168.1.31), timezone Europe/London.
+  The laptop's SSH key (`~/.ssh/id_ed25519`) is in the Pi's `authorized_keys`, so Claude can log in from the laptop to check or fix it.
+- **Repo:** `~/Emails`, cloned with a read-only deploy key (`~/.ssh/inbox_sorter_deploy`, GitHub title "Raspberry Pi (read-only)") through the
+  SSH alias `github-inbox-sorter` in `~/.ssh/config`. `core.fileMode` is off there, so the scripts' executable bit never blocks `git pull`.
+- **Claude Code:** `~/.local/bin/claude`, signed in to the claude.ai account (Pro), with Gmail, Calendar and Drive connected. The folder trust
+  dialog for `~/Emails` was accepted, which is needed or the project's `.claude/settings.json` permissions are ignored.
+- **Schedule (`crontab -l`):** the two lines below, next to Dom's own Binance (09:00) and Art (Fri 08:00) jobs. Backup of the old crontab:
+  `~/crontab.backup-2026-11-23`. With `PULL=1` the Pi picks up rule changes pushed from the laptop before each run.
+  ```
+  0 7 * * *   PULL=1 /home/dmcquade/Emails/scripts/run-calendar-sync.sh live >>/home/dmcquade/Emails/logs/scheduler/cron.log 2>&1; /home/dmcquade/Emails/scripts/run-sort-inbox.sh live >>/home/dmcquade/Emails/logs/scheduler/cron.log 2>&1
+  30 17 * * * (same, at 17:30)
+  ```
+- **Logs and state** are on the Pi (git-ignored), e.g. `ssh dmcquade@raspberrypi.local 'ls -t ~/Emails/logs/sort-inbox | head'`.
+  The laptop's own copies stop at 20 Nov 2026.
+- **Sign-in:** the Pi's claude.ai login had expired after a month unused (Oct to Nov 2026), which also hid the connectors. Twice-daily runs keep it
+  fresh. If runs fail with "OAuth session expired" or "Failed to authenticate", Dom runs `claude` in `~/Emails` at the Pi and types `/login`.
+- **Test any time:** `scripts/run-calendar-sync.sh dry-run 14` and `scripts/run-sort-inbox.sh dry-run` (both passed on 2026-11-23).
+- **Update Claude Code:** `claude update` (2.1.330 on 2026-11-23).
 
-## Moving to the Raspberry Pi
-Needs a **64-bit** Raspberry Pi OS (Claude Code supports Linux arm64; it doesn't support 32-bit).
-1. The repo is on GitHub (private): `https://github.com/dmcq2004/inbox-sorter`, branch `main`. Give the Pi a read-only deploy key
-   (`ssh-keygen -t ed25519` on the Pi, then add the `.pub` under the repo's Settings › Deploy keys, write access off), then
-   `git clone git@github.com:dmcq2004/inbox-sorter.git ~/Emails`
-2. Install Claude Code: `curl -fsSL https://claude.ai/install.sh | bash`. Python 3 is already on Raspberry Pi OS (the script needs only the standard library).
-3. Sign in once, interactively: run `claude` in `~/Emails` and log in with the **same claude.ai account** (dmcq2004@gmail.com),
-   so the Gmail, Calendar and Drive connectors come with it. Check with `claude mcp list` (all three should show "Connected").
-4. Copy the state from the laptop so it doesn't reprocess: `school/state/calendar-sync.json` and `state/sort-inbox.json` (optional; without them the first sync looks back 14 days and the first sort 7 days).
-5. `chmod +x scripts/run-calendar-sync.sh scripts/run-sort-inbox.sh`, then test: `scripts/run-calendar-sync.sh dry-run 14` and `scripts/run-sort-inbox.sh dry-run 1`
-6. `crontab -e`, then add these lines (with `PULL=1` the Pi picks up rule changes pushed from the laptop; replace `/home/pi` with the Pi user's home directory, so ask Dom for the username):
-   ```
-   0 7 * * *   PULL=1 /home/pi/Emails/scripts/run-calendar-sync.sh live; /home/pi/Emails/scripts/run-sort-inbox.sh live
-   30 17 * * * PULL=1 /home/pi/Emails/scripts/run-calendar-sync.sh live; /home/pi/Emails/scripts/run-sort-inbox.sh live
-   ```
-7. **Then remove the laptop task** ("Inbox Sorter"), so the two don't both run (the dedupe tags would prevent duplicates, but it wastes runs).
-8. Check the Pi's timezone is Europe/London: `timedatectl`.
+## Laptop (Windows), fallback
+The "Inbox Sorter" task was **disabled** on 2026-11-23 when the Pi took over (not deleted). To use the laptop again, copy the Pi's
+`state/sort-inbox.json` and `school/state/calendar-sync.json` back first, comment out the Pi's cron lines, then
+`Enable-ScheduledTask -TaskName 'Inbox Sorter'`.
+1. Install: `powershell -ExecutionPolicy Bypass -File scripts\install-windows-task.ps1` (registers the "Inbox Sorter" task: sync, then sort)
+2. Test: `powershell -ExecutionPolicy Bypass -File scriptsun-calendar-sync.ps1 -Mode dry-run -Days 14`
+3. Runs only while Dom is logged in and the laptop is awake.
+4. Remove: `Unregister-ScheduledTask -TaskName 'Inbox Sorter' -Confirm:$false`
 
 ## Checking on it
 - Latest report: newest file in `logs/calendar-sync/`. Look at **Needs Dom** first.

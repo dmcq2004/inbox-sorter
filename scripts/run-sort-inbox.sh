@@ -2,7 +2,7 @@
 # Runs the general inbox sorter headlessly with Claude Code (Raspberry Pi / Linux).
 # Usage:  scripts/run-sort-inbox.sh [live|dry-run] [days]
 # Cron: run it straight after the calendar sync on the same line, e.g.
-#   0 7 * * *   PULL=1 /home/pi/Emails/scripts/run-calendar-sync.sh live; /home/pi/Emails/scripts/run-sort-inbox.sh live
+#   0 7 * * *   PULL=1 /home/dmcquade/Emails/scripts/run-calendar-sync.sh live; /home/dmcquade/Emails/scripts/run-sort-inbox.sh live
 #
 # Window: from the day before the last successful live run (state/sort-inbox.json), so a gap of any length (Pi down)
 # is caught up. With no state it looks back 7 days; it never looks back more than 30. A days argument overrides this.

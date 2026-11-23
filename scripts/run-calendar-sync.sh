@@ -2,8 +2,8 @@
 # Runs the hands-off school calendar sync headlessly with Claude Code (Raspberry Pi / Linux).
 # Usage:  scripts/run-calendar-sync.sh [live|dry-run] [days]
 # Cron example (07:00 and 17:30 every day):
-#   0 7 * * *   /home/pi/Emails/scripts/run-calendar-sync.sh live
-#   30 17 * * * /home/pi/Emails/scripts/run-calendar-sync.sh live
+#   0 7 * * *   /home/dmcquade/Emails/scripts/run-calendar-sync.sh live
+#   30 17 * * * /home/dmcquade/Emails/scripts/run-calendar-sync.sh live
 set -uo pipefail
 MODE="${1:-live}"
 DAYS="${2:-0}"
