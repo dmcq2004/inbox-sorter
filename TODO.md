@@ -2,7 +2,7 @@
 
 The single to-do list for the whole project. School detail lives in `school/ROADMAP.md`.
 Update this file whenever something is done, decided or blocked, and date the change.
-Last updated: 2026-11-20.
+Last updated: 2026-11-23.
 
 ## Waiting on Dom
 - [x] **Ran `backlog/apps-script/MarkFyiRead.gs`** (Dom, 2026-11-20; checked: no unread FYI left): marked all ~6,800 unread `*Triage/FYI` emails as read. Paste it into a new project at script.google.com, run `markFyiRead`, and run it again until the log says "Done". It can't be undone email by email. From 20 Nov the sort and the school sync mark FYI and Bulk read as they archive them.
@@ -33,7 +33,9 @@ Last updated: 2026-11-20.
   - [x] Hands-off calendar sync built and scheduled on the laptop: 07:00 and 17:30 daily (2026-11-07). See `school/CALENDAR-SYNC.md`.
   - [ ] Move the sync and the sort to the Raspberry Pi (64-bit OS, Claude Code signed in, cron; lines in `school/CALENDAR-SYNC.md`), then remove the laptop task.
   - [ ] Check the first week of reports in `logs/calendar-sync/` and tune the rules.
-- [ ] **5. Backlog clean-up** (19.5k old inbox threads). Starts after ~2 weeks of clean live sorting.
+- [ ] **5. Backlog clean-up** (19.5k old inbox threads). See `backlog/CLAUDE.md`.
+  - [x] 2026-11-23: Apps Script `backlog/apps-script/SortBacklog.gs` run through Chrome: dry run, then 6,272 old FYI/Bulk and 6-month-old Action/NeedsDom archived, and 6,432 threads labelled by the 86 rules. Inbox ~19,500 → ~8,090. Undo log in the Drive sheet "Backlog sort".
+  - [ ] Rules for the biggest senders among the ~7,900 threads still unruled, then rerun `runLive`.
 
 ## Housekeeping
 - [ ] Keep the summary page (https://claude.ai/artifact/SLJ2edFMQSi5hLRydW3nKj) in step with this file and `school/ROADMAP.md`.
