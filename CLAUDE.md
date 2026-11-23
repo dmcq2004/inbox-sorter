@@ -8,6 +8,8 @@ Dom reads mail in his **phone's native Mail app (IMAP)**, not the Gmail app. Gma
 as folders, and archiving removes a message from the Inbox. Never rely on Dom setting anything up in Gmail.
 
 ## Starting a session
+0. Run `git pull --ff-only` first. Dom works in this project from the laptop (`Documents\Emails`) or the Raspberry Pi (`~/Emails`),
+   and the other machine may have pushed changes. If the pull fails because of local commits or edits, stop and tell Dom.
 1. Read `TODO.md` (project to-dos, what's waiting on Dom) and `school/ROADMAP.md` (school module detail).
 2. For calendar or sync work, read `school/CALENDAR-SYNC.md`. To see how the hands-off sync is doing, read the newest file in `logs/calendar-sync/`.
 3. Don't redo finished work: what's done is ticked and dated in those files, and `git log` has the history.
@@ -20,7 +22,10 @@ as folders, and archiving removes a message from the Inbox. Never rely on Dom se
   the start of a session; update them, with a date, when something is done, decided or blocked.
 - **Durable facts and decisions:** in the files below and `school/context.md`, not in chat.
 - **Every live change** to Gmail, Calendar or Notion goes in `logs/runs/YYYY-MM-DD.md`.
-- Commit to git after meaningful changes, and only when Dom asks.
+  Logs are git-ignored and stay on the machine that made the change (they hold email subjects), so to undo something,
+  look in `logs/runs/` on both the laptop and the Pi (`ssh dmcquade@raspberrypi.local`).
+- **Commit every change to a tracked file straight away**, without waiting to be asked (Dom, 2026-11-23), then ask Dom to run
+  `! git push`, because Claude's own push is blocked. Dom works from the laptop or the Pi, so an unpushed change on one is missing on the other.
 
 ## Source-of-truth files
 - `config/labels.md`: every label, what it's for, and keep/prune status. Only use labels listed as `keep` or `new`.
