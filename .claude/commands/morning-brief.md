@@ -17,7 +17,8 @@ Arguments: $ARGUMENTS
 3. Build the brief in the format in `inbox/CLAUDE.md`. Add one line at the end:
    "Open Claude Code in the Emails project and type /inbox to act on this. Drafts are in your Drafts folder."
 4. Live: send it with **one** `send_message` call:
-   - `to`: `["dmcq2004@gmail.com"]` only. No cc, no bcc, no attachments. (`.claude/hooks/send_guard.py` blocks anything else.)
+   - `to`: `["dmcq2004@gmail.com"]` only. No cc, bcc, attachments, `draftId`, `replyThreadId` or `replyToMessageId`: a new email.
+     (`.claude/hooks/send_guard.py` blocks anything else.)
    - `subject`: `Morning brief, <Day D Mon>: <N> need you` (e.g. `Morning brief, Tue 24 Nov: 3 need you`)
    - `htmlBody`: the brief as simple HTML (headings, numbered lists, `<b>` for ✎ lines), readable on a phone; `body`: the plain-text version.
    If the send is blocked or fails, don't retry with different recipients. Report it and end with `BRIEF FAILED: send blocked`.

@@ -14,9 +14,10 @@ Arguments: $ARGUMENTS
 3. Show the brief in the format in `inbox/CLAUDE.md`, with ✎ on every thread that has a draft waiting.
 4. Wait for Dom. He'll answer in plain words, e.g. "send 1", "make 1 shorter", "archive 4 and 5", "add 3 to the calendar",
    "4 should always be FYI". Then do only what he said:
-   - **Send:** show the recipients, the subject and the full body first. Then send it with `reply` on the thread's last message,
-     using the draft's text (Claude Code asks Dom to confirm). Then delete that draft with `delete_draft`, so it can't be sent twice
-     from his phone. Log it in `logs/runs/<today>.md` with "sent". If Dom edited the draft on his phone, use his version.
+   - **Send:** re-read the draft with `get_draft` (Dom may have edited it on his phone) and show its recipients, subject and full
+     body. Then send it with `send_message` and only its `draftId`, which sends the draft exactly as it is, in its thread, and
+     removes it from Drafts. Claude Code asks Dom to confirm. Log it in `logs/runs/<today>.md` with "sent".
+     For a reply with no draft, write the draft first, show it, and send that.
    - **Edit a draft:** `update_draft`, then show the new text.
    - **Drop a draft:** `delete_draft`, only for a draft Dom named.
    - **Archive:** one `unlabel_thread` call that removes `INBOX` and `UNREAD`. Keep the priority and folder labels. Log it.

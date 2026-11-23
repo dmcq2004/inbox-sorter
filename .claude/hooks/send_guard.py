@@ -45,6 +45,11 @@ def main() -> None:
 
     if not tool.endswith("__send_message"):
         block("the morning brief may only use send_message")
+    # With draftId, send_message sends that draft as written and ignores `to`, so it could reach anyone.
+    if args.get("draftId"):
+        block("the morning brief may not send a draft")
+    if args.get("replyThreadId") or args.get("replyToMessageId"):
+        block("the morning brief must be a new email, not a reply in a thread")
     if addresses(args.get("to")) != [OWN_ADDRESS]:
         block(f"the morning brief may only be sent to {OWN_ADDRESS}")
     if addresses(args.get("cc")) or addresses(args.get("bcc")):
