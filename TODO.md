@@ -34,12 +34,19 @@ Last updated: 2026-11-23.
   - [x] Calendar backfill to Christmas, 10 changes (2026-11-07, `logs/runs/2026-11-07.md`)
   - [x] Hands-off calendar sync built and scheduled on the laptop: 07:00 and 17:30 daily (2026-11-07). See `school/CALENDAR-SYNC.md`.
   - [x] Moved the sync and the sort to the Raspberry Pi (2026-11-23): `dmcquade@raspberrypi.local`, repo cloned with a read-only deploy key, Claude Code re-signed in (the old login had expired), both dry runs passed, cron at 07:00 and 17:30, laptop task disabled (not deleted). Details in `school/CALENDAR-SYNC.md`.
+  - [ ] **Claude sign-ins end on a fixed date** (found 2026-11-23): the laptop's ends 29 Nov to 2 Dec, and renewing doesn't move it. The Pi signed in on 23 Nov, so expect its end about a month later. Before then, run `claude` → `/login` at the Pi, or test whether `claude setup-token` (made for unattended jobs) keeps the Gmail, Calendar and Drive connectors.
   - [ ] Check the Pi's first live runs (23 Nov 17:30, 24 Nov 07:00): `ssh dmcquade@raspberrypi.local 'ls -t ~/Emails/logs/sort-inbox ~/Emails/logs/calendar-sync | head'`.
   - [ ] Check the first week of reports in `logs/calendar-sync/` and tune the rules.
 - [ ] **5. Backlog clean-up** (19.5k old inbox threads). See `backlog/CLAUDE.md`.
   - [x] 2026-11-23: Apps Script `backlog/apps-script/SortBacklog.gs` run through Chrome: dry run, then 6,272 old FYI/Bulk and 6-month-old Action/NeedsDom archived, and 6,432 threads labelled by the 86 rules. Inbox ~19,500 → ~8,090. Undo log in the Drive sheet "Backlog sort".
   - [ ] **Resume tomorrow (2026-11-24):** finish `tallySenders` in the "Sort Backlog" project (read-only; lists the ~7,900 unruled threads by sender in the "Unruled senders" tab). Paused on 23 Nov after Apps Script's daily Gmail quota ran out. The current version uses the Gmail API and resumes from its saved place, at ~500 threads a run; once the quota has reset, the GmailApp version (commit 6ec61fb plus `tallySenders`) does ~1,700 a run.
   - [ ] Then: agree rules for the biggest senders with Dom, add them to `config/sender-rules.yaml`, rebuild with `build_rules.py`, paste, and rerun `runLive`.
+
+- [ ] **6. Inbox chief of staff** (designed with Dom, 2026-11-23). See `inbox/CLAUDE.md`.
+  - [x] Built (2026-11-23): `/inbox` (brief, drafts written automatically, ✎ on every draft, acts only on Dom's word; sends only when he says, with Claude Code confirming), `/morning-brief` (Pi, 07:00, emails the brief to Dom only), `.claude/hooks/send_guard.py` (scheduled jobs can't send; the brief can only go to Dom). The sort and sync runners now block send, reply and forward.
+  - [ ] **Dom: apply the `.claude/settings.json` change** (Claude's auto-mode check blocked Claude from editing the blocked-tools list): move `send_message`, `reply`, `forward` and `delete_draft` from `deny` to a new `ask` list, allow `list_drafts` and `get_draft`, and add the `send_guard.py` hook. Until then `/inbox` can draft but not send, and the brief can't email.
+  - [ ] Then: brief dry run on the Pi, one live brief to check it arrives with a phone notification, add it to the 07:00 cron line.
+  - [ ] Next version: a shared list of open items (waiting on others, Dom's promises) that both machines can see, and chasing when a thread goes quiet. It needs somewhere both can write: not git (the Pi's runs never commit) and not a Drive file (the connector can't change a file once created). Options: a Gmail label, a Notion page, or a Google Sheet.
 
 ## Housekeeping
 - [ ] Keep the summary page (https://claude.ai/artifact/SLJ2edFMQSi5hLRydW3nKj) in step with this file and `school/ROADMAP.md`.

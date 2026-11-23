@@ -15,7 +15,9 @@ Steps:
 2. Call `list_labels` to map label names to IDs. If a label the rules need doesn't exist, stop and report it. Do not create it.
 3. Search with the unsorted query from `CLAUDE.md`, using `after:<since>` in place of `newer_than:2d` when `since` is given,
    or `newer_than:<N>d` otherwise. Page until done.
-4. Classify each thread using the classification order in `CLAUDE.md`. For school threads, apply `school/CLAUDE.md` labelling (but no digest; that's `/school`).
+4. Classify each thread using the classification order in `CLAUDE.md`. Special case first: a thread whose only sender is Dom
+   (`dmcq2004@gmail.com`) with a subject starting `Morning brief,` is the Pi's brief: `*Triage/FYI`, no folder, archive (rule "morning brief").
+   For school threads, apply `school/CLAUDE.md` labelling (but no digest; that's `/school`).
    The calendar sync normally files school threads before this runs, so any that are still unsorted are a fallback. Read them with
    `get_thread` and check their attachments in Drive as `school/CLAUDE.md` says, so a loose end isn't archived as FYI.
 5. Print a table: `sender | subject | folder | priority | archive | rule (or "judgement")`. Then give counts per priority.

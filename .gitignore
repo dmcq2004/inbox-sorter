@@ -9,3 +9,4 @@ state/
 logs/scheduler/
 logs/calendar-sync/
 logs/sort-inbox/
+logs/morning-brief/

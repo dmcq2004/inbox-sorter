@@ -26,10 +26,14 @@ ARGS="$MODE"
 [ "$DAYS" != "0" ] && ARGS="$ARGS days=$DAYS"
 ALLOWED="mcp__claude_ai_Google_Calendar__create_event,mcp__claude_ai_Google_Calendar__update_event,mcp__claude_ai_Gmail__label_thread,mcp__claude_ai_Gmail__unlabel_thread,Edit(school/state/**),Edit(school/newsletters/**),Edit(logs/**)"
 
+# Scheduled jobs never send, reply or forward (also enforced by .claude/hooks/send_guard.py)
+NO_SEND="mcp__claude_ai_Gmail__send_message,mcp__claude_ai_Gmail__reply,mcp__claude_ai_Gmail__forward"
+export INBOX_SORTER_JOB=calendar-sync
+
 exec 9>logs/scheduler/.lock
 if ! flock -n 9; then echo "$(date -Is) Skipped: another sync is running" >> logs/scheduler/skipped.log; exit 0; fi
 
-timeout "${TIMEOUT_MIN}m" claude -p "/school-calendar-sync $ARGS" --allowedTools "$ALLOWED" --max-turns 160 ${MODEL:+--model "$MODEL"} >"$LOG" 2>"$LOG.err"
+timeout "${TIMEOUT_MIN}m" claude -p "/school-calendar-sync $ARGS" --allowedTools "$ALLOWED" --disallowedTools "$NO_SEND" --max-turns 160 ${MODEL:+--model "$MODEL"} >"$LOG" 2>"$LOG.err"
 RC=$?
 [ $RC -eq 124 ] && echo "SYNC FAILED: timed out after ${TIMEOUT_MIN} minutes" >>"$LOG"
 grep -qE 'SYNC (live|dry-run) OK' "$LOG" && exit 0 || exit 1

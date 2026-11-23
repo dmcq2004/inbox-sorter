@@ -47,10 +47,14 @@ ARGS="since=$SINCE"
 ALLOWED="mcp__claude_ai_Gmail__label_thread,mcp__claude_ai_Gmail__unlabel_thread,Edit(logs/**)"
 
 # Lock shared with the calendar sync so the two never overlap
+# Scheduled jobs never send, reply or forward (also enforced by .claude/hooks/send_guard.py)
+NO_SEND="mcp__claude_ai_Gmail__send_message,mcp__claude_ai_Gmail__reply,mcp__claude_ai_Gmail__forward"
+export INBOX_SORTER_JOB=sort
+
 exec 9>logs/scheduler/.lock
 if ! flock -n 9; then echo "$(date -Is) Skipped sort: another job is running" >> logs/scheduler/skipped.log; exit 0; fi
 
-timeout "${TIMEOUT_MIN}m" claude -p "/sort-inbox $ARGS" --allowedTools "$ALLOWED" --max-turns 200 ${MODEL:+--model "$MODEL"} >"$LOG" 2>"$LOG.err"
+timeout "${TIMEOUT_MIN}m" claude -p "/sort-inbox $ARGS" --allowedTools "$ALLOWED" --disallowedTools "$NO_SEND" --max-turns 200 ${MODEL:+--model "$MODEL"} >"$LOG" 2>"$LOG.err"
 RC=$?
 [ $RC -eq 124 ] && echo "SORT FAILED: timed out after ${TIMEOUT_MIN} minutes" >>"$LOG"
 [ -s "$LOG" ] || echo "SORT FAILED: no output (see $LOG.err)" >>"$LOG"

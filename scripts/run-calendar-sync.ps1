@@ -43,9 +43,13 @@ try {
         'Edit(logs/**)'
     ) -join ','
 
+    # Scheduled jobs never send, reply or forward (also enforced by .claude/hooks/send_guard.py)
+    $NoSend = 'mcp__claude_ai_Gmail__send_message,mcp__claude_ai_Gmail__reply,mcp__claude_ai_Gmail__forward'
+    $env:INBOX_SORTER_JOB = 'calendar-sync'
+
     $p = Start-Process -FilePath $Claude -NoNewWindow -PassThru `
         -RedirectStandardOutput $Log -RedirectStandardError "$Log.err" `
-        -ArgumentList (@('-p', "`"/school-calendar-sync $ArgsText`"", '--allowedTools', "`"$Allowed`"", '--max-turns', '160') + $(if ($Model) { @('--model', $Model) } else { @() }))
+        -ArgumentList (@('-p', "`"/school-calendar-sync $ArgsText`"", '--allowedTools', "`"$Allowed`"", '--disallowedTools', "`"$NoSend`"", '--max-turns', '160') + $(if ($Model) { @('--model', $Model) } else { @() }))
     if (-not $p.WaitForExit($TimeoutMinutes * 60 * 1000)) {
         $p.Kill()
         "SYNC FAILED: timed out after $TimeoutMinutes minutes" | Out-File -Append -Encoding utf8 $Log

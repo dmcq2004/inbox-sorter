@@ -45,7 +45,11 @@ as folders, and archiving removes a message from the Inbox. Never rely on Dom se
 3. Otherwise use your judgement per `config/priority-rules.md`. If unsure, choose `*Triage/NeedsDom` and do not archive.
 
 ## Hard safety rules
-- Never send, forward, reply, trash, or mark spam. Drafts only, and only when Dom asks.
+- Never trash or mark spam.
+- **Sending** (Dom, 2026-11-23): send, reply or forward only when Dom tells you to in a live session, after showing him the
+  recipients and the text. Claude Code asks him to confirm each one. Scheduled jobs never send, except the morning brief to
+  Dom's own address (enforced by the runners' `--disallowedTools` and `.claude/hooks/send_guard.py`).
+- **Drafts** are written without asking for threads that need Dom's reply (see `inbox/CLAUDE.md`). Never send them unasked.
 - Never create, rename, or delete a Gmail label unless Dom approved it in this session.
 - Dry run by default. A command runs live only when Dom passes `live` (or the scheduled routine says so).
 - Only touch threads matched by the run's query. Never sweep the whole mailbox.
@@ -68,11 +72,14 @@ Dry runs print the same table to the terminal and write nothing.
 
 ## Scheduled runs
 Cron on the Raspberry Pi (`dmcquade@raspberrypi.local`, since 2026-11-23; the laptop task is disabled) runs at 07:00 and 17:30: first the school calendar sync, then
-`/sort-inbox live` from the last successful run (`scripts/run-sort-inbox.{ps1,sh}`). The headless rules are at the end of
+`/sort-inbox live` from the last successful run (`scripts/run-sort-inbox.{ps1,sh}`), and at 07:00 only, `/morning-brief live`
+(`scripts/run-morning-brief.sh`, Pi only). The headless rules are at the end of
 `.claude/commands/sort-inbox.md`. Reports: `logs/sort-inbox/`; raw output: `logs/scheduler/`; undo log: `logs/runs/`, all on the Pi (see `school/CALENDAR-SYNC.md`).
-The job may only add or remove labels on threads and write its own logs.
+The sync and the sort may only add or remove labels on threads (the sync also writes school events) and write their own logs.
+The brief may only write drafts, email Dom, and write its own logs.
 
 ## Sub-modules
 - `school/`: Trinity C of E School Lewisham and The Young Explorers Club. It has its own CLAUDE.md.
   `school/apps-script/` is a Google Apps Script that saves school attachments to Drive (the Gmail MCP can't download attachments).
+- `inbox/`: chief of staff on the sorted inbox: `/inbox` (interactive) and `/morning-brief` (the Pi emails Dom a brief after the 07:00 run).
 - `backlog/`: one-off clean-up of the old 19k-thread inbox. Not started yet.

@@ -64,9 +64,13 @@ try {
         'Edit(logs/**)'
     ) -join ','
 
+    # Scheduled jobs never send, reply or forward (also enforced by .claude/hooks/send_guard.py)
+    $NoSend = 'mcp__claude_ai_Gmail__send_message,mcp__claude_ai_Gmail__reply,mcp__claude_ai_Gmail__forward'
+    $env:INBOX_SORTER_JOB = 'sort'
+
     $p = Start-Process -FilePath $Claude -NoNewWindow -PassThru `
         -RedirectStandardOutput $Log -RedirectStandardError "$Log.err" `
-        -ArgumentList (@('-p', "`"/sort-inbox $ArgsText`"", '--allowedTools', "`"$Allowed`"", '--max-turns', '200') + $(if ($Model) { @('--model', $Model) } else { @() }))
+        -ArgumentList (@('-p', "`"/sort-inbox $ArgsText`"", '--allowedTools', "`"$Allowed`"", '--disallowedTools', "`"$NoSend`"", '--max-turns', '200') + $(if ($Model) { @('--model', $Model) } else { @() }))
     $TimedOut = -not $p.WaitForExit($TimeoutMinutes * 60 * 1000)
     if ($TimedOut) {
         $p.Kill()
