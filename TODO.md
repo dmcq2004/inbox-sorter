@@ -35,7 +35,8 @@ Last updated: 2026-11-23.
   - [ ] Check the first week of reports in `logs/calendar-sync/` and tune the rules.
 - [ ] **5. Backlog clean-up** (19.5k old inbox threads). See `backlog/CLAUDE.md`.
   - [x] 2026-11-23: Apps Script `backlog/apps-script/SortBacklog.gs` run through Chrome: dry run, then 6,272 old FYI/Bulk and 6-month-old Action/NeedsDom archived, and 6,432 threads labelled by the 86 rules. Inbox ~19,500 → ~8,090. Undo log in the Drive sheet "Backlog sort".
-  - [ ] Rules for the biggest senders among the ~7,900 threads still unruled, then rerun `runLive`.
+  - [ ] **Resume tomorrow (2026-11-24):** finish `tallySenders` in the "Sort Backlog" project (read-only; lists the ~7,900 unruled threads by sender in the "Unruled senders" tab). Paused on 23 Nov after Apps Script's daily Gmail quota ran out. The current version uses the Gmail API and resumes from its saved place, at ~500 threads a run; once the quota has reset, the GmailApp version (commit 6ec61fb plus `tallySenders`) does ~1,700 a run.
+  - [ ] Then: agree rules for the biggest senders with Dom, add them to `config/sender-rules.yaml`, rebuild with `build_rules.py`, paste, and rerun `runLive`.
 
 ## Housekeeping
 - [ ] Keep the summary page (https://claude.ai/artifact/SLJ2edFMQSi5hLRydW3nKj) in step with this file and `school/ROADMAP.md`.

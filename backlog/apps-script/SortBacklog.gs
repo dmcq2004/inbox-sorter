@@ -11,6 +11,7 @@
  *   runLive       Applies the rules. Every thread it changes is written to the "Undo log" tab.
  *   archiveOldTriaged   Archives and marks read the old threads that already have a *Triage/FYI or
  *                 *Triage/Bulk label but were never archived. Logged too. Run only if Dom agrees.
+ *   tallySenders  Read-only. Lists who sent the old inbox threads no rule matched ("Unruled senders" tab).
  *   undo          Reads the "Undo log" tab and reverses it: removes the labels it added and puts archived
  *                 threads back in the Inbox. It can't mark them unread again.
  *   resetProgress Forgets where a run got to, so the next run starts from the first rule.
@@ -401,6 +402,96 @@ function archiveOldTriaged() {
   Logger.log('Done: %s threads archived this run.', done);
 }
 
+// ---------- sender tally ----------
+
+/**
+ * Read-only. Lists who sent the old inbox threads that no rule matched, biggest senders first, in the
+ * "Unruled senders" tab (moved to the front of the spreadsheet). Resumable like the others.
+ */
+function tallySenders() {
+  // Uses the Gmail API service (its own, larger quota) rather than GmailApp, which hit its daily limit on 2026-11-23.
+  const start = Date.now();
+  const props = PropertiesService.getScriptProperties();
+  const state = JSON.parse(props.getProperty('TALLY_STATE') || 'null') || { token: null, read: 0, started: false };
+  const raw = tab_('Tally raw', ['threadId', 'sender', 'domain', 'subject', 'newest', 'has rule']);
+  if (!state.started) {
+    if (raw.getLastRow() > 1) raw.getRange(2, 1, raw.getLastRow() - 1, 6).clearContent();
+    state.started = true;
+  }
+  while (true) {
+    if (Date.now() - start > TIME_LIMIT_MS) {
+      props.setProperty('TALLY_STATE', JSON.stringify(state));
+      Logger.log('Not finished: %s threads read so far. Click Run again.', state.read);
+      return;
+    }
+    const resp = withRetry_(function () {
+      return Gmail.Users.Threads.list('me', { q: UNSORTED, maxResults: 100, pageToken: state.token || undefined });
+    });
+    const ids = (resp.threads || []).map(function (t) { return t.id; });
+    appendRows_(raw, ids.map(function (id) {
+      const t = withRetry_(function () {
+        return Gmail.Users.Threads.get('me', id, { format: 'metadata', metadataHeaders: ['From', 'Subject'] });
+      });
+      const msgs = t.messages || [];
+      let from = '', subject = '';
+      for (let j = msgs.length - 1; j >= 0; j--) {   // newest message not sent by Dom, as in the daily sort
+        const h = {};
+        (msgs[j].payload.headers || []).forEach(function (x) { h[x.name.toLowerCase()] = x.value; });
+        if (lower_(h.from).indexOf(DOM) === -1) { from = lower_(h.from); subject = h.subject || ''; break; }
+      }
+      const m = from.match(/[\w.+-]+@([\w-]+\.)+[\w-]+/);
+      const addr = m ? m[0] : (from || '(only Dom)');
+      const domain = addr.indexOf('@') > -1 ? addr.split('@')[1] : addr;
+      const newest = msgs.length ? new Date(Number(msgs[msgs.length - 1].internalDate)) : '';
+      return [id, addr, domain, subject.slice(0, 120), newest, from && firstRule_(from) > -1 ? 'yes' : ''];
+    }));
+    state.read += ids.length;
+    state.token = resp.nextPageToken || null;
+    props.setProperty('TALLY_STATE', JSON.stringify(state));   // saved every page, so an error loses nothing
+    if (!state.token) break;
+    Utilities.sleep(4000);   // Gmail allows ~15,000 quota units a minute; 100 thread reads cost ~1,000
+  }
+  props.deleteProperty('TALLY_STATE');
+  summariseTally_(raw);
+  Logger.log('Done: %s threads read. See the "Unruled senders" tab: %s', state.read, book_().getUrl());
+}
+
+/** Runs fn, waiting and retrying (up to 3 times) when Gmail says the per-minute quota is used up. */
+function withRetry_(fn) {
+  for (let a = 0; ; a++) {
+    try { return fn(); } catch (e) {
+      if (a >= 3 || String(e).indexOf('Quota exceeded') === -1) throw e;
+      Utilities.sleep(20000);
+    }
+  }
+}
+
+function summariseTally_(raw) {
+  const rows = raw.getLastRow() > 1 ? raw.getRange(2, 1, raw.getLastRow() - 1, 6).getValues() : [];
+  const by = {};
+  rows.forEach(function (r) {
+    const d = by[r[2]] = by[r[2]] || { n: 0, addrs: {}, subjects: [], newest: r[4], ruled: 0 };
+    d.n++;
+    d.addrs[r[1]] = (d.addrs[r[1]] || 0) + 1;
+    if (d.subjects.length < 3) d.subjects.push(r[3]);
+    if (r[4] > d.newest) d.newest = r[4];
+    if (r[5] === 'yes') d.ruled++;
+  });
+  const out = Object.keys(by).map(function (k) {
+    const d = by[k];
+    const addrs = Object.keys(d.addrs).sort(function (a, b) { return d.addrs[b] - d.addrs[a]; }).slice(0, 3)
+      .map(function (a) { return a + ' (' + d.addrs[a] + ')'; }).join(', ');
+    return [k, d.n, d.newest, d.ruled, addrs, d.subjects.join(' // ')];
+  }).sort(function (a, b) { return b[1] - a[1]; });
+  const ss = book_();
+  let sh = ss.getSheetByName('Unruled senders');
+  if (sh) ss.deleteSheet(sh);
+  sh = ss.insertSheet('Unruled senders', 0);
+  sh.appendRow(['domain', 'threads', 'newest', 'sender has a rule (skipped)', 'top addresses', 'sample subjects']);
+  sh.setFrozenRows(1);
+  if (out.length) sh.getRange(2, 1, out.length, 6).setValues(out);
+}
+
 // ---------- undo ----------
 
 function undo() {
@@ -428,6 +519,6 @@ function undo() {
 
 function resetProgress() {
   const props = PropertiesService.getScriptProperties();
-  ['DRY_RULE', 'DRY_PARTIAL', 'LIVE_RULE', 'UNDO_ROW'].forEach(function (k) { props.deleteProperty(k); });
+  ['DRY_RULE', 'DRY_PARTIAL', 'LIVE_RULE', 'UNDO_ROW', 'TALLY_OFFSET', 'TALLY_STATE'].forEach(function (k) { props.deleteProperty(k); });
   Logger.log('Progress cleared.');
 }
