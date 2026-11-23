@@ -22,6 +22,9 @@ rules:
   - match: rosemarie.little.rl@gmail.com   # school topics still go to the school module first
     folder: null
     priority: NeedsDom
+  - match: rosemarie_little@hotmail.com    # Rosie's second address (2026-11-23)
+    folder: null
+    priority: NeedsDom
 
   # --- Childcare (app notifications only; real comms are in the Bright Horizons app)
   - match: familyapp.brighthorizons.co.uk
@@ -242,3 +245,11 @@ rules:
     priority: Bulk
     subject_override: { Action: [payment failed, declined, overdue, payment due] }
   - { match: google-gemini-noreply@google.com, folder: Google, priority: FYI }   # product and privacy notices
+
+  # --- Added from the 2026-11-23 17:30 report (Dom agreed, 2026-11-23)
+  - { match: optiver,             folder: null, priority: NeedsDom }   # job move: optiver.com and optiver.uk
+  - { match: noreply@github.com,  folder: null, priority: FYI }    # codes and key notices, usually Dom's own actions
+  - { match: services.nuffieldhealth.com, folder: null, priority: FYI }   # gym notices
+  - { match: emails.cybex-online.com, folder: null, priority: Bulk }
+  - { match: boxt.co.uk,          folder: null, priority: Bulk }
+  - { match: discover@airbnb.com, folder: null, priority: Bulk }   # marketing only; other Airbnb senders are judged
