@@ -5,6 +5,8 @@ Update this file whenever something is done, decided or blocked, and date the ch
 Last updated: 2026-11-23.
 
 ## Waiting on Dom
+- [ ] **Give the Pi write access to GitHub** (asked 2026-11-23; Dom will do it later): at https://github.com/dmcq2004/inbox-sorter/settings/keys delete "Raspberry Pi (read-only)", then add the same key (`~/.ssh/inbox_sorter_deploy.pub` on the Pi) as "Raspberry Pi" with **Allow write access** ticked. Until then, changes made in a session on the Pi can't be pushed. Afterwards: rename the key's comment on the Pi and update `school/CALENDAR-SYNC.md`.
+- [ ] **Decide on the rules suggested by the Pi's dry run** (2026-11-23): Optiver (`optiver.com`, `optiver.uk`) → NeedsDom; `rosemarie_little@hotmail.com` → NeedsDom; `noreply@github.com` → FYI, NeedsDom for "public key"/"new sign-in"; `services.nuffieldhealth.com` → FYI; `cybex-online.com`, `boxt.co.uk`, `discover@airbnb.com` → Bulk.
 - [x] **Ran `backlog/apps-script/MarkFyiRead.gs`** (Dom, 2026-11-20; checked: no unread FYI left): marked all ~6,800 unread `*Triage/FYI` emails as read. Paste it into a new project at script.google.com, run `markFyiRead`, and run it again until the log says "Done". It can't be undone email by email. From 20 Nov the sort and the school sync mark FYI and Bulk read as they archive them.
 - [x] **Nativity** (2026-11-20): going to both (Tue 1 Dec 10:00 and Wed 2 Dec 14:15). Both events kept, renamed and set to busy.
 - [x] **Attachment saver installed** (2026-11-07): Apps Script project "Save School Attachments", backfill saved 26 files, runs every 15 min.
