@@ -53,24 +53,35 @@ For every Action or NeedsDom thread, decide one **next step**, and say who has i
 
 ## Brief format
 Lead with the count and the few things that matter today. Group them, newest first in each group, numbered across the whole brief
-so Dom can say "send 2" or "archive 4, 5":
+so Dom can say "send 2" or "archive 4, 5".
 
-```
-3 need you today · 2 waiting on others · 1 to archive
+Write the brief as normal Markdown, **never inside a code block**: Dom reads it in the Claude app, where a code block shows as a grey box
+in monospace. Each group gets a short bold heading, and its items are a numbered list that carries the numbering on from the
+group before (if "Needs you" ends at 2, "Waiting on others" starts at 3). Bold the sender or topic at the start of each item. For example:
 
-NEEDS YOU
- 1. Optiver: confirm 11 Jan start          ✎ draft by Claude: "Hi Tommy, 11 Jan works for me…"
- 2. Amex: payment due Fri 27 Nov, £412.30  pay or check the direct debit
-WAITING ON OTHERS
- 3. Optiver resignation: Jordan, 2 days since your reply
-CALENDAR
- 4. Panto helpers: Ms Harvey asks before 30 Nov, not in the calendar → add a reminder?
-DONE, SUGGEST ARCHIVE
- 5. GitHub: new deploy key (that was the Pi)
-SCHOOL  (from the sync; nothing to do unless marked)
-TODAY AND THIS WEEK  (calendar, with any clash flagged)
-SORT CHECK  41 sorted since yesterday · FYI: Ocado 2, Google 1 · nothing looks misfiled
-```
+> **3 need you today · 2 waiting on others · 1 to archive**
+>
+> **Needs you**
+> 1. **Optiver:** confirm 11 Jan start. ✎ *draft by Claude:* "Hi Tommy, 11 Jan works for me…"
+> 2. **Amex:** payment due Fri 27 Nov, £412.30. Pay it or check the direct debit.
+>
+> **Waiting on others**
+> 3. **Optiver resignation:** Jordan, 2 days since your reply.
+>
+> **Calendar**
+> 4. **Panto helpers:** Ms Harvey asks before 30 Nov; it's not in the calendar. Add a reminder?
+>
+> **Done, suggest archive**
+> 5. **GitHub:** new deploy key (that was the Pi).
+>
+> **School** (from the sync; nothing to do unless marked)
+>
+> **Today and this week** (calendar, with any clash flagged)
+>
+> **Sort check:** 41 sorted since yesterday · FYI: Ocado 2, Google 1 · nothing looks misfiled
+
+(The quote marks above only set off the example. Don't put the brief itself in a quote.)
+
 - ✎ marks a waiting draft: `✎ draft by Claude` for drafts this run wrote, otherwise `✎ draft` with its first line.
 - One line per item. Amounts, dates and names, not adjectives. Leave a section out when it's empty.
 - Don't put links from emails in the brief. Gmail's own `viewUrl` links are fine.
