@@ -127,7 +127,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
   <header style="display:grid;gap:12px">
     <div class="eyebrow">Gmail · dmcq2004 · status at 23 Nov 2026</div>
     <h1>Inbox Sorter</h1>
-    <p class="lede">Claude sorts your Gmail into labels that show up as folders in your phone's Mail app. The school module reads Trinity, Young Explorers and school-lunch emails, attachments and newsletters. The school calendar and the inbox sort run by themselves twice a day on your Raspberry Pi (moved from the laptop on 23 Nov), so they no longer depend on the laptop being awake. The first live sort ran on 7 Nov: 138 emails from the past week were labelled, 123 archived, and 15 left in your inbox. Since then the inbox has been sorted automatically at 07:00 and 17:30, straight after the school sync. On 19 Nov the runs were made safe to leave alone: each one now picks up everything since the last run that worked, so mail isn't missed if a run is skipped. On 23 Nov a one-off clean-up of the old inbox took it from about 19,500 threads to about 8,090.</p>
+    <p class="lede">Claude sorts your Gmail into labels that show up as folders in your phone's Mail app. The school module reads Trinity, Young Explorers and school-lunch emails, attachments and newsletters. The school calendar and the inbox sort run by themselves twice a day on your Raspberry Pi (moved from the laptop on 23 Nov), so they no longer depend on the laptop being awake. The Pi's first live run, at 17:30 on 23 Nov, worked. There's now also a chief of staff for the sorted inbox: <code>/inbox</code> gives you a brief, writes reply drafts and sends only when you say. It runs on the Pi, and you can use it from the Claude app on your phone, even at work. The first live sort ran on 7 Nov: 138 emails from the past week were labelled, 123 archived, and 15 left in your inbox. Since then the inbox has been sorted automatically at 07:00 and 17:30, straight after the school sync. On 19 Nov the runs were made safe to leave alone: each one now picks up everything since the last run that worked, so mail isn't missed if a run is skipped. On 23 Nov a one-off clean-up of the old inbox took it from about 19,500 threads to about 8,090.</p>
   </header>
 
   <section aria-labelledby="h-phases">
@@ -155,15 +155,19 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
       </li>
       <li class="done">
         <div class="phase-head"><h3>Move the runs to the Raspberry Pi</h3><span class="pill done">Done 23 Nov</span></div>
-        <p>The Pi 4 (64-bit OS) now runs the sync and then the sort at 07:00 and 17:30, from cron. It has a read-only key to the private GitHub repo and fetches rule changes before every run, so you can still try changes on the laptop, commit and push them, and the Pi picks them up. Its Claude sign-in had expired and was renewed at the Pi. Both jobs passed a dry run there, and the laptop task is switched off (not deleted) as a fallback. The first live run on the Pi is 23 Nov at 17:30.</p>
+        <p>The Pi 4 (64-bit OS) now runs the sync and then the sort at 07:00 and 17:30, from cron. It has a read-only key to the private GitHub repo and fetches rule changes before every run, so you can still try changes on the laptop, commit and push them, and the Pi picks them up. Its Claude sign-in had expired and was renewed at the Pi. Both jobs passed a dry run there, and the laptop task is switched off (not deleted) as a fallback. The first live run on the Pi, 23 Nov at 17:30, worked: the sync needed no calendar changes and filed 3 school emails, and the sort filed 39 threads (6 left in your inbox), with no errors.</p>
       </li>
       <li class="next">
         <div class="phase-head"><h3>3. General sorter</h3><span class="pill done">Scheduled</span></div>
-        <p>Labels tidied (4 created, 15 deleted). The first live run on 7 Nov sorted the past week: Action 2, NeedsDom 13, FYI 36, Bulk 87. It now runs on its own at 07:00 and 17:30, after the school sync, on the Pi since 23 Nov. On 19 Nov we found 44 emails that had been missed while the laptop was off. The fix: each run now starts from the last run that worked, and every run saves its report. A catch-up run this morning (20 Nov) sorted 83 emails, archived 74 and left 9 in your inbox. On 20 Nov we reviewed all seven reports: no errors and nothing misfiled by a rule. Seven rule changes followed, so there are now 86 rules. Every change is logged so it can be undone, and reports are in <code>logs/sort-inbox/</code>.</p>
+        <p>Labels tidied (4 created, 15 deleted). The first live run on 7 Nov sorted the past week: Action 2, NeedsDom 13, FYI 36, Bulk 87. It now runs on its own at 07:00 and 17:30, after the school sync, on the Pi since 23 Nov. On 19 Nov we found 44 emails that had been missed while the laptop was off. The fix: each run now starts from the last run that worked, and every run saves its report. A catch-up run this morning (20 Nov) sorted 83 emails, archived 74 and left 9 in your inbox. On 20 Nov we reviewed all seven reports: no errors and nothing misfiled by a rule. Seven rule changes followed, and seven more on 23 Nov from the Pi's first report (Optiver, Rosie's Hotmail, GitHub, Nuffield Health, Cybex, Boxt, Airbnb), so there are now 93 rules. Every change is logged so it can be undone, and reports are in <code>logs/sort-inbox/</code>.</p>
       </li>
       <li class="next">
         <div class="phase-head"><h3>5. Backlog clean-up</h3><span class="pill next">In progress</span></div>
         <p>On 23 Nov a Google Apps Script archived 6,272 old threads that were already labelled and sorted 6,432 more with the 86 rules, taking the old inbox from about 19,500 to about 8,090. Every change is in the "Backlog sort" sheet in Drive so it can be undone. Next: count who sent the ~7,900 emails no rule covers (paused when Google's daily limit ran out), agree rules for the biggest senders, and run it again.</p>
+      </li>
+      <li class="next">
+        <div class="phase-head"><h3>6. Inbox chief of staff</h3><span class="pill done">Working</span></div>
+        <p>Built on 23 Nov. <code>/inbox</code> reads the sorted inbox and gives you a numbered brief: what needs you, what you're waiting on, calendar items and what can be archived. It writes up to 5 reply drafts in your voice without asking, and they show up in your Mail app's Drafts too. Then it does what you say, e.g. "send 1", "archive 4 and 5" or "add 3 to the calendar". Every send shows you the email and waits for your OK. The Pi runs it all the time through Remote Control, so you can pick the "Inbox (Pi)" session in the Claude app from anywhere. You first used it from your phone on 23 Nov. Next: a morning brief emailed to you after the 07:00 run.</p>
       </li>
     </ol>
   </section>
@@ -172,12 +176,14 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
     <h2 id="h-asks">Waiting on you</h2>
     <p class="lede" style="font-size:0.95rem">For the emails themselves, open <a href="https://claude.ai/artifact/P42emKptwWME3UtYG8NFKJ" target="_blank" rel="noopener">Inbox Actions</a>. It's a live list of every Action and NeedsDom email still in your inbox, split into School and Everything else.</p>
     <ol>
-      <li><strong>Check the sorted inbox on your phone</strong>
-        <span class="why">Tell me anything that landed in the wrong place and I'll fix the rule. The Pi's first run (23 Nov, 17:30) catches up 41 emails since 19 Nov and should leave 7 in the inbox, including the Optiver start-date and resignation threads, Rosie's forwarded order, and two security notices from setting up the Pi and the backlog script. The Van Cols "photos ready" email can be archived now you've ordered.</span></li>
-      <li><strong>Check the Pi's first runs with me</strong>
-        <span class="why">After 17:30 today and 07:00 tomorrow, ask me to check them. I'll read the Pi's reports from the laptop. If the Pi ever says its sign-in expired, run <code>claude</code> in <code>~/Emails</code> at the Pi and type <code>/login</code>.</span></li>
+      <li><strong>Check which Optiver start date stands</strong>
+        <span class="why">In Jordan's resignation thread you asked to keep 11 Jan, but your later email to Tommy says 18 Jan. Both threads are in your inbox. The Zoom invite from Tommy and the Van Cols "photos ready" email can be archived.</span></li>
+      <li><strong>Give the Pi write access to GitHub</strong>
+        <span class="why">About two minutes, steps in <code>TODO.md</code>. Until then, a rule you change from your phone through <code>/inbox</code> can't be pushed from the Pi, and it would stop the Pi fetching updates.</span></li>
+      <li><strong>Check tomorrow's 07:00 run with me</strong>
+        <span class="why">The 17:30 run worked; the 07:00 run is the second live one on the Pi. After that we try the morning brief: a dry run, then one live email to check it reaches your phone, then it goes on the 07:00 schedule.</span></li>
       <li><strong>Agree rules for the backlog senders</strong>
-        <span class="why">Once the sender count finishes, we go through the biggest senders together, along with a few new ones from the Pi's dry run (Optiver, Rosie's Hotmail address, Cybex, Boxt, Airbnb).</span></li>
+        <span class="why">Once the sender count finishes (it resumes on 24 Nov, after Google's daily limit resets), we go through the biggest senders together.</span></li>
       <li><strong>Glance at the Home Learning Log</strong>
         <span class="why"><code>T2 Home Learning Log.docx</code> (11 Nov) is in Drive but Claude couldn't read it. Check whether it has a hand-in date. Also still open: panto helpers (Ms Harvey will ask before the end of November).</span></li>
     </ol>
@@ -279,6 +285,9 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
       <li><b>Archived mail is marked read (20 Nov)</b><span>When the sort or the school sync archives an FYI or Bulk email, it also marks it read, so the folders in your Mail app don't build up unread counts. A one-off script marked the ~6,800 older unread FYI emails as read. Action and NeedsDom are left as they are.</span></li>
       <li><b>Action emails cleared (20 Nov)</b><span>Went through all five together. Four were done or past, so they were archived. The Sinterklaas details went into the calendar, with a 30 Nov event for handing in the present.</span></li>
       <li><b>Triage folder renamed to *Triage (23 Nov)</b><span>The priority labels are now *Triage/Action, *Triage/NeedsDom, *Triage/FYI and *Triage/Bulk. Every email kept its label, and the sort, the school sync and Inbox Actions all use the new names.</span></li>
+      <li><b>Claude can send, but only when you say (23 Nov)</b><span>In <code>/inbox</code>, send, reply and forward each show you the email and wait for your OK. The scheduled jobs can never send; the only email they send is the morning brief, to you. A guard script blocks anything else.</span></li>
+      <li><b>Reply drafts are written without asking (23 Nov)</b><span>Up to 5 a run, for threads that need your reply. They wait in Drafts until you send, change or drop them.</span></li>
+      <li><b><code>/inbox</code> runs on the Pi, reached from your phone (23 Nov)</b><span>The Pi runs Claude Code's Remote Control all the time, so the laptop can be off and you can use it from the office. It starts by itself after a reboot.</span></li>
       <li><b>No failure alerts for now (19 Nov)</b><span>If we add them later, healthchecks.io is the suggestion. It would also notice if the Pi stops working, which matters more now that the reports are on the Pi, where you don't see them.</span></li>
     </ul>
   </section>
@@ -302,10 +311,10 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
     <pre class="tree">Documents\Emails\
 ├── CLAUDE.md                 <span class="c"># rules for the whole project</span>
 ├── TODO.md                   <span class="c"># the project to-do list</span>
-├── config\                   <span class="c"># labels, 86 sender rules, priority rules</span>
-├── .claude\commands\         <span class="c"># /sort-inbox, /school, /school-calendar-sync</span>
+├── config\                   <span class="c"># labels, 93 sender rules, priority rules</span>
+├── .claude\commands\         <span class="c"># /sort-inbox, /school, /school-calendar-sync, /inbox, /morning-brief</span>
 ├── .claude\settings.json     <span class="c"># what the scheduled job may and may not do</span>
-├── scripts\                  <span class="c"># sync + sort runners (Windows + Pi), task installer</span>
+├── scripts\                  <span class="c"># sync, sort and brief runners, Remote Control service (Pi)</span>
 ├── school\
 │   ├── CLAUDE.md             <span class="c"># school-only rules</span>
 │   ├── CALENDAR-SYNC.md      <span class="c"># how the sync works + Pi setup steps</span>
@@ -315,6 +324,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
 │   ├── senders.md            <span class="c"># Trinity, YEC + school-lunch addresses</span>
 │   ├── tools\read_sway.py    <span class="c"># reads a newsletter, no browser needed</span>
 │   └── apps-script\          <span class="c"># attachment saver (installed, runs every 15 min)</span>
+├── inbox\                    <span class="c"># chief-of-staff rules: brief, drafts, never</span>
 ├── backlog\                  <span class="c"># old-inbox clean-up (Apps Script sorter)</span>
 ├── state\                    <span class="c"># when the sort last worked (kept on the Pi)</span>
 └── logs\                     <span class="c"># run reports, undo log (kept on the Pi)</span></pre>
@@ -332,7 +342,7 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
     </div>
     <div class="warning">
       <strong>The Pi's Claude sign-in can expire</strong>
-      <p>It had expired after a month unused, and the runs keep it fresh now. If a run fails with "session expired", run <code>claude</code> in <code>~/Emails</code> at the Pi and type <code>/login</code>. The Pi needs to stay on and connected to Wi-Fi.</p>
+      <p>It had expired after a month unused, and the runs keep it fresh now. Sign-ins end on a fixed date, so expect the Pi's to end about a month after 23 Nov. When it does, the runs and the "Inbox (Pi)" session on your phone both stop. To renew, run <code>claude</code> in <code>~/Emails</code> at the Pi and type <code>/login</code>. The Pi needs to stay on and connected to Wi-Fi.</p>
     </div>
     <div class="warning">
       <strong>The school warned about a phishing email</strong>
@@ -340,5 +350,5 @@ footer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono);
     </div>
   </section>
 
-  <footer>Safety rules: Claude never sends, forwards, trashes or marks spam, and never deletes calendar events. Gmail commands are dry runs unless you say "live". The school calendar sync changes school events only, and logs every change.</footer>
+  <footer>Safety rules: Claude sends, replies or forwards only when you say so in <code>/inbox</code>, and shows you each email first. It never trashes or marks spam, and never deletes calendar events. Gmail commands are dry runs unless you say "live". The school calendar sync changes school events only, and logs every change.</footer>
 </main>
