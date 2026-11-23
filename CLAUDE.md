@@ -78,6 +78,10 @@ Cron on the Raspberry Pi (`dmcquade@raspberrypi.local`, since 2026-11-23; the la
 The sync and the sort may only add or remove labels on threads (the sync also writes school events) and write their own logs.
 The brief may only write drafts, email Dom, and write its own logs.
 
+The Pi also runs **Remote Control** all the time (`scripts/inbox-remote.service`, user systemd, tmux session `inbox-remote`), so Dom can use `/inbox`
+from the Claude app or claude.ai/code when he's away from both machines. It is an interactive session: permission mode default, sends ask Dom.
+Check it with `systemctl --user status inbox-remote`; see it with `tmux attach -t inbox-remote` (detach with Ctrl-b d).
+
 ## Sub-modules
 - `school/`: Trinity C of E School Lewisham and The Young Explorers Club. It has its own CLAUDE.md.
   `school/apps-script/` is a Google Apps Script that saves school attachments to Drive (the Gmail MCP can't download attachments).

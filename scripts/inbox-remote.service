@@ -1,0 +1,19 @@
+# systemd user service: always-on Remote Control for the inbox sorter (Pi only, 2026-11-23).
+# Install: ln -sf ~/Emails/scripts/inbox-remote.service ~/.config/systemd/user/ && systemctl --user daemon-reload
+#          systemctl --user enable --now inbox-remote
+# Needs linger so it runs without a login: sudo loginctl enable-linger dmcquade
+[Unit]
+Description=Claude Code Remote Control for ~/Emails (/inbox from the phone)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/tmux new-session -d -s inbox-remote -x 200 -y 50 %h/Emails/scripts/run-remote-control.sh
+ExecStop=/usr/bin/tmux kill-session -t inbox-remote
+# When Remote Control exits, the tmux session and server end, and systemd restarts the service
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=default.target
