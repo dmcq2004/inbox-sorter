@@ -26,6 +26,10 @@ as folders, and archiving removes a message from the Inbox. Never rely on Dom se
   look in `logs/runs/` on both the laptop and the Pi (`ssh dmcquade@raspberrypi.local`).
 - **Commit every change to a tracked file straight away**, without waiting to be asked (Dom, 2026-11-23), then ask Dom to run
   `! git push`, because Claude's own push is blocked. Dom works from the laptop or the Pi, so an unpushed change on one is missing on the other.
+  **On the Pi** (including Remote Control sessions) `git push` can't work, because its deploy key is read-only. After committing there,
+  bring the commit to the laptop: on the laptop run `git fetch dmcquade@raspberrypi.local:Emails main` and then
+  `git merge --ff-only FETCH_HEAD`, and ask Dom to push from there. Otherwise the Pi's next `git pull --ff-only` fails and its cron runs
+  on stale rules (2026-11-24).
 
 ## Source-of-truth files
 - `config/labels.md`: every label, what it's for, and keep/prune status. Only use labels listed as `keep` or `new`.
