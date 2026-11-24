@@ -34,9 +34,9 @@ All of these are machine-local (git-ignored).
 - **Claude Code:** `~/.local/bin/claude`, signed in to the claude.ai account (Pro), with Gmail, Calendar and Drive connected. The folder trust
   dialog for `~/Emails` was accepted, which is needed or the project's `.claude/settings.json` permissions are ignored.
 - **Schedule (`crontab -l`):** the two lines below, next to Dom's own Binance (09:00) and Art (Fri 08:00) jobs. Backup of the old crontab:
-  `~/crontab.backup-2026-11-23`. With `PULL=1` the Pi picks up rule changes pushed from the laptop before each run.
+  `~/crontab.backup-2026-11-23` (and `~/crontab.bak-2026-11-24`, from before the morning brief was added at 07:00 on 2026-11-24). With `PULL=1` the Pi picks up rule changes pushed from the laptop before each run.
   ```
-  0 7 * * *   PULL=1 /home/dmcquade/Emails/scripts/run-calendar-sync.sh live >>/home/dmcquade/Emails/logs/scheduler/cron.log 2>&1; /home/dmcquade/Emails/scripts/run-sort-inbox.sh live >>/home/dmcquade/Emails/logs/scheduler/cron.log 2>&1
+  0 7 * * *   PULL=1 /home/dmcquade/Emails/scripts/run-calendar-sync.sh live >>/home/dmcquade/Emails/logs/scheduler/cron.log 2>&1; /home/dmcquade/Emails/scripts/run-sort-inbox.sh live >>/home/dmcquade/Emails/logs/scheduler/cron.log 2>&1; /home/dmcquade/Emails/scripts/run-morning-brief.sh live >>/home/dmcquade/Emails/logs/scheduler/cron.log 2>&1
   30 17 * * * (same, at 17:30)
   ```
 - **Logs and state** are on the Pi (git-ignored), e.g. `ssh dmcquade@raspberrypi.local 'ls -t ~/Emails/logs/sort-inbox | head'`.
@@ -51,7 +51,8 @@ The "Inbox Sorter" task was **disabled** on 2026-11-23 when the Pi took over (no
 `state/sort-inbox.json` and `school/state/calendar-sync.json` back first, comment out the Pi's cron lines, then
 `Enable-ScheduledTask -TaskName 'Inbox Sorter'`.
 1. Install: `powershell -ExecutionPolicy Bypass -File scripts\install-windows-task.ps1` (registers the "Inbox Sorter" task: sync, then sort)
-2. Test: `powershell -ExecutionPolicy Bypass -File scriptsun-calendar-sync.ps1 -Mode dry-run -Days 14`
+2. Test: `powershell -ExecutionPolicy Bypass -File scripts
+un-calendar-sync.ps1 -Mode dry-run -Days 14`
 3. Runs only while Dom is logged in and the laptop is awake.
 4. Remove: `Unregister-ScheduledTask -TaskName 'Inbox Sorter' -Confirm:$false`
 
