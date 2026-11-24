@@ -29,7 +29,7 @@ All of these are machine-local (git-ignored).
 ## Raspberry Pi, current host (since 2026-11-23)
 - **Machine:** Raspberry Pi 4 (4 GB), 64-bit Raspberry Pi OS (Bookworm), `dmcquade@raspberrypi.local` (192.168.1.31), timezone Europe/London.
   The laptop's SSH key (`~/.ssh/id_ed25519`) is in the Pi's `authorized_keys`, so Claude can log in from the laptop to check or fix it.
-- **Repo:** `~/Emails`, cloned with a read-only deploy key (`~/.ssh/inbox_sorter_deploy`, GitHub title "Raspberry Pi (read-only)") through the
+- **Repo:** `~/Emails`, cloned with a deploy key that can write since 2026-11-24 (`~/.ssh/inbox_sorter_deploy`, GitHub title "raspberrypi inbox-sorter deploy") through the
   SSH alias `github-inbox-sorter` in `~/.ssh/config`. `core.fileMode` is off there, so the scripts' executable bit never blocks `git pull`.
 - **Claude Code:** `~/.local/bin/claude`, signed in to the claude.ai account (Pro), with Gmail, Calendar and Drive connected. The folder trust
   dialog for `~/Emails` was accepted, which is needed or the project's `.claude/settings.json` permissions are ignored.
