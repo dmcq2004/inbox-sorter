@@ -49,7 +49,9 @@ Last updated: 2026-11-23.
   - [x] First live brief on the Pi (2026-11-24 08:30): the brief was written but **not emailed**. `send_message` is in the `ask` list in `.claude/settings.json`,
     and in a headless (`-p`) run an `ask` rule wins over `--allowedTools`, so the send was refused. No drafts were needed. It also found that `jq` isn't on the Pi,
     and that the brief's own `git pull` needed approval.
-  - [ ] **Waiting on Dom:** choose how to let the brief send (see the 2026-11-24 session), then run one more live brief, then add it to the 07:00 cron line.
+  - [x] Decided (2026-11-24): `send_guard.py` now asks Dom itself in interactive sessions and allows only the brief to Dom. `send_message` is out of the `ask` list, and the brief's `git pull --ff-only` is allowed.
+  - [ ] **Waiting on Dom:** push, then run `sudo apt install jq` on the Pi. Then Claude runs one more live brief and adds it to the 07:00 cron line.
+  - [ ] **Waiting on Dom:** give the Pi's deploy key write access on GitHub (delete it, then add it again with "Allow write access" ticked). After that, update the Pi-commit rule in `CLAUDE.md`.
   - [x] **Always-on Remote Control on the Pi** (set up 2026-11-23, Dom asked, for using `/inbox` from the phone at work): `scripts/inbox-remote.service` (user systemd, linger on, starts on boot) runs `scripts/run-remote-control.sh` in tmux, shown as "Inbox (Pi)" in the Claude app and claude.ai/code. Permission mode default, so sends still ask Dom. It stops working when the Pi's Claude sign-in ends (see the sign-in item above).
   - [ ] Next version: a shared list of open items (waiting on others, Dom's promises) that both machines can see, and chasing when a thread goes quiet. It needs somewhere both can write: not git (the Pi's runs never commit) and not a Drive file (the connector can't change a file once created). Options: a Gmail label, a Notion page, or a Google Sheet.
 
