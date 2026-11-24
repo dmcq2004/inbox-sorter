@@ -184,7 +184,7 @@ rules:
   - match: finisterre.com
     folder: Finisterre
     priority: Bulk
-  # No mail in 6 months, so no rule: BrewDog, PurePlanet, TV License, Banking etc/RCI Bank, Nest Pension
+  # No mail in 6 months, so no rule: TV License, Banking etc/RCI Bank, Nest Pension (BrewDog and PurePlanet got rules for the backlog, 2026-11-24)
 
   # --- Added after the first dry run (Dom, 2026-11-07)
   - match: primevideo.com
@@ -255,3 +255,70 @@ rules:
     folder: null
     priority: Bulk
     subject_override: { FYI: [purchase, receipt], NeedsDom: [steam guard, account, security] }
+
+  # --- Added from the backlog sender count (Dom agreed, 2026-11-24). Many of these senders are old;
+  #     they're here so the backlog script and the daily sort share one rule list.
+  # Finance
+  - { match: "@ig.com",            folder: IG, priority: FYI }    # statements and helpdesk; after refer/email.ig.com above
+  - { match: igindex.co.uk,        folder: IG, priority: FYI }
+  - match: welcome.aexp.com
+    folder: Banking etc/Amex
+    priority: FYI
+    subject_override: { Action: [payment due, overdue, suspicious] }
+  - { match: email.amexnetwork.com, folder: Banking etc/Amex, priority: Bulk }
+  # Energy and bills
+  - { match: purepla.net,          folder: PurePlanet, priority: FYI }
+  - match: octopus.energy
+    folder: null
+    priority: FYI
+    subject_override: { Action: [payment failed, declined, overdue, payment due] }
+  - match: britishgas.co.uk
+    folder: null
+    priority: FYI
+    subject_override: { Action: [payment failed, declined, overdue, payment due] }
+  - match: communityfibre         # bills, and the support desk at communityfibre.zendesk.com
+    folder: null
+    priority: FYI
+    subject_override: { Action: [payment failed, declined, overdue, payment due] }
+  - match: gocardless.com
+    folder: null
+    priority: FYI
+    subject_override: { Action: [payment failed, declined, expired] }
+  - { match: slc.co.uk,            folder: null, priority: FYI }    # student loan
+  # Deliveries and travel
+  - { match: royalmail.com,        folder: null, priority: FYI }
+  - { match: dpd.co.uk,            folder: null, priority: FYI }
+  - { match: uber.com,             folder: null, priority: FYI }
+  - { match: bolt.eu,              folder: null, priority: FYI }
+  - { match: thetrainline.com,     folder: null, priority: FYI }
+  - { match: easyjet.com,          folder: null, priority: FYI }
+  - { match: "@ns.nl",             folder: null, priority: FYI }    # Dutch railways
+  - { match: iglu.com,             folder: null, priority: FYI }
+  # Accounts
+  - { match: "@google.com",        folder: Google, priority: FYI }  # after the more specific Google rules above
+  - { match: twitter.com,          folder: Twitter, priority: FYI }
+  - { match: "@ocado.com",         folder: Ocado, priority: FYI }   # one-time codes, customer services
+  - { match: notifications.service.gov.uk, folder: null, priority: FYI }
+  # Bookings
+  - { match: sevenrooms.com,       folder: null, priority: FYI }
+  - { match: livepepper.com,       folder: null, priority: FYI }
+  - { match: dragonflyleisure.co.uk, folder: null, priority: FYI }
+  # Marketing
+  - { match: brewdog.com,          folder: BrewDog, priority: Bulk }
+  - { match: announce.deliveroo.co.uk, folder: null, priority: Bulk }
+  - { match: es-finewines.com,     folder: null, priority: Bulk }
+  - { match: fantasyleague.com,    folder: null, priority: Bulk }
+  - { match: azraft.com,           folder: null, priority: Bulk }
+  - { match: zsa.io,               folder: null, priority: Bulk }
+  - { match: johnnyszymanski.com,  folder: null, priority: Bulk }
+  - { match: caxtonfx.com,         folder: null, priority: Bulk }
+  - { match: zerofasting.com,      folder: null, priority: Bulk }
+  # Estate agents (house hunting 2017-23)
+  - { match: dexters.co.uk,        folder: null, priority: Bulk }
+  - { match: kfh.co.uk,            folder: null, priority: Bulk }
+  - { match: peterjamesestates.co.uk, folder: null, priority: Bulk }
+  - { match: woosterstock.co.uk,   folder: null, priority: Bulk }
+  - { match: robertsonsmithandkempson.co.uk, folder: null, priority: Bulk }
+  # People
+  - { match: gerry.mcquade@everythingeverywhere.com, folder: Correspondence/From Dad, priority: NeedsDom }   # Dad's old work address
+  - { match: dekoniro@my.westminster.ac.uk, folder: null, priority: NeedsDom }   # Dutch teacher
