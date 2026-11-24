@@ -40,7 +40,11 @@ Last updated: 2026-11-23.
 - [ ] **5. Backlog clean-up** (19.5k old inbox threads). See `backlog/CLAUDE.md`.
   - [x] 2026-11-23: Apps Script `backlog/apps-script/SortBacklog.gs` run through Chrome: dry run, then 6,272 old FYI/Bulk and 6-month-old Action/NeedsDom archived, and 6,432 threads labelled by the 86 rules. Inbox ~19,500 → ~8,090. Undo log in the Drive sheet "Backlog sort".
   - [ ] **Resume tomorrow (2026-11-24):** finish `tallySenders` in the "Sort Backlog" project (read-only; lists the ~7,900 unruled threads by sender in the "Unruled senders" tab). Paused on 23 Nov after Apps Script's daily Gmail quota ran out. The current version uses the Gmail API and resumes from its saved place, at ~500 threads a run; once the quota has reset, the GmailApp version (commit 6ec61fb plus `tallySenders`) does ~1,700 a run.
-  - [ ] Then: agree rules for the biggest senders with Dom, add them to `config/sender-rules.yaml`, rebuild with `build_rules.py`, paste, and rerun `runLive`.
+  - [x] 2026-11-24: `tallySenders` finished: 5,721 unsorted old threads from 1,027 domains (top 70 = 63%; 516 domains with one thread). Dom agreed:
+    41 new sender rules (in `config/sender-rules.yaml`, so the daily sort uses them too); school threads over 1 month old filed and archived;
+    unruled threads with nothing newer than 1 year archived as FYI (new `sweepDryRun`/`sweepLive` in the script). Committed in 0bd7288.
+  - [ ] Paste the new `SortBacklog.gs` into the "Sort Backlog" project, then `dryRun`, `sweepDryRun`, show Dom the counts, then `runLive` and `sweepLive`.
+    (Chrome's extension disconnected on 24 Nov just before the paste. Nothing in Gmail has changed yet.)
 
 - [ ] **6. Inbox chief of staff** (designed with Dom, 2026-11-23). See `inbox/CLAUDE.md`.
   - [x] Built (2026-11-23): `/inbox` (brief, drafts written automatically, ✎ on every draft, acts only on Dom's word; sends only when he says, with Claude Code confirming), `/morning-brief` (Pi, 07:00, emails the brief to Dom only), `.claude/hooks/send_guard.py` (scheduled jobs can't send; the brief can only go to Dom). The sort and sync runners now block send, reply and forward.
