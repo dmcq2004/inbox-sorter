@@ -19,5 +19,9 @@ Done 2026-11-23: ~12,700 threads labelled or archived; inbox ~19,500 → ~8,090.
 Quotas: Apps Script's GmailApp has a daily limit (hit on 2026-11-23 after ~13k changes plus dry runs); the Gmail API
 service has a per-minute limit, so `tallySenders` pauses between pages.
 
-Next: list the biggest senders among the ~7,900 threads with no rule, agree rules with Dom, add them to
-`config/sender-rules.yaml` (so the daily sort uses them too) and rerun `runLive`.
+Done 2026-11-24: `tallySenders` (5,721 unruled threads, 1,027 domains), 41 new rules agreed with Dom, then `runLive`
+(2,788 threads) and the new `sweepLive` (Dom's decisions: school threads over 1 month old filed under their School label and
+archived; unruled threads with nothing newer than 1 year archived as FYI): 54 + 2,588 threads. Inbox about 609 threads after.
+Pasting: copy `SortBacklog.gs` to the clipboard (PowerShell `Get-Content -Raw ... | Set-Clipboard`), then Ctrl+A, Ctrl+V, Ctrl+S in the editor.
+
+Next (optional): the ~449 unsorted threads left are from the last year; tally them again if Dom wants another round.

@@ -43,8 +43,10 @@ Last updated: 2026-11-23.
   - [x] 2026-11-24: `tallySenders` finished: 5,721 unsorted old threads from 1,027 domains (top 70 = 63%; 516 domains with one thread). Dom agreed:
     41 new sender rules (in `config/sender-rules.yaml`, so the daily sort uses them too); school threads over 1 month old filed and archived;
     unruled threads with nothing newer than 1 year archived as FYI (new `sweepDryRun`/`sweepLive` in the script). Committed in 0bd7288.
-  - [ ] Paste the new `SortBacklog.gs` into the "Sort Backlog" project, then `dryRun`, `sweepDryRun`, show Dom the counts, then `runLive` and `sweepLive`.
-    (Chrome's extension disconnected on 24 Nov just before the paste. Nothing in Gmail has changed yet.)
+  - [x] 2026-11-24 live (Dom approved after the dry runs): `runLive` labelled 2,788 threads, `sweepLive` filed 54 old school threads and archived 2,588 old unruled ones.
+    Inbox is now about 609 threads (Gmail's estimate), about 449 of them unsorted: mail from the last year that no rule covers. Undo rows in the "Backlog sort" sheet.
+  - [ ] Next (optional): tally the ~449 remaining unsorted threads and agree a last round of rules, or leave them to Dom and `/inbox`.
+  - [ ] Maybe narrow the Steam rule's NeedsDom words ("account" caught 34 old emails); 51 old Amex "payment due" emails now sit under *Triage/Action (archived).
 
 - [ ] **6. Inbox chief of staff** (designed with Dom, 2026-11-23). See `inbox/CLAUDE.md`.
   - [x] Built (2026-11-23): `/inbox` (brief, drafts written automatically, ✎ on every draft, acts only on Dom's word; sends only when he says, with Claude Code confirming), `/morning-brief` (Pi, 07:00, emails the brief to Dom only), `.claude/hooks/send_guard.py` (scheduled jobs can't send; the brief can only go to Dom). The sort and sync runners now block send, reply and forward.
