@@ -1,12 +1,14 @@
 """PreToolUse guard for Gmail send, reply and forward (Dom approved sending on 2026-11-23).
 
 Claude Code runs this before every mcp__claude_ai_Gmail__send_message / reply / forward call.
-Exit 0 lets the call go ahead (an interactive session still asks Dom to confirm it);
-exit 2 blocks it, and Claude Code shows the message on stderr to Claude.
+Exit 2 blocks the call, and Claude Code shows the message on stderr to Claude.
 
-- Interactive sessions (INBOX_SORTER_JOB not set): allowed, because Dom told Claude to send in that session.
+- Interactive sessions (INBOX_SORTER_JOB not set): the hook returns permissionDecision "ask", so Claude Code
+  asks Dom to confirm every send, reply and forward, even in auto mode. This replaces the old `ask` rule for
+  send_message in settings.json (2026-11-24). That rule also applied to headless runs, where nobody can answer,
+  so it blocked the morning brief.
 - The morning brief job (INBOX_SORTER_JOB=morning-brief): send_message only, to Dom's own address only,
-  with no cc, bcc or attachments. Anything else is blocked.
+  with no cc, bcc or attachments. Anything else is blocked. A send that passes the checks is allowed.
 - Any other scheduled job (sort, calendar sync): always blocked.
 
 It fails closed: the settings run it as `python3 ... || exit 2`, so a crash also blocks the send.
@@ -31,6 +33,15 @@ def addresses(value) -> list:
     return [str(a).strip().lower() for a in value if str(a).strip()]
 
 
+def decide(decision: str, reason: str) -> None:
+    print(json.dumps({"hookSpecificOutput": {
+        "hookEventName": "PreToolUse",
+        "permissionDecision": decision,
+        "permissionDecisionReason": reason,
+    }}))
+    sys.exit(0)
+
+
 def main() -> None:
     event = json.load(sys.stdin)
     tool = event.get("tool_name", "")
@@ -38,7 +49,7 @@ def main() -> None:
     job = os.environ.get("INBOX_SORTER_JOB", "").strip()
 
     if not job:
-        sys.exit(0)
+        decide("ask", "Sending email: Dom confirms every send, reply and forward (send_guard.py)")
 
     if job != "morning-brief":
         block(f"scheduled job '{job}' may never send, reply or forward")
@@ -56,7 +67,7 @@ def main() -> None:
         block("the morning brief may not have cc or bcc")
     if args.get("attachments"):
         block("the morning brief may not have attachments")
-    sys.exit(0)
+    decide("allow", f"morning brief to {OWN_ADDRESS} only (send_guard.py)")
 
 
 if __name__ == "__main__":
