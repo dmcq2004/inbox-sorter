@@ -30,7 +30,7 @@ rules:
   - match: familyapp.brighthorizons.co.uk
     folder: Nursery
     priority: FYI
-    subject_override: { NeedsDom: [received a message] }   # a direct message in the app, not a wall post (2026-11-20)
+    subject_override: { NeedsDom: [received a message, action required, accident] }   # a direct message (2026-11-20); accident reports to acknowledge (2026-11-24)
 
   # --- Art
   - match: the-saleroom.com
@@ -253,3 +253,9 @@ rules:
   - { match: emails.cybex-online.com, folder: null, priority: Bulk }
   - { match: boxt.co.uk,          folder: null, priority: Bulk }
   - { match: discover@airbnb.com, folder: null, priority: Bulk }   # marketing only; other Airbnb senders are judged
+
+  # --- Added from the 2026-11-24 07:00 report (Dom agreed, 2026-11-24)
+  - match: steampowered.com       # wishlist sales are Bulk; receipts and security notices are not
+    folder: null
+    priority: Bulk
+    subject_override: { FYI: [purchase, receipt], NeedsDom: [steam guard, account, security] }
