@@ -88,5 +88,9 @@ Check it with `systemctl --user status inbox-remote`; see it with `tmux attach -
 ## Sub-modules
 - `school/`: Trinity C of E School Lewisham and The Young Explorers Club. It has its own CLAUDE.md.
   `school/apps-script/` is a Google Apps Script that saves school attachments to Drive (the Gmail MCP can't download attachments).
+  **Answering Dom's school questions** (Dom, 2026-11-25): Trinity newsletters are Sway links, which WebFetch and the web-fetch agent
+  can't read. Never tell Dom a newsletter can't be read. First grep the saved copies in `school/newsletters/*.txt`, then read any new
+  Sway with `python3 -I school/tools/read_sway.py <url>` (no browser needed). Also check PDF attachments (download them, then `pdftotext`).
+  The reader skips images and QR codes, so if a link is only in an image, say that.
 - `inbox/`: chief of staff on the sorted inbox: `/inbox` (interactive) and `/morning-brief` (the Pi emails Dom a brief after the 07:00 run).
 - `backlog/`: one-off clean-up of the old 19k-thread inbox. Not started yet.
